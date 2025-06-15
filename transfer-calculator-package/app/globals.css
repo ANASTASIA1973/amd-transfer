@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* -------------------------------------------------------------------------------- */
+/* Google-Autocomplete immer über dem Layout anzeigen und Browser-Autocomplete aus */
+/* Macht die Google-Autocomplete-Liste immer sichtbar */
+.pac-container {
+  z-index: 10000 !important;
+}
+
+/* Deaktiviert Browser-Autocomplete, das stören kann */
+input {
+  autocomplete: off;
+}
+/* Button Utilities */
+.btn {
+  @apply py-3 px-6 rounded-lg font-medium transition;
+}
+.btn-primary {
+  @apply bg-[#002147] text-white hover:bg-[#C09743];
+}
+.btn-secondary {
+  @apply bg-white border border-[#002147] text-[#002147] hover:bg-gray-100;
+}
+.btn-disabled {
+  @apply bg-gray-200 text-gray-500 cursor-not-allowed;
+}
