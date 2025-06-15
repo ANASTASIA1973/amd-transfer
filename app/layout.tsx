@@ -1,22 +1,17 @@
-// app/layout.tsx
-
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist } from "next/font/google";
 import "./globals.css";
+import { LocaleProvider } from "./context/LocaleContext";
 import ClientWrapper from "./components/ClientWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
-  title: "AMD Transfer Booking",
-  description: "Rechner für Flughafentransfers",
+  title: "Transfer & Tour-Service",
+  description: "Buchen Sie Fahrten und individuelle Touren.",
 };
 
 export default function RootLayout({
@@ -27,10 +22,14 @@ export default function RootLayout({
   return (
     <html lang="de">
       <head />
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ClientWrapper>{children}</ClientWrapper>
+      <body className={`${geistSans.variable} antialiased`}>
+        {/* Sprache per Context verfügbar machen */}
+        <LocaleProvider>
+          {/* ClientWrapper lädt u.a. Google Maps */}
+          <ClientWrapper>
+            {children}
+          </ClientWrapper>
+        </LocaleProvider>
       </body>
     </html>
   );

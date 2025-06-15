@@ -31,3 +31,16 @@ body {
 input {
   autocomplete: off;
 }
+/* Button Utilities */
+.btn {
+  @apply py-3 px-6 rounded-lg font-medium transition;
+}
+.btn-primary {
+  @apply bg-[#002147] text-white hover:bg-[#C09743];
+}
+.btn-secondary {
+  @apply bg-white border border-[#002147] text-[#002147] hover:bg-gray-100;
+}
+.btn-disabled {
+  @apply bg-gray-200 text-gray-500 cursor-not-allowed;
+}

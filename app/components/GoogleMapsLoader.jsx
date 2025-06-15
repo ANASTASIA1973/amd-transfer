@@ -1,6 +1,4 @@
 // app/components/GoogleMapsLoader.jsx
-"use client";
-
 import Script from "next/script";
 
 export default function GoogleMapsLoader() {
