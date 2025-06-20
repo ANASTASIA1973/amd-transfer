@@ -9,9 +9,10 @@ export default function StepIndicator({ step, total }) {
   const { locale } = useLocale();
   const L = t[locale] || t.de;
 
-  const text = L.stepIndicator
-    .replace("{step}", step)
-    .replace("{total}", total);
+  const text =
+    typeof L.stepIndicator === "string"
+      ? L.stepIndicator.replace("{step}", step).replace("{total}", total)
+      : `Schritt ${step} von ${total}`;
 
   return (
     <div className="flex items-center space-x-2 mb-6">

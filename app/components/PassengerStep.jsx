@@ -1,6 +1,4 @@
 "use client";
-// app/components/PassengerStep.jsx
-
 import React, { useEffect } from "react";
 import t from "../i18n/translations";
 import { useLocale } from "../context/LocaleContext";
@@ -29,7 +27,6 @@ export default function PassengerStep({
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      {/* Überschrift */}
       <h1 className="text-3xl font-bold text-[#002147] mb-6">
         {L.passengerTitle}
       </h1>
@@ -39,25 +36,33 @@ export default function PassengerStep({
         <label className="block mb-1 font-medium text-gray-700">
           {L.adultsLabel}
         </label>
-        <input
-          type="number"
-          min={1}
-          value={adults}
-          onChange={(e) => setAdults(Math.max(1, Number(e.target.value)))}
-          className="w-24 mb-4 border rounded-lg px-3 py-2"
-        />
+        <div className="flex items-center gap-3 mb-4">
+          <button
+            onClick={() => setAdults(Math.max(1, adults - 1))}
+            className="w-8 h-8 rounded-full bg-gray-200 text-xl"
+          >−</button>
+          <span className="text-lg w-8 text-center">{adults}</span>
+          <button
+            onClick={() => setAdults(adults + 1)}
+            className="w-8 h-8 rounded-full bg-gray-200 text-xl"
+          >+</button>
+        </div>
 
         {/* Kinder */}
         <label className="block mb-1 font-medium text-gray-700">
           {L.childrenLabel}
         </label>
-        <input
-          type="number"
-          min={0}
-          value={children}
-          onChange={(e) => setChildren(Math.max(0, Number(e.target.value)))}
-          className="w-24 mb-6 border rounded-lg px-3 py-2"
-        />
+        <div className="flex items-center gap-3 mb-6">
+          <button
+            onClick={() => setChildren(Math.max(0, children - 1))}
+            className="w-8 h-8 rounded-full bg-gray-200 text-xl"
+          >−</button>
+          <span className="text-lg w-8 text-center">{children}</span>
+          <button
+            onClick={() => setChildren(children + 1)}
+            className="w-8 h-8 rounded-full bg-gray-200 text-xl"
+          >+</button>
+        </div>
 
         {/* Fahrzeug */}
         <label className="block mb-1 font-medium text-gray-700">
@@ -82,7 +87,7 @@ export default function PassengerStep({
           </p>
         )}
 
-        {/* Navigation Buttons */}
+        {/* Navigation */}
         <div className="flex justify-between">
           <button onClick={onBack} className="btn btn-secondary">
             {L.backBtn}

@@ -1,3 +1,4 @@
+// app/components/ClientWrapper.jsx
 "use client";
 
 import React from "react";
@@ -21,14 +22,12 @@ export default function ClientWrapper({ children }) {
 
   return (
     <>
-      {/* Tour-Anfrage per WhatsApp */}
+      {/* WhatsApp-Touranfrage */}
       <button
         onClick={handleTourRequest}
-        className="fixed top-4 left-4 bg-green-500 p-2 flex items-center space-x-2 rounded-full text-white z-50 hover:bg-green-600"
+        className="fixed bottom-4 right-4 bg-[#002147] p-3 flex items-center space-x-2 rounded-full text-white z-40 hover:bg-[#00152f] shadow-lg"
       >
-        {/* Icon */}
         <span className="text-lg">📱</span>
-        {/* Übersetztes Label */}
         <span>{L.tourRequestBtn}</span>
       </button>
 

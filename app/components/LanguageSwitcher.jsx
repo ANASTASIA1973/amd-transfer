@@ -1,6 +1,13 @@
 "use client";
 
-export default function LanguageSwitcher({ locale, setLocale }) {
+// app/components/LanguageSwitcher.jsx
+
+import React from "react";
+import { useLocale } from "../context/LocaleContext";
+
+export default function LanguageSwitcher() {
+  const { locale, setLocale } = useLocale();
+
   return (
     <select
       value={locale}
@@ -13,9 +20,7 @@ export default function LanguageSwitcher({ locale, setLocale }) {
         px-3 py-2
         bg-white
         shadow-sm
-        focus:outline-none
-        focus:ring-2
-        focus:ring-[#C09743]
+        focus:outline-none focus:ring-2 focus:ring-[#C09743]
         transition
         appearance-none
       "
