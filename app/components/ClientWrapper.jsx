@@ -1,45 +1,56 @@
-// app/components/ClientWrapper.jsx
 "use client";
+
+// app/components/ClientWrapper.jsx
 
 import React from "react";
 import GoogleMapsLoader from "./GoogleMapsLoader";
-import LanguageSwitcher from "./LanguageSwitcher";
-import t from "../i18n/translations";
 import { useLocale } from "../context/LocaleContext";
+import t from "../i18n/translations";
 
 export default function ClientWrapper({ children }) {
-  const { locale, setLocale } = useLocale();
+  const { locale } = useLocale();
   const L = t[locale] || t.de;
 
-  const handleTourRequest = () => {
-    const message = L.tourRequestBtn;
-    const whatsappNumber = "96181622668";
-    window.open(
-      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`,
-      "_blank"
-    );
-  };
+  const whatsappNumber = "+96181622668";
+  const whatsappLink = `https://wa.me/${whatsappNumber.replace(/\D/g, "")}?text=${encodeURIComponent(L.whatsappText)}`;
 
   return (
     <>
-      {/* WhatsApp-Touranfrage */}
-      <button
-        onClick={handleTourRequest}
-        className="fixed bottom-4 right-4 bg-[#002147] p-3 flex items-center space-x-2 rounded-full text-white z-40 hover:bg-[#00152f] shadow-lg"
-      >
-        <span className="text-lg">📱</span>
-        <span>{L.tourRequestBtn}</span>
-      </button>
-
       {/* Google Maps laden */}
       <GoogleMapsLoader />
 
-      {/* Sprachumschalter */}
-      <div className="absolute top-4 right-4 z-50">
-        <LanguageSwitcher locale={locale} setLocale={setLocale} />
+      {/* HEADER (Logo + Button) */}
+      <div className="w-full bg-white border-b border-gray-200">
+        <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
+          <img
+            src="/logo.png"
+            alt="AMD German Center Logo"
+            className="h-16 w-auto"
+          />
+          <a
+            href={whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="
+              flex items-center gap-2
+              bg-[#002147] hover:bg-[#233e69]
+              text-white font-semibold rounded-2xl shadow-lg
+              px-6 py-2 transition
+              focus:outline-none focus:ring-2 focus:ring-[#C6882C]
+              text-base
+            "
+          >
+            📱 {L.tourRequestBtn}
+          </a>
+        </div>
       </div>
 
-      {children}
+      {/* Main Content */}
+      <div className="min-h-screen w-full bg-[#FAFAF9] font-sans relative">
+        <main className="w-full flex flex-col items-center justify-center px-2">
+          {children}
+        </main>
+      </div>
     </>
   );
 }

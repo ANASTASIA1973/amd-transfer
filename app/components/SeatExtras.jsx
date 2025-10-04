@@ -1,4 +1,5 @@
 "use client";
+
 // app/components/SeatExtras.jsx
 
 import React from "react";
@@ -16,13 +17,11 @@ export default function SeatExtras({ counts, setCounts, onNext, onBack }) {
   const L = t[locale] || t.de;
   const currencySymbol = L.currencySymbol || "$";
 
-  // 1. Erster Sitz gratis → global günstigsten Typ bestimmen
   const occupied = seatTypes.filter(s => counts[s.key] > 0);
   const cheapest = occupied.length
     ? occupied.reduce((a, b) => (a.price <= b.price ? a : b))
     : null;
 
-  // 2. Für jede Kategorie in UI wie Summary berechnen:
   const costFor = (type) => {
     const c = counts[type.key];
     if (!c) return 0;
@@ -31,10 +30,8 @@ export default function SeatExtras({ counts, setCounts, onNext, onBack }) {
       : c * type.price;
   };
 
-  // 3. Gesamt (Extras gesamt)
   const totalCost = seatTypes.map(costFor).reduce((sum, v) => sum + v, 0);
 
-  // Änderungsmethode
   const change = (key, delta) =>
     setCounts(prev => {
       const v = Math.max(0, Math.min(3, prev[key] + delta));
@@ -110,7 +107,7 @@ export default function SeatExtras({ counts, setCounts, onNext, onBack }) {
           </div>
         </div>
 
-        <div className="flex justify-between">
+        <div className="mt-8 flex justify-between gap-4">
           <button onClick={onBack} className="btn btn-secondary">
             {L.backBtn}
           </button>

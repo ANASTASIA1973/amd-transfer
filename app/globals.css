@@ -21,16 +21,19 @@ body {
 }
 
 /* -------------------------------------------------------------------------------- */
-/* Google-Autocomplete immer über dem Layout anzeigen und Browser-Autocomplete aus */
-/* Macht die Google-Autocomplete-Liste immer sichtbar */
+/* Google-Autocomplete immer über dem Layout anzeigen */
 .pac-container {
   z-index: 10000 !important;
 }
 
-/* Deaktiviert Browser-Autocomplete, das stören kann */
-input {
-  autocomplete: off;
+/* Telefonnummern nie umbrechen (z. B. Buttons, Copy-Text) */
+a[href^="tel:"],
+.no-break-phone {
+  white-space: nowrap;
+  word-break: keep-all;
 }
+
+/* -------------------------------------------------------------------------------- */
 /* Button Utilities */
 .btn {
   @apply py-3 px-6 rounded-lg font-medium transition;
@@ -43,4 +46,15 @@ input {
 }
 .btn-disabled {
   @apply bg-gray-200 text-gray-500 cursor-not-allowed;
+}
+
+/* -------------------------------------------------------------------------------- */
+/* Einheitlicher Bild-Container für ExtrasStep */
+@layer components {
+  .extras-img-wrapper {
+    @apply w-24 h-40 overflow-hidden rounded bg-white flex items-center justify-center;
+  }
+  .extras-img-wrapper img {
+    @apply h-full w-auto object-contain;
+  }
 }
