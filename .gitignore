@@ -1,4 +1,5 @@
-echo node_modules/ > .gitignore
-echo .next/ >> .gitignore
-echo .env.local >> .gitignore
-echo out/ >> .gitignore
+node_modules/
+.next/
+out/
+.env.local
+*.zip
