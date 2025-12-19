@@ -205,3 +205,40 @@ body[data-app="amd-transfer"] .lang-switch .active {
 .btn-primary:active{
   background-color: #8f1a1f !important;
 }
+/* ===================================================== */
+/* AMD Transfer – Header Mobile Fix                       */
+/* ===================================================== */
+@media (max-width: 520px){
+  body[data-app="amd-transfer"] .amd-topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    flex-wrap:wrap;
+    padding-left:12px;
+    padding-right:12px;
+  }
+
+  /* Logo darf schrumpfen statt Layout sprengen */
+  body[data-app="amd-transfer"] .amd-topbar .amd-logo{
+    flex: 1 1 auto;
+    min-width: 140px;
+    max-width: 55%;
+  }
+
+  /* Flag-Switcher soll nicht drücken */
+  body[data-app="amd-transfer"] .amd-topbar .amd-flag-switcher,
+  body[data-app="amd-transfer"] .amd-topbar .lang-switch{
+    flex: 1 1 auto;
+    min-width: 0;
+    justify-content:center;
+  }
+
+  /* Tour-Button: nie über den Rand */
+  body[data-app="amd-transfer"] .amd-topbar .amd-tour-btn{
+    flex: 0 0 auto;
+    max-width: 100%;
+    white-space: nowrap;
+    margin-left:auto;
+  }
+}

@@ -26,40 +26,50 @@ export default function ClientWrapper({ children }) {
     <>
       <GoogleMapsLoader />
 
-      {/* HEADER */}
-      <div className="w-full bg-white border-b border-gray-200">
-        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-          <img
-            src="/logo.png"
-            alt="AMD German Center Logo"
-            className="h-14 sm:h-16 w-auto"
-          />
-
-          <div className="flex items-center gap-3">
-            <LanguageSwitcher />
-
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-semibold rounded-2xl px-5 sm:px-6 py-2 transition shadow-lg text-base focus:outline-none focus:ring-2 focus:ring-offset-2"
-              style={{
-                background: "var(--amd-primary, #002147)",
-                color: "#ffffff",
-                boxShadow: "0 14px 28px rgba(0,0,0,0.18)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.filter = "brightness(0.95)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.filter = "none";
-              }}
-            >
-              📱 {L.tourRequestBtn}
-            </a>
-          </div>
-        </div>
+   {/* HEADER */}
+<div className="w-full bg-white border-b border-gray-200">
+  <div className="max-w-5xl mx-auto px-4 py-3">
+    {/* Mobile: Stack | ab sm: eine Zeile */}
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      {/* Logo */}
+      <div className="flex items-center justify-between min-w-0">
+        <img
+          src="/logo.png"
+          alt="AMD German Center Logo"
+          className="h-12 sm:h-16 w-auto max-w-[75vw] object-contain"
+        />
       </div>
+
+      {/* Right side (wrapt auf Mobile) */}
+      <div className="flex flex-wrap items-center gap-2 sm:gap-3 justify-start sm:justify-end">
+        <LanguageSwitcher />
+
+        <a
+          href={whatsappLink}
+          target="_blank"
+          rel="noopener noreferrer"
+      className="inline-flex items-center gap-2 font-semibold rounded-2xl px-4 sm:px-6 py-2 transition shadow-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-offset-2"
+
+          style={{
+            background: "var(--amd-primary, #002147)",
+            color: "#ffffff",
+            boxShadow: "0 14px 28px rgba(0,0,0,0.18)",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.filter = "brightness(0.95)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.filter = "none";
+          }}
+        >
+          📱 {L.tourRequestBtn}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
       {/* PAGE BACKGROUND */}
       <div
