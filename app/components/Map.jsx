@@ -23,6 +23,9 @@ export default function Map({
       mapInstanceRef.current = new window.google.maps.Map(mapRef.current, {
         center,
         zoom,
+        // (Optional) cleaner Look, ohne Logik: UI etwas reduzieren
+        disableDefaultUI: true,
+        zoomControl: true,
       });
     }
   }, [center, zoom]);
@@ -30,6 +33,7 @@ export default function Map({
   // Setze/entferne Marker für Start/Ziel dynamisch
   useEffect(() => {
     const map = mapInstanceRef.current;
+
     // START-Marker
     if (originCoords && map) {
       if (!originMarkerRef.current) {
@@ -46,6 +50,7 @@ export default function Map({
     } else if (originMarkerRef.current) {
       originMarkerRef.current.setMap(null);
     }
+
     // ZIEL-Marker
     if (destinationCoords && map) {
       if (!destMarkerRef.current) {
@@ -62,21 +67,19 @@ export default function Map({
     } else if (destMarkerRef.current) {
       destMarkerRef.current.setMap(null);
     }
+
     // Cleanup bei Unmount
     return () => {
-      if (originMarkerRef.current) {
-        originMarkerRef.current.setMap(null);
-      }
-      if (destMarkerRef.current) {
-        destMarkerRef.current.setMap(null);
-      }
+      if (originMarkerRef.current) originMarkerRef.current.setMap(null);
+      if (destMarkerRef.current) destMarkerRef.current.setMap(null);
     };
   }, [originCoords, destinationCoords]);
 
-  // fitBounds-Logik, immer gleiches Dependency-Array!
+  // fitBounds-Logik
   useEffect(() => {
     const map = mapInstanceRef.current;
     if (!map) return;
+
     if (originCoords && destinationCoords) {
       const bounds = new window.google.maps.LatLngBounds();
       bounds.extend(originCoords);
@@ -97,7 +100,6 @@ export default function Map({
   // DirectionsRenderer für echte Route
   useEffect(() => {
     const map = mapInstanceRef.current;
-    // DirectionsRenderer initialisieren
     if (typeof window === "undefined" || !window.google?.maps || !map) return;
 
     // Falls schon einer existiert, entfernen
@@ -110,13 +112,14 @@ export default function Map({
     if (originCoords && destinationCoords) {
       const directionsService = new window.google.maps.DirectionsService();
       const directionsRenderer = new window.google.maps.DirectionsRenderer({
-        suppressMarkers: true, // wir setzen unsere eigenen Marker
+        suppressMarkers: true,
         polylineOptions: {
-          strokeColor: "#4f46e5",
-          strokeOpacity: 0.8,
+          strokeColor: "var(--amd-primary, #c1272d)", // AMD Rot statt Lila
+          strokeOpacity: 0.9,
           strokeWeight: 6,
         },
       });
+
       directionsRenderer.setMap(map);
       directionsRendererRef.current = directionsRenderer;
 
@@ -133,7 +136,7 @@ export default function Map({
         }
       );
     }
-    // Cleanup DirectionsRenderer bei Unmount/Änderung
+
     return () => {
       if (directionsRendererRef.current) {
         directionsRendererRef.current.setMap(null);
@@ -146,7 +149,7 @@ export default function Map({
     <div
       ref={mapRef}
       style={{ width, height }}
-      className="rounded-lg shadow-sm mb-8"
+      className="rounded-2xl border border-gray-200 shadow-sm mb-8 overflow-hidden bg-white"
     />
   );
 }

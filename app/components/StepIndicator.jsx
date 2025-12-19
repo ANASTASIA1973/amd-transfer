@@ -1,46 +1,38 @@
 "use client";
-// app/components/StepIndicator.jsx
 
 import React from "react";
-import t from "../i18n/translations";
-import { useLocale } from "../context/LocaleContext";
 
-export default function StepIndicator({ step = 1, total = 6 }) {
-  const { locale } = useLocale();
-  const L = t[locale] || t.de;
-
-  // Fallback-Label falls key fehlt
-  const raw = L.stepIndicator || "Schritt {step} von {total}";
-  const label = raw.replace("{step}", step).replace("{total}", total);
-
-  // 0–100% Fortschritt (Schritt 1 = 0%)
-  const percent =
-    total > 1 ? Math.max(0, Math.min(100, ((step - 1) / (total - 1)) * 100)) : 100;
-
-  const isRTL = locale === "ar";
+export default function StepIndicator({ step, totalSteps }) {
+  const progress = Math.max(0, Math.min(100, (step / totalSteps) * 100));
 
   return (
-    <div dir={isRTL ? "rtl" : "ltr"} className="w-full mb-6">
-      {/* 3‑Spalten‑Grid: Label | Progress | Counter */}
-      <div className="grid grid-cols-[auto,1fr,auto] items-center gap-2 px-3 sm:px-0 min-w-0">
-        {/* Label */}
-        <span className="text-sm sm:text-base font-medium text-[#002147] truncate min-w-0">
-          {label}
+    <div className="w-full">
+      {/* progress row */}
+      <div className="flex items-center justify-between gap-3">
+        <span className="text-sm font-semibold text-[color:var(--amd-heading,#111827)]">
+          Schritt {step} von {totalSteps}
         </span>
 
-        {/* Progressbar mittig, overflow-sicher */}
-        <div className="h-1.5 bg-[#ead9b7] rounded-full overflow-hidden">
-          <div
-            className="h-full bg-[#C09743] transition-[width] duration-300 ease-out"
-            style={{ width: `${percent}%` }}
-          />
-        </div>
-
-        {/* Zähler rechts */}
-        <span className="text-sm text-[#002147] whitespace-nowrap">
-          {step}/{total}
+        <span className="text-xs font-semibold text-gray-500">
+          {step}/{totalSteps}
         </span>
       </div>
+
+      <div className="mt-2 h-2 w-full rounded-full bg-gray-200 overflow-hidden">
+        <div
+          className="h-full rounded-full transition-all duration-200"
+          style={{
+            width: `${progress}%`,
+            background: "var(--amd-primary, #c1272d)", // AMD Rot
+          }}
+        />
+      </div>
+
+      {/* subtle accent line (optional, very light) */}
+      <div
+        className="mt-4 h-px w-full"
+        style={{ background: "rgba(27,111,90,0.18)" }} // Zedern-Grün, sehr dezent
+      />
     </div>
   );
 }

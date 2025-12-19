@@ -1,41 +1,34 @@
 "use client";
-// app/components/LanguageSwitcher.jsx
-
 import React from "react";
 import { useLocale } from "../context/LocaleContext";
 
-const LANGS = [
-  { code: "de", label: "Deutsch" },
-  { code: "en", label: "English" },
-  { code: "ar", label: "العربية" },
-];
-
-export default function LanguageSwitcher() {
+export default function LanguageSwitcher({ className = "" }) {
   const { locale, setLocale } = useLocale();
 
+  const items = [
+    { code: "de", label: "DE", flag: "/images/flag-de.svg" },
+    { code: "ar", label: "AR", flag: "/images/flag-lb.svg" },
+    { code: "en", label: "EN", flag: "/images/flag-us.svg" },
+  ];
+
   return (
-    <div className="flex justify-center mb-4">
-      <div className="inline-flex gap-2 items-center rounded-xl border-2 border-[#002147] bg-white shadow px-4 py-2">
-        <span className="mr-2 text-xl" role="img" aria-label="Sprache">🌐</span>
-        {LANGS.map(l => (
-          <button
-            key={l.code}
-            className={`
-              font-bold px-3 py-1 rounded-lg transition
-              ${locale === l.code 
-                ? "bg-[#002147] text-white shadow" 
-                : "text-[#002147] hover:bg-[#e0e7ef]"
-              }
-            `}
-            style={{ minWidth: 80 }}
-            onClick={() => setLocale(l.code)}
-            aria-current={locale === l.code ? "page" : undefined}
-            type="button"
-          >
-            {l.label}
-          </button>
-        ))}
-      </div>
+    <div
+      className={`amd-flag-switcher ${className}`}
+      role="group"
+      aria-label="Sprache wählen"
+    >
+      {items.map((it) => (
+        <button
+          key={it.code}
+          type="button"
+          onClick={() => setLocale(it.code)}
+          aria-pressed={locale === it.code}
+          className="amd-flag-pill"
+        >
+          <img src={it.flag} alt="" className="amd-flag-icon" />
+          <span className="amd-flag-label">{it.label}</span>
+        </button>
+      ))}
     </div>
   );
 }

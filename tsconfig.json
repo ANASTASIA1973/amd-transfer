@@ -28,6 +28,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "transfer-calculator-package/next.config.Js"
-  ],
+, "app/booking/page.jsx"  ],
   "exclude": ["node_modules"]
 }

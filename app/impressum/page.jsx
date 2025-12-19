@@ -3,162 +3,151 @@
 
 import React from "react";
 import Link from "next/link";
+import t from "../i18n/translations";
 import LanguageSwitcher from "../components/LanguageSwitcher";
 import { useLocale } from "../context/LocaleContext";
 
 export default function ImpressumPage() {
   const { locale } = useLocale();
+  const L0 = t[locale] || t.de;
 
-  const dict = {
-    de: {
-      back: "Zurück",
-      title: "Impressum & Unternehmensangaben",
-      lead:
-        "AMD German Center – offiziell registriertes Unternehmen für Tourismus & Transfers.",
-      reg: "Handelsregister Saida, Nr. 158686 · Ort: Tyre, Libanon",
-      owner: "Inhaber: Ali Mohsen Ahmad",
-      scope:
-        "Geschäftsbereich: Tourismus, Transfers & begleitende Dienstleistungen",
-      quality: "Deutscher Qualitätsanspruch, lokale Expertise.",
-      contactTitle: "Kontakt",
-      phoneLabel: "Telefon",
-      emailLabel: "E-Mail",
-      webLabel: "Web",
-      certTitle: "Zertifikat",
-      certNote:
-        "Auszug/Bestätigung aus dem Handelsregister – Nachweis der offiziellen Registrierung.",
-      download: "Zertifikat öffnen",
-      legalTitle: "Hinweis",
-      legalNote:
-        "Diese Website dient der Information und Buchung privater Transfers/Touren. Preise können je nach Route und Verfügbarkeit variieren.",
-      show: "anzeigen",
-      hide: "ausblenden",
-    },
-    en: {
-      back: "Back",
-      title: "Imprint & Company Details",
-      lead:
-        "AMD German Center – officially registered for tourism & transfer services.",
-      reg: "Saida Commercial Register No. 158686 · Location: Tyre, Lebanon",
-      owner: "Owner: Ali Mohsen Ahmad",
-      scope: "Business scope: Tourism, transfers & related services",
-      quality: "German quality standards with local expertise.",
-      contactTitle: "Contact",
-      phoneLabel: "Phone",
-      emailLabel: "Email",
-      webLabel: "Web",
-      certTitle: "Certificate",
-      certNote:
-        "Extract/confirmation from the Commercial Register – proof of official registration.",
-      download: "Open certificate",
-      legalTitle: "Notice",
-      legalNote:
-        "This website provides information and bookings for private transfers/tours. Prices may vary by route and availability.",
-      show: "show",
-      hide: "hide",
-    },
-    ar: {
-      back: "رجوع",
-      title: "البيانات القانونية ومعلومات الشركة",
-      lead:
-        "مركز AMD الألماني – شركة مسجّلة رسميًا لخدمات السياحة والنقل.",
-      reg: "السجل التجاري في صيدا رقم 158686 · الموقع: صور، لبنان",
-      owner: "المالك: علي محسن أحمد",
-      scope: "مجال العمل: السياحة، النقل والخدمات المرافقة",
-      quality: "معايير جودة ألمانية وخبرة محلية.",
-      contactTitle: "التواصل",
-      phoneLabel: "الهاتف",
-      emailLabel: "البريد الإلكتروني",
-      webLabel: "الموقع",
-      certTitle: "الشهادة",
-      certNote:
-        "مقتطف/تأكيد من السجل التجاري — لإثبات التسجيل الرسمي.",
-      download: "فتح الشهادة",
-      legalTitle: "ملاحظة",
-      legalNote:
-        "هذا الموقع مخصص للمعلومات وحجوزات النقل/الجولات الخاصة. قد تختلف الأسعار حسب المسار والتوافر.",
-      show: "عرض",
-      hide: "إخفاء",
-    },
+  // Nimm die zentralen Übersetzungen aus translations.js (falls vorhanden),
+  // fallback auf alte Keys, damit nichts leer ist.
+  const L = L0.impressum || {};
+  const TXT = {
+    back: L.back || (locale === "ar" ? "رجوع" : locale === "en" ? "Back" : "Zurück"),
+    title: L.title || "Impressum & Unternehmensangaben",
+    lead: L.lead || "AMD German Center – offiziell registriertes Unternehmen für Tourismus & Transfers.",
+    reg: L.reg || "Handelsregister Saida, Nr. 158686 · Ort: Tyre, Libanon",
+    owner: L.owner || "Inhaber: Ali Mohsen Ahmad",
+    scope: L.scope || "Geschäftsbereich: Tourismus, Transfers & begleitende Dienstleistungen",
+    quality: L.quality || "Deutscher Qualitätsanspruch, lokale Expertise.",
+    contactTitle: L.contactTitle || "Kontakt",
+    phoneLabel: L.phoneLabel || "Telefon",
+    emailLabel: L.emailLabel || "E-Mail",
+    webLabel: L.webLabel || "Web",
+    certTitle: L.certTitle || "Zertifikat",
+    certNote:
+      L.certNote ||
+      "Auszug/Bestätigung aus dem Handelsregister – Nachweis der offiziellen Registrierung.",
+    download: L.download || "Zertifikat öffnen",
+    legalTitle: L.legalTitle || "Hinweis",
+    legalNote:
+      L.legalNote ||
+      "Diese Website dient der Information und Buchung privater Transfers/Touren. Preise können je nach Route und Verfügbarkeit variieren.",
+    show: (L.show || L0.show) || (locale === "ar" ? "عرض" : locale === "en" ? "show" : "anzeigen"),
+    hide: (L.hide || L0.hide) || (locale === "ar" ? "إخفاء" : locale === "en" ? "hide" : "ausblenden"),
   };
-
-  const L = dict[locale] || dict.de;
 
   const phone = "+961 81 622 668";
   const email = "info@amd-germancenter.com";
   const web = "www.amd-germancenter.com";
 
-  // Zertifikat erst auf Klick anzeigen
+  // Wenn du willst, dass es standardmäßig offen ist: true statt false
   const [showCert, setShowCert] = React.useState(false);
 
+  const isAr = locale === "ar";
+
   return (
-    <div dir={locale === "ar" ? "rtl" : "ltr"} className="min-h-screen bg-[#F9F7F2]">
-      {/* Kopfzeile mit Zurück + Sprachen, mobil symmetrisch */}
-      <div className="mx-auto max-w-3xl px-4 pt-4 flex items-center justify-between gap-3">
-        <Link
-          href="/"
-          scroll
-          className="h-10 px-3 rounded-lg border border-[#EDD7B1] bg-white/90 text-sm text-[#002147] hover:opacity-80 inline-flex items-center"
-        >
-          <span dir="ltr">← {L.back}</span>
-        </Link>
-        <div className="shrink-0">
-          <LanguageSwitcher />
+    <div
+      dir={isAr ? "rtl" : "ltr"}
+      className="min-h-screen w-full"
+      style={{
+        background:
+          "radial-gradient(circle at top, rgba(255,255,255,1) 0%, rgba(246,247,250,1) 55%, rgba(246,247,250,1) 100%)",
+      }}
+    >
+      {/* Topbar – im Transfer-Stil */}
+      <div className="w-full bg-white border-b border-gray-200">
+        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+          <Link
+            href="/"
+            className="inline-flex items-center h-10 px-4 rounded-2xl border border-gray-200 bg-white text-sm font-semibold"
+            style={{ color: "var(--amd-heading,#111827)" }}
+          >
+            <span dir="ltr">← {TXT.back}</span>
+          </Link>
+
+          <div className="shrink-0">
+            <LanguageSwitcher />
+          </div>
         </div>
       </div>
 
-      {/* Inhalt */}
-      <main className="flex-grow flex items-start justify-center py-6 px-4">
-        <div className="w-full max-w-3xl bg-white rounded-2xl shadow-lg overflow-hidden border border-[#EDD7B1]">
-          <div className="p-6 md:p-8">
-            <h1 className="text-2xl md:text-3xl font-bold text-[#002147] mb-3">
-              {L.title}
+      <main className="max-w-5xl mx-auto px-4 py-6 sm:py-8">
+        {/* Card im gleichen Look wie WizardLayout */}
+        <div
+          className="w-full overflow-hidden"
+          style={{
+            background: "var(--amd-card-bg,#ffffff)",
+            border: "1px solid var(--amd-border,#e5e7eb)",
+            borderRadius: "var(--amd-radius-lg,18px)",
+            boxShadow: "var(--amd-shadow-card, 0 14px 30px rgba(15, 23, 42, 0.06))",
+          }}
+        >
+          <div className="px-5 sm:px-7 py-6 sm:py-8">
+            <h1
+              className="text-2xl sm:text-3xl font-extrabold"
+              style={{ color: "var(--amd-heading,#111827)" }}
+            >
+              {TXT.title}
             </h1>
 
-            <div className="text-[#002147]/90 text-sm md:text-base space-y-1 break-words">
-              <p>{L.lead}</p>
-              <p>{L.reg}</p>
-              <p>{L.owner}</p>
-              <p>{L.scope}</p>
-              <p>{L.quality}</p>
+            <div className="mt-3 text-sm sm:text-base leading-relaxed" style={{ color: "var(--amd-text,#111827)" }}>
+              <p className="opacity-95">{TXT.lead}</p>
+              <p className="opacity-85 mt-2">{TXT.reg}</p>
+              <p className="opacity-85 mt-1">{TXT.owner}</p>
+              <p className="opacity-85 mt-1">{TXT.scope}</p>
+              <p className="opacity-85 mt-1">{TXT.quality}</p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6 md:gap-10 mt-6 md:mt-8">
+            <div className="grid md:grid-cols-2 gap-6 md:gap-10 mt-7">
               {/* Kontakt */}
-              <section className="space-y-4">
-                <h2 className="text-lg md:text-xl font-semibold text-[#002147]">
-                  {L.contactTitle}
+              <section>
+                <h2 className="text-lg sm:text-xl font-semibold" style={{ color: "var(--amd-heading,#111827)" }}>
+                  {TXT.contactTitle}
                 </h2>
 
-                <div className="rounded-xl border border-[#EDD7B1] bg-white/90 p-4 shadow-[0_4px_24px_rgba(200,151,67,0.10)]">
-                  <div className="text-sm md:text-base break-words">
+                <div
+                  className="mt-3 rounded-2xl border p-4 sm:p-5"
+                  style={{
+                    borderColor: "var(--amd-border,#e5e7eb)",
+                    background: "rgba(17,24,39,.02)",
+                  }}
+                >
+                  <div className="text-sm sm:text-base break-words" style={{ color: "var(--amd-text,#111827)" }}>
                     <div className="mb-2">
-                      <span className="font-medium">{L.phoneLabel}:</span>{" "}
+                      <span className="font-semibold">{TXT.phoneLabel}:</span>{" "}
                       <a
                         href={`tel:${phone.replace(/\s+/g, "")}`}
-                        className="underline text-[#C09743] hover:opacity-80"
+                        className="underline"
+                        style={{ color: "var(--amd-primary,#c1272d)" }}
                       >
                         <span dir="ltr" className="inline-block">
                           {phone}
                         </span>
                       </a>
                     </div>
+
                     <div className="mb-2">
-                      <span className="font-medium">{L.emailLabel}:</span>{" "}
+                      <span className="font-semibold">{TXT.emailLabel}:</span>{" "}
                       <a
                         href={`mailto:${email}`}
-                        className="underline text-[#C09743] hover:opacity-80 break-all"
+                        className="underline break-all"
+                        style={{ color: "var(--amd-primary,#c1272d)" }}
                       >
                         {email}
                       </a>
                     </div>
+
                     <div>
-                      <span className="font-medium">{L.webLabel}:</span>{" "}
+                      <span className="font-semibold">{TXT.webLabel}:</span>{" "}
                       <a
                         href={`https://${web}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="underline text-[#C09743] hover:opacity-80 break-all"
+                        className="underline break-all"
+                        style={{ color: "var(--amd-primary,#c1272d)" }}
                       >
                         {web}
                       </a>
@@ -166,31 +155,48 @@ export default function ImpressumPage() {
                   </div>
                 </div>
 
-                <div className="rounded-xl border border-[#EEE] p-4 text-xs md:text-sm text-[#002147]/70">
-                  <div className="font-semibold text-[#002147] mb-1">
-                    {L.legalTitle}
+                <div
+                  className="mt-4 rounded-2xl border p-4 text-xs sm:text-sm"
+                  style={{
+                    borderColor: "var(--amd-border,#e5e7eb)",
+                    background: "rgba(17,24,39,.02)",
+                    color: "var(--amd-text-muted,#6b7280)",
+                  }}
+                >
+                  <div className="font-semibold mb-1" style={{ color: "var(--amd-heading,#111827)" }}>
+                    {TXT.legalTitle}
                   </div>
-                  <div className="break-words">{L.legalNote}</div>
+                  <div className="break-words">{TXT.legalNote}</div>
                 </div>
               </section>
 
-              {/* Zertifikat – einklappbar */}
+              {/* Zertifikat */}
               <section>
-                <div className="flex items-center justify-between mb-3">
-                  <h2 className="text-lg md:text-xl font-semibold text-[#002147]">
-                    {L.certTitle}
+                <div className="flex items-center justify-between gap-3">
+                  <h2 className="text-lg sm:text-xl font-semibold" style={{ color: "var(--amd-heading,#111827)" }}>
+                    {TXT.certTitle}
                   </h2>
+
                   <button
+                    type="button"
                     onClick={() => setShowCert((v) => !v)}
-                    className="text-[#C09743] underline text-sm md:text-base hover:opacity-80"
+                    className="text-sm sm:text-base font-semibold underline"
+                    style={{ color: "var(--amd-primary,#c1272d)" }}
                   >
-                    {showCert ? L.hide : L.show}
+                    {showCert ? TXT.hide : TXT.show}
                   </button>
                 </div>
 
+                <p className="mt-2 text-xs sm:text-sm" style={{ color: "var(--amd-text-muted,#6b7280)" }}>
+                  {TXT.certNote}
+                </p>
+
                 {showCert && (
                   <>
-                    <div className="rounded-2xl overflow-hidden border border-[#EDD7B1] bg-white">
+                    <div
+                      className="mt-4 rounded-2xl overflow-hidden border bg-white"
+                      style={{ borderColor: "var(--amd-border,#e5e7eb)" }}
+                    >
                       <img
                         src="/images/certificate.jpg"
                         alt="Company registration certificate"
@@ -200,17 +206,14 @@ export default function ImpressumPage() {
                       />
                     </div>
 
-                    <p className="text-xs md:text-sm text-[#002147]/70 mt-3">
-                      {L.certNote}
-                    </p>
-
                     <a
                       href="/images/certificate.jpg"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-block mt-3 underline text-[#C09743] hover:opacity-80 text-sm md:text-base"
+                      className="inline-block mt-3 text-sm sm:text-base font-semibold underline"
+                      style={{ color: "var(--amd-primary,#c1272d)" }}
                     >
-                      {L.download}
+                      {TXT.download}
                     </a>
                   </>
                 )}

@@ -6,7 +6,7 @@ import Script from "next/script";
 import ReferralTracker from "./components/ReferralTracker";
 import { LocaleProvider } from "./context/LocaleContext";
 import ClientWrapper from "./components/ClientWrapper";
-import DebugKeyLogger from "./components/DebugKeyLogger"; // 👈 gleich definieren!
+import DebugKeyLogger from "./components/DebugKeyLogger";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,25 +18,23 @@ export const metadata: Metadata = {
   description: "Rechner für Flughafentransfers",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="de">
       <head>
         <Script
-  src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
-  strategy="beforeInteractive"
-/>
+          src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
+          strategy="beforeInteractive"
+        />
       </head>
-      <body className={`${geistSans.variable} antialiased bg-white text-[#171717]`}>
+
+      {/* ✅ Theme-Scope hier */}
+      <body data-app="amd-transfer" className={`${geistSans.variable} antialiased`}>
         <ReferralTracker />
         <LocaleProvider>
           <ClientWrapper>
             {children}
-            <DebugKeyLogger /> {/* 👈 Nur für Testzwecke */}
+            <DebugKeyLogger />
           </ClientWrapper>
         </LocaleProvider>
       </body>

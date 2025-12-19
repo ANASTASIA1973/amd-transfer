@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===================================================== */
+/* Root defaults (Fallback außerhalb des AMD-Scopes)       */
+/* ===================================================== */
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -20,7 +23,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* -------------------------------------------------------------------------------- */
+/* ===================================================== */
+/* Global Fixes                                            */
+/* ===================================================== */
+
 /* Google-Autocomplete immer über dem Layout anzeigen */
 .pac-container {
   z-index: 10000 !important;
@@ -33,28 +39,169 @@ a[href^="tel:"],
   word-break: keep-all;
 }
 
-/* -------------------------------------------------------------------------------- */
-/* Button Utilities */
-.btn {
-  @apply py-3 px-6 rounded-lg font-medium transition;
-}
-.btn-primary {
-  @apply bg-[#002147] text-white hover:bg-[#C09743];
-}
-.btn-secondary {
-  @apply bg-white border border-[#002147] text-[#002147] hover:bg-gray-100;
-}
-.btn-disabled {
-  @apply bg-gray-200 text-gray-500 cursor-not-allowed;
+/* ===================================================== */
+/* AMD Transfer Theme (scoped) — nur Optik, keine Logik    */
+/* Aktiv über: <body data-app="amd-transfer">              */
+/* ===================================================== */
+body[data-app="amd-transfer"] {
+  /* Brand */
+  --amd-red: #c1272d;
+  --amd-gold: #c09743;
+  --amd-cedar: #176f4b;
+
+  /* Semantik */
+  --amd-primary: var(--amd-red);
+  --amd-accent: var(--amd-cedar);
+
+  /* UI */
+  --amd-bg: #f6f7fa;
+  --amd-card-bg: rgba(255, 255, 255, 0.92);
+  --amd-border: rgba(17, 24, 39, 0.10);
+  --amd-text: #0f172a;
+  --amd-muted: rgba(15, 23, 42, 0.70);
+  --amd-heading: #0b1b33;
+
+  --amd-shadow-card: 0 18px 50px rgba(2, 6, 23, 0.10);
+  --amd-shadow-soft: 0 10px 25px rgba(2, 6, 23, 0.08);
+
+  background: var(--amd-bg);
+  color: var(--amd-text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial,
+    "Noto Sans", "Helvetica Neue", sans-serif;
 }
 
-/* -------------------------------------------------------------------------------- */
-/* Einheitlicher Bild-Container für ExtrasStep */
+@layer base {
+  body[data-app="amd-transfer"] h1,
+  body[data-app="amd-transfer"] h2,
+  body[data-app="amd-transfer"] h3 {
+    color: var(--amd-heading);
+    letter-spacing: -0.02em;
+  }
+
+  body[data-app="amd-transfer"] p,
+  body[data-app="amd-transfer"] span,
+  body[data-app="amd-transfer"] label {
+    color: var(--amd-text);
+  }
+
+  /* Bulletpoints in Zedern-Grün */
+  body[data-app="amd-transfer"] ul li::marker {
+    color: var(--amd-cedar);
+  }
+}
+
+/* ===================================================== */
+/* Components                                              */
+/* ===================================================== */
 @layer components {
+  /* Buttons */
+  .btn {
+    @apply py-3 px-6 rounded-lg font-medium transition;
+  }
+
+  .btn-primary {
+    @apply text-white shadow-lg;
+    @apply bg-[color:var(--amd-primary,#c1272d)];
+    @apply hover:bg-[color:var(--amd-gold,#c09743)];
+    @apply focus:outline-none focus:ring-2 focus:ring-[color:var(--amd-accent,#176f4b)];
+  }
+
+  .btn-secondary {
+    @apply bg-white border border-gray-200 shadow-sm;
+    @apply hover:border-[color:var(--amd-accent,#176f4b)] hover:bg-[#FAFAF9];
+    @apply focus:outline-none focus:ring-2 focus:ring-[color:var(--amd-accent,#176f4b)];
+    color: var(--amd-heading, #0b1b33);
+  }
+
+  .btn-disabled {
+    @apply bg-gray-200 text-gray-500 cursor-not-allowed;
+  }
+
+  /* Einheitlicher Bild-Container für ExtrasStep */
   .extras-img-wrapper {
     @apply w-24 h-40 overflow-hidden rounded bg-white flex items-center justify-center;
   }
+
   .extras-img-wrapper img {
     @apply h-full w-auto object-contain;
   }
+}
+
+/* ===================================================== */
+/* Optional: Language Switcher Styling (wenn Wrapper existiert) */
+/* Setze im Component einen Wrapper: className="lang-switch"    */
+/* ===================================================== */
+body[data-app="amd-transfer"] .lang-switch {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid var(--amd-border);
+  border-radius: 999px;
+}
+
+body[data-app="amd-transfer"] .lang-switch button,
+body[data-app="amd-transfer"] .lang-switch a {
+  background: transparent !important;
+  color: var(--amd-heading) !important;
+}
+
+body[data-app="amd-transfer"] .lang-switch button[aria-pressed="true"],
+body[data-app="amd-transfer"] .lang-switch button[aria-current="true"],
+body[data-app="amd-transfer"] .lang-switch .active {
+  background: var(--amd-primary) !important;
+  color: #fff !important;
+  box-shadow: 0 10px 25px rgba(2, 6, 23, 0.10);
+}
+@layer components{
+  body[data-app="amd-transfer"] .amd-flag-switcher{
+    display:inline-flex;
+    gap:.45rem;
+    padding:.35rem;
+    border-radius:999px;
+    background:rgba(255,255,255,.92);
+    border:1px solid rgba(17,24,39,.10);
+    box-shadow:0 10px 26px rgba(2,6,23,.08);
+    align-items:center;
+  }
+  body[data-app="amd-transfer"] .amd-flag-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:.5rem;
+    padding:.55rem .9rem;
+    border-radius:999px;
+    font-weight:800;
+    font-size:12px;
+    letter-spacing:.08em;
+    color:var(--amd-primary,#002147);
+    background:transparent;
+    border:1px solid transparent;
+    line-height:1;
+  }
+  body[data-app="amd-transfer"] .amd-flag-pill:hover{ background:rgba(0,33,71,.06); }
+  body[data-app="amd-transfer"] .amd-flag-pill[aria-pressed="true"]{
+    background:#fff;
+    border-color:rgba(192,151,67,.55);
+    box-shadow:0 8px 18px rgba(2,6,23,.10);
+  }
+  body[data-app="amd-transfer"] .amd-flag-icon{
+    width:22px;height:22px;border-radius:999px;object-fit:cover;
+    box-shadow:0 0 0 1px rgba(15,23,42,.10);
+  }
+}
+/* Transfer-App: Primärbutton bleibt rot – kein Gold Hover */
+.btn-primary{
+  background-color: var(--amd-primary, #c1272d) !important;
+  color: #fff !important;
+  border-color: transparent !important;
+}
+
+/* Hover/Focus/Active ebenfalls rot (optional: etwas dunkler) */
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:focus-visible{
+  background-color: #a91f24 !important; /* dunkleres Rot */
+  color: #fff !important;
+  filter: none !important;
+}
+
+.btn-primary:active{
+  background-color: #8f1a1f !important;
 }

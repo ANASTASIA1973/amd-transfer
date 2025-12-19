@@ -6,6 +6,12 @@ const t = {
     title: "AMD Airport Transfer",
     subtitle: "Buchen Sie jetzt Ihren Premium-Transfer",
     currencySymbol: "$",
+transferHeroTitle: "Airport Transfer im Libanon",
+transferHeroSub: "Zuverlässige Abholung. Klare Kommunikation. Deutschsprachiger Service.",
+stepLabel: "Schritt",
+ofLabel: "von",
+
+
 
     /* Buchungstitel */
     bookingTitle: "Transfer buchen",
@@ -214,6 +220,12 @@ const t = {
     title: "AMD Airport Transfer",
     subtitle: "Book your premium transfer now",
     currencySymbol: "$",
+transferHeroTitle: "Airport Transfer in Lebanon",
+transferHeroSub: "Reliable pickup. Clear communication. Premium service.",
+stepLabel: "Step",
+ofLabel: "of",
+
+
 
     /* Booking */
     bookingTitle: "Book Transfer",
@@ -417,6 +429,13 @@ const t = {
     subtitle: "احجز نقلك المميز الآن",
     inclusiveText: "مجاني: ماء • وجبة خفيفة • تكييف • رسوم الوقوف",
     currencySymbol: "$",
+transferHeroTitle: "خدمة نقل المطار في لبنان",
+transferHeroSub: "استقبال موثوق. تواصل واضح. خدمة مميزة.",
+stepLabel: "الخطوة",
+ofLabel: "من",
+
+
+
 
     /* الحجز */
     bookingTitle: "حجز النقل",

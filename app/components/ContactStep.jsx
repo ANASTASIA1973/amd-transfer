@@ -70,7 +70,7 @@ const WHISH_QR_SRC = "/images/payments/whish-qr.png";
 /* --- Bankdaten --- */
 const BANK = {
   accountName: "AMD German Center",
-  bankName: "Byblos Bank S.A.L.", // <<< Beirut entfernt
+  bankName: "Byblos Bank S.A.L.",
   ibanRaw: "LB11003900000003703571387001",
   bic: "BYBALBBX",
 };
@@ -88,6 +88,7 @@ function getReferralCode() {
   }
 }
 
+/* ===================== */
 export default function ContactStep({
   orig,
   dest,
@@ -117,7 +118,7 @@ export default function ContactStep({
   totalBeforeVoucher,
   totalPrice,
   returnVehicle = "",
-  partnerId: _ignored, // wir nutzen lokalen State unten
+  partnerId: _ignored,
 }) {
   const { locale } = useLocale();
   const L = t[locale] || t.de;
@@ -140,7 +141,7 @@ export default function ContactStep({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [partnerId, setPartnerId] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("whish"); // 'whish' | 'cash' | 'bank'
+  const [paymentMethod, setPaymentMethod] = useState("whish");
   const [showWhishQr, setShowWhishQr] = useState(false);
   const [copied, setCopied] = useState("");
 
@@ -200,7 +201,6 @@ export default function ContactStep({
     const partnerLabel =
       (L.partnerIdLabel || "Partner ID").replace(/\s*\(.*\)/, "");
 
-    /* [NEU] Referral aus Storage/Cookie holen */
     const referral = getReferralCode();
 
     let lines = [
@@ -208,7 +208,7 @@ export default function ContactStep({
       `${L.firstNameLabel}: ${firstName} ${lastName}`,
       `${L.emailLabel}: ${email}`,
       `${L.phoneLabel}: ${phone}`,
-      ...(referral ? [`Ref: ${referral}`] : []), // [NEU] Hier klar sichtbar
+      ...(referral ? [`Ref: ${referral}`] : []),
       ...(partnerId ? [`${partnerLabel}: ${partnerId}`] : []),
       `${L.paymentTitle}: ${
         paymentMethod === "whish"
@@ -300,20 +300,83 @@ export default function ContactStep({
     }
   };
 
+  /* ===================== Premium tokens (nur Styles) ===================== */
+  const ACCENT = "#1f6f3a";
+  const ACCENT_SOFT = "rgba(31,111,58,.10)";
+  const ACCENT_BORDER = "rgba(31,111,58,.20)";
+  const HEADING = "#0b1f3a";
+  const TEXT = "rgba(17,24,39,.74)";
+  const BORDER = "rgba(17,24,39,.10)";
+  const SHADOW = "0 20px 52px rgba(15,23,42,.12)";
+  const BOX_SHADOW = "0 14px 34px rgba(15,23,42,.08)";
+  const RADIUS = 24;
+
+  const Section = ({ icon, title, children, tone = "white" }) => {
+    const bg =
+      tone === "white"
+        ? "#fff"
+        : tone === "warm"
+        ? "linear-gradient(180deg, rgba(192,151,67,.10) 0%, rgba(255,255,255,1) 65%)"
+        : "linear-gradient(180deg, rgba(31,111,58,.06) 0%, rgba(255,255,255,1) 60%)";
+
+    return (
+      <div
+        className="relative overflow-hidden"
+        style={{
+          borderRadius: 18,
+          border: `1px solid ${BORDER}`,
+          background: bg,
+          boxShadow: BOX_SHADOW,
+        }}
+      >
+        {/* left accent stripe */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            bottom: 0,
+            width: 4,
+            background: `linear-gradient(180deg, ${ACCENT} 0%, rgba(31,111,58,.35) 60%, rgba(31,111,58,.10) 100%)`,
+          }}
+        />
+        <div style={{ padding: "1.1rem 1.1rem 1.15rem 1.45rem" }}>
+          <div className="flex items-center font-extrabold mb-2" style={{ color: HEADING }}>
+            <span className="mr-2" style={{ color: "#C09743" }}>{icon}</span>
+            {title}
+          </div>
+          <div
+            aria-hidden="true"
+            style={{ height: 1, background: "rgba(17,24,39,.08)", marginBottom: ".75rem" }}
+          />
+          {children}
+        </div>
+      </div>
+    );
+  };
+
   /* ===================== Render ===================== */
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6 space-y-6 w-full mx-auto max-w-[680px] sm:max-w-[720px] box-border overflow-hidden">
+    <div
+      className="p-6 space-y-6 w-full mx-auto max-w-[680px] sm:max-w-[720px] box-border overflow-hidden bg-white"
+      style={{
+        borderRadius: RADIUS,
+        border: `1px solid ${BORDER}`,
+        boxShadow: SHADOW,
+      }}
+    >
       {/* WARENKORB / BUCHUNGS-ÜBERSICHT */}
       <div className="space-y-4">
         {/* Hin- und Rückfahrt Übersicht */}
         <div className="grid md:grid-cols-2 gap-4">
           {/* Hinfahrt */}
-          <div className="bg-gray-50 rounded-xl p-4 shadow flex-1 overflow-hidden">
-            <div className="flex items-center font-semibold mb-2 text-[#002147]">
-              <FaCar className="w-5 h-5 mr-2 text-[#C09743]" />
-              {L.outwardTripTitle || "Hinfahrt"}
-            </div>
-            <div className="flex flex-col gap-1 text-gray-800">
+          <Section
+            icon={<FaCar className="w-5 h-5" />}
+            title={L.outwardTripTitle || "Hinfahrt"}
+            tone="green"
+          >
+            <div className="flex flex-col gap-1" style={{ color: "rgba(17,24,39,.86)" }}>
               <div className="flex items-center min-w-0">
                 <MapPinIcon className="w-4 h-4 mr-1 shrink-0" />
                 <span className="truncate">{orig}</span>
@@ -348,23 +411,23 @@ export default function ContactStep({
                 </div>
               )}
               <div className="flex items-center min-w-0">
-                <CheckCircleIcon className="w-4 h-4 mr-1 text-green-700 shrink-0" />
+                <CheckCircleIcon className="w-4 h-4 mr-1 shrink-0" style={{ color: ACCENT }} />
                 <span className="truncate">
                   {L["vehicle" + vehicle[0].toUpperCase() + vehicle.slice(1)] ||
                     vehicle}
                 </span>
               </div>
             </div>
-          </div>
+          </Section>
 
           {/* Rückfahrt */}
           {isReturn && (
-            <div className="bg-blue-50 rounded-xl p-4 shadow flex-1 overflow-hidden">
-              <div className="flex items-center font-semibold mb-2 text-[#002147]">
-                <FaCar className="w-5 h-5 mr-2 text-[#C09743]" />
-                {L.returnTripLabel}
-              </div>
-              <div className="flex flex-col gap-1 text-gray-800">
+            <Section
+              icon={<FaCar className="w-5 h-5" />}
+              title={L.returnTripLabel}
+              tone="green"
+            >
+              <div className="flex flex-col gap-1" style={{ color: "rgba(17,24,39,.86)" }}>
                 <div className="flex items-center min-w-0">
                   <MapPinIcon className="w-4 h-4 mr-1 shrink-0" />
                   <span className="truncate">{returnOrig}</span>
@@ -393,7 +456,7 @@ export default function ContactStep({
                   </span>
                 </div>
                 <div className="flex items-center min-w-0">
-                  <CheckCircleIcon className="w-4 h-4 mr-1 text-green-700 shrink-0" />
+                  <CheckCircleIcon className="w-4 h-4 mr-1 shrink-0" style={{ color: ACCENT }} />
                   <span className="truncate">
                     {L[
                       "vehicle" +
@@ -403,155 +466,178 @@ export default function ContactStep({
                   </span>
                 </div>
               </div>
-            </div>
+            </Section>
           )}
         </div>
 
         {/* Passagiere & Fahrzeug */}
-        <div className="bg-gray-50 rounded-xl p-4 shadow flex flex-col md:flex-row md:items-center md:gap-8 overflow-hidden">
-          <div className="flex items-center gap-2 mb-2 md:mb-0">
-            <UsersIcon className="w-5 h-5 text-[#C09743]" />
-            <span className="font-medium">
-              {adults} {L.adultsLabel}
-            </span>
+        <Section
+          icon={<UsersIcon className="w-5 h-5" />}
+          title={L.passengersVehicleTitle || "Passagiere & Fahrzeug"}
+          tone="white"
+        >
+          <div className="flex flex-col md:flex-row md:items-center md:gap-8 gap-2">
+            <div className="flex items-center gap-2">
+              <UsersIcon className="w-5 h-5" style={{ color: "#C09743" }} />
+              <span className="font-semibold" style={{ color: HEADING }}>
+                {adults} {L.adultsLabel}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <UserIcon className="w-5 h-5" style={{ color: "#C09743" }} />
+              <span className="font-semibold" style={{ color: HEADING }}>
+                {children} {L.childrenLabel}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <FaCar className="w-5 h-5" style={{ color: "#C09743" }} />
+              <span className="font-semibold" style={{ color: HEADING }}>
+                {L["vehicle" + vehicle[0].toUpperCase() + vehicle.slice(1)] ||
+                  vehicle}
+              </span>
+            </div>
           </div>
-          <div className="flex items-center gap-2 mb-2 md:mb-0">
-            <UserIcon className="w-5 h-5 text-[#C09743]" />
-            <span className="font-medium">
-              {children} {L.childrenLabel}
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <FaCar className="w-5 h-5 text-[#C09743]" />
-            <span className="font-medium">
-              {L["vehicle" + vehicle[0].toUpperCase() + vehicle.slice(1)] ||
-                vehicle}
-            </span>
-          </div>
-        </div>
+        </Section>
 
         {/* Extras */}
         {(renderSeatExtras(seatExtrasDetails).length > 0 ||
           renderOtherExtras(otherExtrasDetails).length > 0) && (
-          <div className="bg-gray-50 rounded-xl p-4 shadow overflow-hidden">
-            <div className="flex items-center font-semibold mb-2 text-[#002147]">
-              <GiftIcon className="w-5 h-5 mr-2 text-[#C09743]" />
-              {L.extrasStepTitle}
-            </div>
-            <ul className="list-disc ml-6 text-gray-800">
+          <Section icon={<GiftIcon className="w-5 h-5" />} title={L.extrasStepTitle} tone="green">
+            <ul className="ml-5 space-y-1" style={{ color: "rgba(17,24,39,.86)", listStyleType: "disc" }}>
               {renderSeatExtras(seatExtrasDetails).map((x, i) => (
-                <li key={"seat" + i}>{x}</li>
+                <li key={"seat" + i} style={{ markerColor: ACCENT }}>
+                  <span>{x}</span>
+                </li>
               ))}
               {renderOtherExtras(otherExtrasDetails).map((x, i) => (
-                <li key={"extra" + i}>{x}</li>
+                <li key={"extra" + i}>
+                  <span>{x}</span>
+                </li>
               ))}
             </ul>
-            <div className="font-bold mt-2">
+            <div className="font-extrabold mt-3" style={{ color: HEADING }}>
               {L.extrasTotalLabel}: $
-              {calcExtrasTotal(seatExtrasDetails, otherExtrasDetails).toFixed(
-                2
-              )}
+              {calcExtrasTotal(seatExtrasDetails, otherExtrasDetails).toFixed(2)}
             </div>
-          </div>
+          </Section>
         )}
 
         {/* Preisübersicht */}
-        <div className="bg-yellow-50 rounded-xl p-4 shadow overflow-hidden">
-          <div className="flex items-center font-semibold mb-2 text-[#A47119]">
-            <CreditCardIcon className="w-5 h-5 mr-2" />
-            {L.priceOverviewTitle || "Preisübersicht"}
-          </div>
-          <div className="text-gray-800 space-y-1">
+        <Section
+          icon={<CreditCardIcon className="w-5 h-5" />}
+          title={L.priceOverviewTitle || "Preisübersicht"}
+          tone="warm"
+        >
+          <div className="space-y-1" style={{ color: "rgba(17,24,39,.86)" }}>
             <div className="flex justify-between">
-              <span>{L.ridePriceLabel}:</span>
-              <span>${ridePrice?.toFixed(2)}</span>
+              <span style={{ color: TEXT }}>{L.ridePriceLabel}:</span>
+              <span className="font-semibold">${ridePrice?.toFixed(2)}</span>
             </div>
             <div className="flex justify-between">
-              <span>{L.vehicleSurchargeLabel}:</span>
-              <span>${vehicleSurcharge?.toFixed(2)}</span>
+              <span style={{ color: TEXT }}>{L.vehicleSurchargeLabel}:</span>
+              <span className="font-semibold">${vehicleSurcharge?.toFixed(2)}</span>
             </div>
             {isReturn && (
               <div className="flex justify-between">
-                <span>{L.returnDiscountLabel}:</span>
-                <span className="text-green-700">
+                <span style={{ color: TEXT }}>{L.returnDiscountLabel}:</span>
+                <span className="font-semibold" style={{ color: ACCENT }}>
                   -${Math.abs(returnDiscount).toFixed(2)}
                 </span>
               </div>
             )}
             {voucherDiscount > 0 && (
               <div className="flex justify-between">
-                <span>{L.voucherLabel}:</span>
-                <span className="text-green-700">
+                <span style={{ color: TEXT }}>{L.voucherLabel}:</span>
+                <span className="font-semibold" style={{ color: ACCENT }}>
                   -${voucherDiscount.toFixed(2)}
                 </span>
               </div>
             )}
             <div className="flex justify-between">
-              <span>{L.extrasTotalLabel}:</span>
-              <span>
+              <span style={{ color: TEXT }}>{L.extrasTotalLabel}:</span>
+              <span className="font-semibold">
                 $
-                {calcExtrasTotal(
-                  seatExtrasDetails,
-                  otherExtrasDetails
-                ).toFixed(2)}
+                {calcExtrasTotal(seatExtrasDetails, otherExtrasDetails).toFixed(2)}
               </span>
             </div>
-            <div className="border-t pt-2 flex justify-between text-lg font-bold">
+
+            <div
+              className="pt-3 mt-2 flex justify-between text-lg font-extrabold"
+              style={{ borderTop: "1px solid rgba(17,24,39,.10)", color: HEADING }}
+            >
               <span>{L.totalLabel}:</span> <span>${totalPrice}</span>
             </div>
           </div>
-        </div>
+        </Section>
       </div>
 
       {/* Gutschein */}
       <div>
-        <label className="block mb-1 font-medium">{L.voucherLabel}</label>
+        <label className="block mb-1 font-semibold" style={{ color: HEADING }}>
+          {L.voucherLabel}
+        </label>
         <input
           type="text"
           value={voucher}
           onChange={(e) => setVoucher(e.target.value)}
           placeholder={L.voucherPlaceholder}
-          className="border rounded px-3 py-2 w-full"
+          className="border rounded-xl px-3 py-2 w-full"
+          style={{
+            borderColor: BORDER,
+            boxShadow: "0 10px 22px rgba(15,23,42,.04)",
+          }}
         />
       </div>
 
       {/* Kontaktdaten */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block mb-1 font-medium">{L.firstNameLabel}</label>
+          <label className="block mb-1 font-semibold" style={{ color: HEADING }}>
+            {L.firstNameLabel}
+          </label>
           <input
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            className="border rounded px-3 py-2 w-full"
+            className="border rounded-xl px-3 py-2 w-full"
+            style={{ borderColor: BORDER }}
           />
         </div>
         <div>
-          <label className="block mb-1 font-medium">{L.lastNameLabel}</label>
+          <label className="block mb-1 font-semibold" style={{ color: HEADING }}>
+            {L.lastNameLabel}
+          </label>
           <input
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            className="border rounded px-3 py-2 w-full"
+            className="border rounded-xl px-3 py-2 w-full"
+            style={{ borderColor: BORDER }}
           />
         </div>
         <div>
-          <label className="block mb-1 font-medium">{L.emailLabel}</label>
+          <label className="block mb-1 font-semibold" style={{ color: HEADING }}>
+            {L.emailLabel}
+          </label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="border rounded px-3 py-2 w-full break-words"
+            className="border rounded-xl px-3 py-2 w-full break-words"
+            style={{ borderColor: BORDER }}
             autoComplete="off"
           />
         </div>
         <div>
-          <label className="block mb-1 font-medium">{L.phoneLabel}</label>
+          <label className="block mb-1 font-semibold" style={{ color: HEADING }}>
+            {L.phoneLabel}
+          </label>
           <input
             type="text"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className="border rounded px-3 py-2 w-full"
+            className="border rounded-xl px-3 py-2 w-full"
+            style={{ borderColor: BORDER }}
             dir="ltr"
             autoComplete="off"
           />
@@ -560,20 +646,23 @@ export default function ContactStep({
 
       {/* Flugnummer – jetzt vor Reisebüro-ID */}
       <div>
-        <label className="block mb-1 font-medium">{L.flightNoLabel}</label>
+        <label className="block mb-1 font-semibold" style={{ color: HEADING }}>
+          {L.flightNoLabel}
+        </label>
         <input
           type="text"
           value={flightNo}
           onChange={(e) => setFlightNo(e.target.value)}
           placeholder={L.flightNoPlaceholder}
-          className="border rounded px-3 py-2 w-full break-words"
+          className="border rounded-xl px-3 py-2 w-full break-words"
+          style={{ borderColor: BORDER }}
           autoComplete="off"
         />
       </div>
 
       {/* Reisebüro-ID – nach Flugnummer */}
       <div>
-        <label className="block mb-1 font-medium">
+        <label className="block mb-1 font-semibold" style={{ color: HEADING }}>
           {L.partnerIdLabel || "Reisebüro-ID (optional)"}
         </label>
         <input
@@ -581,7 +670,8 @@ export default function ContactStep({
           value={partnerId}
           onChange={(e) => setPartnerId(e.target.value.trim().toUpperCase())}
           placeholder={L.partnerIdPlaceholder || "z. B. RB01"}
-          className="border rounded px-3 py-2 w-full uppercase tracking-wider"
+          className="border rounded-xl px-3 py-2 w-full uppercase tracking-wider"
+          style={{ borderColor: BORDER }}
           dir="ltr"
           inputMode="latin"
           autoCapitalize="characters"
@@ -591,183 +681,129 @@ export default function ContactStep({
       </div>
 
       {/* Zahlungsarten */}
-      <div>
-        <label className="block mb-1 font-medium">{L.paymentTitle}</label>
-        <div className="flex flex-wrap items-center gap-3">
-          <button
-            className={`rounded px-4 py-2 font-medium transition border-2 ${
-              paymentMethod === "whish"
-                ? "bg-[#002147] text-white border-[#002147]"
-                : "bg-white text-[#002147] border-gray-300"
-            }`}
-            onClick={() => setPaymentMethod("whish")}
-          >
-            {L.whishBtn}
-          </button>
-          <button
-            className={`rounded px-4 py-2 font-medium transition border-2 ${
-              paymentMethod === "cash"
-                ? "bg-[#002147] text-white border-[#002147]"
-                : "bg-white text-[#002147] border-gray-300"
-            }`}
-            onClick={() => setPaymentMethod("cash")}
-          >
-            {L.cashBtn}
-          </button>
-          <button
-            className={`rounded px-4 py-2 font-medium transition border-2 ${
-              paymentMethod === "bank"
-                ? "bg-[#002147] text-white border-[#002147]"
-                : "bg-white text-[#002147] border-gray-300"
-            }`}
-            onClick={() => setPaymentMethod("bank")}
-          >
-            {L.bankBtn || "Banküberweisung"}
-          </button>
-        </div>
-      </div>
+<div>
+  <label className="block mb-2 font-semibold" style={{ color: HEADING }}>
+    {L.paymentTitle}
+  </label>
 
-      {/* Whish-QR/Text */}
-      {paymentMethod === "whish" && (
-        <div className="bg-[#f7fafc] border border-[#c0b090] rounded-xl p-4 my-4 overflow-hidden w-full max-w-full">
-          <div className="mb-2 font-semibold">{L.whishInfoTitle}</div>
-          <div className="mb-2 text-sm break-words [word-break:anywhere]">
-            {L.whishStep1}
-            <br />
-            {L.whishStep2}
-          </div>
-          <div className="flex flex-wrap items-center gap-4 min-w-0 w-full max-w-full">
-            <span
-              className="text-[#002147] font-bold font-mono break-words [word-break:anywhere]"
-              dir="ltr"
-            >
-              {L.whishStep3.replace("{number}", ltr(whatsappDisplayCondensed))}
-            </span>
-            <button
-              className="text-xs underline text-[#C09743] font-semibold shrink-0"
-              onClick={() => setShowWhishQr((v) => !v)}
-            >
-              {showWhishQr ? L.whishToggleToText.qr : L.whishToggleToText.text}
-            </button>
-          </div>
-          {showWhishQr && (
-            <div className="mt-4 flex flex-col items-center">
-              <img
-                src={WHISH_QR_SRC}
-                alt="Whish QR"
-                className="rounded-lg border bg-white"
-                style={{ width: 120, height: 120, objectFit: "contain" }}
-              />
-              <div
-                className="text-xs mt-2 text-gray-500 font-mono text-center break-words [word-break:anywhere]"
-                dir="ltr"
-              >
-                {L.whishStep3.replace("{number}", ltr(whatsappDisplayCondensed))}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
+  <div className="flex flex-wrap items-center gap-2">
+    {[
+      { key: "whish", label: L.whishBtn },
+      { key: "cash", label: L.cashBtn },
+      { key: "bank", label: L.bankBtn || "Banküberweisung" },
+    ].map((m) => {
+      const active = paymentMethod === m.key;
 
-      {/* Banküberweisung Details */}
-      {paymentMethod === "bank" && (
-        <div className="bg-[#f7fafc] border border-[#c0b090] rounded-xl p-4 my-4 space-y-2 overflow-hidden">
-          <div className="font-semibold">
-            {L.bankInfoTitle || "Bankdaten für Überweisung"}
-          </div>
-          <div className="grid md:grid-cols-2 gap-3 text-sm">
-            <div>
-              <span className="font-medium">
-                {L.accountName || "Kontoinhaber"}:
-              </span>{" "}
-              {BANK.accountName}
-            </div>
-            <div>
-              <span className="font-medium">{L.bankName || "Bank"}:</span>{" "}
-              {BANK.bankName}
-            </div>
-
-            {/* IBAN */}
-            <div className="flex items-center gap-2 min-w-0">
-              <span className="font-medium shrink-0">
-                {L.iban || "IBAN"}:
-              </span>
-              <span
-                className="font-mono overflow-x-auto block md:[letter-spacing:0.02em]"
-                dir="ltr"
-                translate="no"
-                title={BANK.ibanRaw}
-              >
-                {BANK.ibanRaw}
-              </span>
-              <button
-                className="text-xs underline text-[#C09743] shrink-0"
-                onClick={() => copy(BANK.ibanRaw, "iban")}
-              >
-                {copied === "iban" ? L.copied || "Kopiert!" : L.copy || "Kopieren"}
-              </button>
-            </div>
-
-            {/* BIC */}
-            <div className="flex items-center gap-2 min-w-0">
-              <span className="font-medium shrink-0">{L.bic || "BIC"}:</span>
-              <span
-                className="font-mono overflow-x-auto block"
-                dir="ltr"
-                translate="no"
-                title={BANK.bic}
-              >
-                {BANK.bic}
-              </span>
-              <button
-                className="text-xs underline text-[#C09743] shrink-0"
-                onClick={() => copy(BANK.bic, "bic")}
-              >
-                {copied === "bic" ? L.copied || "Kopiert!" : L.copy || "Kopieren"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Buttons */}
-      <div className="mt-6 flex flex-col sm:flex-row justify-between gap-4 items-stretch">
-        <button onClick={onBack} className="btn btn-secondary sm:order-1">
-          {L.backBtn}
+      return (
+        <button
+          key={m.key}
+          type="button"
+          onClick={() => setPaymentMethod(m.key)}
+          className="px-3 py-2 rounded-xl border font-semibold transition
+                     focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0"
+          style={{
+            background: active ? "var(--amd-primary,#c1272d)" : "#fff",
+            color: active ? "#fff" : HEADING,
+            borderColor: active ? "rgba(193,39,45,.55)" : BORDER,
+            boxShadow: active
+              ? "0 10px 22px rgba(193,39,45,.14)"
+              : "none",
+            outline: "none",
+            WebkitTapHighlightColor: "transparent",
+          }}
+          onMouseEnter={(e) => {
+            if (active) return;
+            e.currentTarget.style.borderColor = ACCENT_BORDER;
+            e.currentTarget.style.boxShadow = `0 0 0 6px ${ACCENT_SOFT}`;
+          }}
+          onMouseLeave={(e) => {
+            if (active) return;
+            e.currentTarget.style.borderColor = BORDER;
+            e.currentTarget.style.boxShadow = "none";
+          }}
+        >
+          {m.label}
         </button>
+      );
+    })}
+  </div>
+</div>
 
-        {/* Aktionen: WhatsApp, Email, Call */}
-        <div className="flex flex-col sm:flex-row gap-4 flex-1 sm:order-2">
-          {/* 1) WhatsApp */}
+      {/* Buttons (mobile-first, kompakt) */}
+      <div className="mt-6">
+        <div className="grid grid-cols-2 sm:flex sm:flex-row gap-3 items-stretch">
+          {/* Zurück */}
+          <button
+            onClick={onBack}
+            type="button"
+            className="col-span-2 sm:col-auto border rounded-xl font-semibold transition"
+            style={{
+              borderColor: BORDER,
+              background: "#fff",
+              color: HEADING,
+              padding: "12px 14px",
+              fontSize: 14,
+              boxShadow: "0 12px 24px rgba(15,23,42,.06)",
+            }}
+          >
+            {L.backBtn}
+          </button>
+
+          {/* WhatsApp */}
           <a
             href={whatsappLink}
-            className="btn btn-primary flex items-center justify-center flex-1"
+            className="col-span-1 sm:flex-1 rounded-xl font-semibold transition inline-flex items-center justify-center"
             target="_blank"
             rel="noopener noreferrer"
             tabIndex={canSubmit ? 0 : -1}
             aria-disabled={!canSubmit}
+            style={{
+              background: "var(--amd-primary,#c1272d)",
+              color: "#fff",
+              padding: "12px 14px",
+              fontSize: 14,
+              opacity: canSubmit ? 1 : 0.55,
+              pointerEvents: canSubmit ? "auto" : "none",
+              boxShadow: "0 14px 30px rgba(193,39,45,.18)",
+            }}
           >
             <FaWhatsapp className="mr-2" />
             {L.whatsappBtn}
           </a>
 
-          {/* 2) Email */}
+          {/* Email */}
           <a
             href={mailtoLink}
-            className="btn btn-primary flex items-center justify-center flex-1"
+            className="col-span-1 sm:flex-1 rounded-xl font-semibold transition inline-flex items-center justify-center"
             target="_blank"
             rel="noopener noreferrer"
             tabIndex={canSubmit ? 0 : -1}
             aria-disabled={!canSubmit}
+            style={{
+              background: "var(--amd-primary,#c1272d)",
+              color: "#fff",
+              padding: "12px 14px",
+              fontSize: 14,
+              opacity: canSubmit ? 1 : 0.55,
+              pointerEvents: canSubmit ? "auto" : "none",
+              boxShadow: "0 14px 30px rgba(193,39,45,.18)",
+            }}
           >
             <EnvelopeIcon className="w-5 h-5 mr-2" />
             {L.emailBtn}
           </a>
 
-          {/* 3) Jetzt anrufen */}
+          {/* Jetzt anrufen */}
           <a
             href={`tel:${whatsappFull}`}
-            className="btn btn-primary flex items-center justify-center flex-1"
+            className="col-span-2 sm:flex-1 rounded-xl font-semibold transition inline-flex items-center justify-center"
+            style={{
+              background: "var(--amd-primary,#c1272d)",
+              color: "#fff",
+              padding: "12px 14px",
+              fontSize: 14,
+              boxShadow: "0 14px 30px rgba(193,39,45,.18)",
+            }}
           >
             <FaMobileAlt className="mr-2" />
             {L.callNowBtn}
