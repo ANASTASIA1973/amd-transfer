@@ -680,7 +680,7 @@ export default function ContactStep({
         />
       </div>
 
-      {/* Zahlungsarten */}
+{/* Zahlungsarten */}
 <div>
   <label className="block mb-2 font-semibold" style={{ color: HEADING }}>
     {L.paymentTitle}
@@ -699,27 +699,11 @@ export default function ContactStep({
           key={m.key}
           type="button"
           onClick={() => setPaymentMethod(m.key)}
-          className="px-3 py-2 rounded-xl border font-semibold transition
-                     focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0"
+          className="px-3 py-2 rounded-xl border font-semibold transition"
           style={{
             background: active ? "var(--amd-primary,#c1272d)" : "#fff",
             color: active ? "#fff" : HEADING,
             borderColor: active ? "rgba(193,39,45,.55)" : BORDER,
-            boxShadow: active
-              ? "0 10px 22px rgba(193,39,45,.14)"
-              : "none",
-            outline: "none",
-            WebkitTapHighlightColor: "transparent",
-          }}
-          onMouseEnter={(e) => {
-            if (active) return;
-            e.currentTarget.style.borderColor = ACCENT_BORDER;
-            e.currentTarget.style.boxShadow = `0 0 0 6px ${ACCENT_SOFT}`;
-          }}
-          onMouseLeave={(e) => {
-            if (active) return;
-            e.currentTarget.style.borderColor = BORDER;
-            e.currentTarget.style.boxShadow = "none";
           }}
         >
           {m.label}
@@ -728,6 +712,178 @@ export default function ContactStep({
     })}
   </div>
 </div>
+
+{/* Whish-Details */}
+{paymentMethod === "whish" && (
+  <div
+    className="rounded-2xl p-4 sm:p-5 my-4 overflow-hidden w-full max-w-full"
+    style={{
+      border: "1px solid rgba(31,111,58,.28)",
+      background:
+        "linear-gradient(180deg, rgba(31,111,58,.08) 0%, rgba(255,255,255,1) 62%)",
+      boxShadow: "0 14px 34px rgba(15,23,42,.08)",
+    }}
+  >
+    <div className="mb-2 font-semibold" style={{ color: "#0b1f3a" }}>
+      {L.whishInfoTitle}
+    </div>
+
+    <div className="mb-2 text-sm break-words [word-break:anywhere]" style={{ color: "rgba(17,24,39,.80)" }}>
+      {L.whishStep1}
+      <br />
+      {L.whishStep2}
+    </div>
+
+    <div className="flex flex-wrap items-center gap-4 min-w-0 w-full max-w-full">
+      <span
+        className="font-bold font-mono break-words [word-break:anywhere]"
+        dir="ltr"
+        style={{ color: "#0b1f3a" }}
+      >
+        {L.whishStep3.replace("{number}", ltr(whatsappDisplayCondensed))}
+      </span>
+
+      <button
+        type="button"
+        className="text-xs font-semibold shrink-0 rounded-lg px-2 py-1"
+        onClick={() => setShowWhishQr((v) => !v)}
+        style={{
+          border: "1px solid rgba(31,111,58,.22)",
+          color: "rgba(31,111,58,.95)",
+          background: "rgba(31,111,58,.08)",
+        }}
+      >
+        {showWhishQr ? (L.whishToggleToText?.qr || "Einfacher Modus") : (L.whishToggleToText?.text || "QR-Code anzeigen")}
+      </button>
+    </div>
+
+    {showWhishQr && (
+      <div className="mt-4 flex flex-col items-center">
+        <div
+          style={{
+            borderRadius: 16,
+            border: "1px solid rgba(31,111,58,.22)",
+            background: "#fff",
+            padding: 10,
+            boxShadow: "0 10px 24px rgba(15,23,42,.08)",
+          }}
+        >
+          <img
+            src={WHISH_QR_SRC}
+            alt="Whish QR"
+            style={{ width: 130, height: 130, objectFit: "contain" }}
+          />
+        </div>
+
+        <div
+          className="text-xs mt-2 font-mono text-center break-words [word-break:anywhere]"
+          dir="ltr"
+          style={{ color: "rgba(17,24,39,.58)" }}
+        >
+          {L.whishStep3.replace("{number}", ltr(whatsappDisplayCondensed))}
+        </div>
+      </div>
+    )}
+  </div>
+)}
+
+
+{/* Bank-Details (FEHLTE BEI DIR) */}
+{paymentMethod === "bank" && (
+  <div
+    className="rounded-2xl p-4 sm:p-5 my-4 space-y-2 overflow-hidden"
+    style={{
+      border: "1px solid rgba(31,111,58,.28)",
+      background:
+        "linear-gradient(180deg, rgba(31,111,58,.06) 0%, rgba(255,255,255,1) 70%)",
+      boxShadow: "0 14px 34px rgba(15,23,42,.08)",
+    }}
+  >
+    <div className="font-semibold" style={{ color: "#0b1f3a" }}>
+      {L.bankInfoTitle || "Bankdaten für Überweisung"}
+    </div>
+
+    <div className="grid md:grid-cols-2 gap-3 text-sm" style={{ color: "rgba(17,24,39,.82)" }}>
+      <div>
+        <span className="font-medium">{L.accountName || "Kontoinhaber"}:</span>{" "}
+        {BANK.accountName}
+      </div>
+
+      <div>
+        <span className="font-medium">{L.bankName || "Bank"}:</span> {BANK.bankName}
+      </div>
+
+      {/* IBAN */}
+      <div className="flex items-center gap-2 min-w-0">
+        <span className="font-medium shrink-0">{L.iban || "IBAN"}:</span>
+
+        <span
+          className="font-mono overflow-x-auto block md:[letter-spacing:0.02em]"
+          dir="ltr"
+          translate="no"
+          title={BANK.ibanRaw}
+          style={{
+            padding: "6px 10px",
+            borderRadius: 12,
+            border: "1px solid rgba(31,111,58,.18)",
+            background: "rgba(31,111,58,.06)",
+            maxWidth: "100%",
+          }}
+        >
+          {BANK.ibanRaw}
+        </span>
+
+        <button
+          type="button"
+          className="text-xs font-semibold shrink-0 rounded-lg px-2 py-1"
+          onClick={() => copy(BANK.ibanRaw, "iban")}
+          style={{
+            border: "1px solid rgba(31,111,58,.22)",
+            color: "rgba(31,111,58,.95)",
+            background: "rgba(31,111,58,.08)",
+          }}
+        >
+          {copied === "iban" ? (L.copied || "Kopiert!") : (L.copy || "Kopieren")}
+        </button>
+      </div>
+
+      {/* BIC */}
+      <div className="flex items-center gap-2 min-w-0">
+        <span className="font-medium shrink-0">{L.bic || "BIC"}:</span>
+
+        <span
+          className="font-mono overflow-x-auto block"
+          dir="ltr"
+          translate="no"
+          title={BANK.bic}
+          style={{
+            padding: "6px 10px",
+            borderRadius: 12,
+            border: "1px solid rgba(31,111,58,.18)",
+            background: "rgba(31,111,58,.06)",
+            maxWidth: "100%",
+          }}
+        >
+          {BANK.bic}
+        </span>
+
+        <button
+          type="button"
+          className="text-xs font-semibold shrink-0 rounded-lg px-2 py-1"
+          onClick={() => copy(BANK.bic, "bic")}
+          style={{
+            border: "1px solid rgba(31,111,58,.22)",
+            color: "rgba(31,111,58,.95)",
+            background: "rgba(31,111,58,.08)",
+          }}
+        >
+          {copied === "bic" ? (L.copied || "Kopiert!") : (L.copy || "Kopieren")}
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
 
       {/* Buttons (mobile-first, kompakt) */}
       <div className="mt-6">

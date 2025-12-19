@@ -169,7 +169,7 @@ export default function BookingPage() {
   const returnDiscount = isReturn ? -10 : 0;
   const totalBeforeVoucher = ridePrice + vehicleSurcharge + extrasSeatsCost + otherExtrasCost + returnDiscount;
 
-  const isVoucherValid = voucher.trim().toUpperCase() === "AMDGC2025";
+  const isVoucherValid = voucher.trim().toUpperCase() === "AMDGC2026";
   const voucherDiscount = isVoucherValid ? Math.floor(totalBeforeVoucher * 0.1 * 100) / 100 : 0;
   const totalPrice = Math.ceil(totalBeforeVoucher - voucherDiscount);
 
