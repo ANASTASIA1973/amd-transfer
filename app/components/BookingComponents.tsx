@@ -95,12 +95,8 @@ style={{
   </span>
 
   <div className="flex items-center gap-2">
-    <span
-      className="tabular-nums text-sm font-semibold"
-      style={{ color: "var(--amd-text-muted,#6b7280)" }}
-    >
-      {step}/{totalSteps}
-    </span>
+    {/* removed duplicate step counter */}
+
 
 {canJump && (
   <div className="relative">

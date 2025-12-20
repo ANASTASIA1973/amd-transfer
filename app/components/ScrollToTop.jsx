@@ -1,31 +1,37 @@
+"use client";
+
 import { useEffect } from "react";
 
 export default function ScrollToTop({ trigger }) {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // iOS/Safari: smooth scroll kann ruckeln/ignoriert werden.
-    // Strategie: 1) sofort auf 0 setzen, 2) im nächsten Frame nochmal erzwingen.
-    const doInstant = () => {
+    const forceTop = () => {
       try {
+        // window
         window.scrollTo(0, 0);
+        // iOS Fallbacks
         document.documentElement.scrollTop = 0;
         document.body.scrollTop = 0;
       } catch {}
     };
 
-    const doSmooth = () => {
-      try {
-        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-      } catch {
-        doInstant();
-      }
-    };
+    // 1) sofort
+    forceTop();
 
-    // Erst smooth versuchen, dann fallback + frame-assert
-    doSmooth();
-    doInstant();
-    requestAnimationFrame(() => doInstant());
+    // 2) iOS/Safari: nach Frames erzwingen (Adressleiste / Sticky Timing)
+    requestAnimationFrame(() => {
+      forceTop();
+      requestAnimationFrame(() => {
+        forceTop();
+      });
+    });
+
+    // 3) Falls Wizard-Container existiert: sichtbar nach oben holen
+    try {
+      const el = document.querySelector("[data-wizard-scroll]");
+      if (el) el.scrollIntoView({ block: "start" });
+    } catch {}
   }, [trigger]);
 
   return null;

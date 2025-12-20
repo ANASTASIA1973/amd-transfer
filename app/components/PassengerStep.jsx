@@ -62,7 +62,8 @@ function CounterRow({ icon, label, value, onMinus, onPlus, minusDisabled }) {
           onFocus={(e) => {
             if (minusDisabled) return;
             e.currentTarget.style.boxShadow =
-              `inset 0 0 0 1px ${GREEN_BORDER}, 0 0 0 6px ${GREEN_SOFT}`;
+              `inset 0 0 0 1px ${GREEN_BORDER}, 0 0 0 4px ${GREEN_SOFT}`;
+
           }}
           onBlur={(e) => {
             e.currentTarget.style.boxShadow = minusDisabled
@@ -98,7 +99,7 @@ function CounterRow({ icon, label, value, onMinus, onPlus, minusDisabled }) {
           }}
           onFocus={(e) => {
             e.currentTarget.style.boxShadow =
-              `inset 0 0 0 1px ${GREEN_BORDER}, 0 0 0 6px ${GREEN_SOFT}`;
+              `inset 0 0 0 1px ${GREEN_BORDER}, 0 0 0 4px ${GREEN_SOFT}`;
           }}
           onBlur={(e) => {
             e.currentTarget.style.boxShadow =

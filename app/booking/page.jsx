@@ -315,7 +315,8 @@ const [voucher, setVoucher] = React.useState("AMD2026");
         />
       )}
 
-      <ScrollToTop />
+     <ScrollToTop trigger={step} />
+
     </WizardLayout>
   );
 }

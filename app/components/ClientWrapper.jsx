@@ -88,9 +88,13 @@ export default function ClientWrapper({ children }) {
              {/* Back to main site (Hero-Link ohne Pill) */}
 <a
   href={`${MAIN_SITE_BASE}/${locale}/index.html`}
-  className="absolute left-6 top-6 z-40"
-  style={{ textDecoration: "none" }}
+  className="absolute left-4 sm:left-6 z-40"
+  style={{
+    textDecoration: "none",
+    top: "calc(env(safe-area-inset-top) + 10px)",
+  }}
 >
+
   <span
     className="inline-flex items-center gap-2 text-sm sm:text-base font-semibold"
     style={{
@@ -128,7 +132,8 @@ export default function ClientWrapper({ children }) {
               />
 
               {/* Hero Text */}
-              <div className="absolute inset-0 flex items-end pb-6 sm:pb-8">
+             <div className="absolute inset-0 flex items-end pb-6 sm:pb-8 pt-14 sm:pt-0">
+
                 <div className="p-5 sm:p-7">
                   <div
                     className="inline-block rounded-2xl px-4 py-3 sm:px-5 sm:py-4 text-white drop-shadow-[0_8px_22px_rgba(0,0,0,.55)]"
