@@ -6,7 +6,7 @@ import t from "../i18n/translations";
 import { useLocale } from "../context/LocaleContext";
 import { FaUser, FaChild } from "react-icons/fa";
 
-// Edel-Zedern-Grün (gedeckt, nicht bunt)
+/* Edel-Zedern-Grün (gedeckt, nicht bunt) */
 const GREEN = "#1f6f3a";
 const GREEN_DARK = "#16552c";
 const GREEN_SOFT = "rgba(31,111,58,.10)";
@@ -17,16 +17,16 @@ const GREEN_LINE = "rgba(31,111,58,.35)";
 function CounterRow({ icon, label, value, onMinus, onPlus, minusDisabled }) {
   return (
     <div className="w-full flex items-center justify-between gap-4 py-3">
+      {/* Label */}
       <div className="flex items-center gap-3 min-w-0">
         <span
-          className="inline-flex items-center justify-center w-9 h-9 rounded-xl border"
+          className="inline-flex items-center justify-center w-9 h-9 rounded-xl border ios-fix"
           style={{
             background: "rgba(0,33,71,.03)",
             borderColor: "rgba(17,24,39,.10)",
           }}
           aria-hidden="true"
         >
-          {/* Icon: default dunkelblau, mit leichtem Grün-Touch über Container */}
           <span style={{ color: "rgba(11,31,58,.95)" }}>{icon}</span>
         </span>
 
@@ -35,49 +35,46 @@ function CounterRow({ icon, label, value, onMinus, onPlus, minusDisabled }) {
         </div>
       </div>
 
+      {/* Counter */}
       <div className="flex items-center gap-3">
+        {/* Minus */}
         <button
           type="button"
           onClick={onMinus}
           disabled={minusDisabled}
           className={[
-            "w-11 h-11 rounded-full border",
+            "w-11 h-11 rounded-full ios-fix",
             "inline-flex items-center justify-center text-xl",
-            "transition",
-            "focus:outline-none focus:ring-4",
-            minusDisabled
-              ? "opacity-40 cursor-not-allowed"
-              : "hover:shadow-sm",
+            "transition focus:outline-none",
+            minusDisabled ? "opacity-40 cursor-not-allowed" : "hover:shadow-sm",
           ].join(" ")}
           style={{
             background: "#fff",
-            borderColor: minusDisabled ? "var(--amd-border,#e5e7eb)" : "rgba(17,24,39,.14)",
             color: "rgba(11,31,58,.95)",
-            // Hover/Focus grün – aber nur dezent
-            boxShadow: "0 0 0 0 rgba(0,0,0,0)",
-          }}
-          onMouseEnter={(e) => {
-            if (minusDisabled) return;
-            e.currentTarget.style.borderColor = GREEN_BORDER;
-          }}
-          onMouseLeave={(e) => {
-            if (minusDisabled) return;
-            e.currentTarget.style.borderColor = "rgba(17,24,39,.14)";
+            boxShadow: minusDisabled
+              ? "inset 0 0 0 1px var(--amd-border,#e5e7eb)"
+              : "inset 0 0 0 1px rgba(17,24,39,.14)",
+            WebkitTapHighlightColor: "transparent",
+            transform: "translateZ(0)",
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
           }}
           onFocus={(e) => {
             if (minusDisabled) return;
-            e.currentTarget.style.boxShadow = `0 0 0 6px ${GREEN_SOFT}`;
-            e.currentTarget.style.borderColor = GREEN_BORDER;
+            e.currentTarget.style.boxShadow =
+              `inset 0 0 0 1px ${GREEN_BORDER}, 0 0 0 6px ${GREEN_SOFT}`;
           }}
           onBlur={(e) => {
-            e.currentTarget.style.boxShadow = "0 0 0 0 rgba(0,0,0,0)";
-            if (!minusDisabled) e.currentTarget.style.borderColor = "rgba(17,24,39,.14)";
+            e.currentTarget.style.boxShadow = minusDisabled
+              ? "inset 0 0 0 1px var(--amd-border,#e5e7eb)"
+              : "inset 0 0 0 1px rgba(17,24,39,.14)";
           }}
           aria-label="minus"
         >
           −
         </button>
 
+        {/* Value */}
         <div
           className="min-w-[2.2rem] text-center text-lg font-bold tabular-nums"
           style={{ color: "var(--amd-heading,#111827)" }}
@@ -85,29 +82,27 @@ function CounterRow({ icon, label, value, onMinus, onPlus, minusDisabled }) {
           {value}
         </div>
 
+        {/* Plus */}
         <button
           type="button"
           onClick={onPlus}
-          className="w-11 h-11 rounded-full border inline-flex items-center justify-center text-xl transition hover:shadow-sm focus:outline-none focus:ring-4"
+          className="w-11 h-11 rounded-full ios-fix inline-flex items-center justify-center text-xl transition hover:shadow-sm focus:outline-none"
           style={{
             background: "#fff",
-            borderColor: "rgba(17,24,39,.14)",
             color: "rgba(11,31,58,.95)",
-            boxShadow: "0 0 0 0 rgba(0,0,0,0)",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = GREEN_BORDER;
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = "rgba(17,24,39,.14)";
+            boxShadow: "inset 0 0 0 1px rgba(17,24,39,.14)",
+            WebkitTapHighlightColor: "transparent",
+            transform: "translateZ(0)",
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
           }}
           onFocus={(e) => {
-            e.currentTarget.style.boxShadow = `0 0 0 6px ${GREEN_SOFT}`;
-            e.currentTarget.style.borderColor = GREEN_BORDER;
+            e.currentTarget.style.boxShadow =
+              `inset 0 0 0 1px ${GREEN_BORDER}, 0 0 0 6px ${GREEN_SOFT}`;
           }}
           onBlur={(e) => {
-            e.currentTarget.style.boxShadow = "0 0 0 0 rgba(0,0,0,0)";
-            e.currentTarget.style.borderColor = "rgba(17,24,39,.14)";
+            e.currentTarget.style.boxShadow =
+              "inset 0 0 0 1px rgba(17,24,39,.14)";
           }}
           aria-label="plus"
         >
@@ -132,14 +127,14 @@ export default function PassengerStep({
   const maxPassengers = 8;
   const total = Number(adults || 0) + Number(children || 0);
 
-  // Block wenn mehr als 8
+  /* Block bei >8 */
   if (total > maxPassengers) {
     return (
       <div className="w-full">
         <div
-          className="rounded-2xl border p-5 sm:p-6"
+          className="rounded-2xl border p-5 sm:p-6 ios-fix"
           style={{
-            background: "rgba(15,23,42,.02)", // neutral, edel
+            background: "rgba(15,23,42,.02)",
             borderColor: "rgba(15,23,42,.10)",
             boxShadow: "0 14px 34px rgba(15,23,42,.06)",
           }}
@@ -167,22 +162,16 @@ export default function PassengerStep({
   return (
     <div className="w-full">
       <div className="space-y-4">
+        {/* Card */}
         <div
-          className="rounded-2xl border overflow-hidden"
+          className="rounded-2xl border ios-fix"
           style={{
             borderColor: "var(--amd-border,#e5e7eb)",
             background: "#fff",
             boxShadow: "0 14px 34px rgba(15,23,42,.06)",
+            WebkitMaskImage: "-webkit-radial-gradient(white, black)",
           }}
         >
-          {/* Links: dezente grüne Accent-Leiste (wie bei Cards) */}
-          <div
-            aria-hidden="true"
-            style={{
-              height: 1,
-              background: "transparent",
-            }}
-          />
           <div style={{ display: "grid", gridTemplateColumns: "6px 1fr" }}>
             <div
               aria-hidden="true"

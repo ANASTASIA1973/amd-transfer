@@ -93,6 +93,11 @@ export default function BookingPage() {
     setStep((s) => Math.max(1, s - 1));
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
   };
+const goToStep = (n) => {
+  const target = Math.max(1, Math.min(totalSteps, Number(n) || 1));
+  setStep(target);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
 
   // Form state
   const [orig, setOrig] = React.useState("");
@@ -207,6 +212,9 @@ const [voucher, setVoucher] = React.useState("AMD2026");
   stepLabel={L.stepLabel || "Schritt"}
   ofLabel={L.ofLabel || "von"}
   showTitle={showTitle}
+    onStepChange={goToStep}
+  stepTitles={titles}
+
 >
 
       {step === 1 && <PricesIncludeBlock L={L} />}

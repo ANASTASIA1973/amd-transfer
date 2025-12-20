@@ -1,8 +1,10 @@
 // app/components/ContactStep.jsx
 "use client";
+
 import React, { useState } from "react";
 import t from "../i18n/translations";
 import { useLocale } from "../context/LocaleContext";
+
 import {
   MapPinIcon,
   CalendarIcon,
@@ -15,37 +17,41 @@ import {
   TicketIcon,
   EnvelopeIcon,
 } from "@heroicons/react/24/outline";
+
 import { FaCar, FaMobileAlt, FaWhatsapp } from "react-icons/fa";
 
 /* ===================== Helpers ===================== */
 function formatDurationText(duration, L, locale) {
   if (!duration) return "";
-  let hours = 0,
-    minutes = 0;
-  const hourMatch = duration.match(
+
+  let hours = 0;
+  let minutes = 0;
+
+  const hourMatch = String(duration).match(
     /(\d+)\s*(Stunde|Stunden|hour|hours|hr|hrs|ساعة|ساعات)/i
   );
   if (hourMatch) hours = parseInt(hourMatch[1], 10);
-  const minMatch = duration.match(
+
+  const minMatch = String(duration).match(
     /(\d+)\s*(Minute|Minuten|minutes|min|دقيقة|دقائق)/i
   );
   if (minMatch) minutes = parseInt(minMatch[1], 10);
+
   const parts = [];
-  if (hours > 0)
-    parts.push(hours + " " + (hours === 1 ? L.hourSingular : L.hourPlural));
-  if (minutes > 0)
-    parts.push(
-      minutes + " " + (minutes === 1 ? L.minuteSingular : L.minutePlural)
-    );
-  if (parts.length === 0 && minMatch)
-    parts.push(
-      minutes + " " + (minutes === 1 ? L.minuteSingular : L.minutePlural)
-    );
+  if (hours > 0) parts.push(hours + " " + (hours === 1 ? L.hourSingular : L.hourPlural));
+  if (minutes > 0) parts.push(minutes + " " + (minutes === 1 ? L.minuteSingular : L.minutePlural));
+
+  // falls nur Minuten erkannt wurden, aber parts leer ist
+  if (parts.length === 0 && minMatch) {
+    parts.push(minutes + " " + (minutes === 1 ? L.minuteSingular : L.minutePlural));
+  }
+
   return parts.join(", ");
 }
 
 const ltr = (s) => `\u2066${s}\u2069`;
 
+// Extras-Preise (in $)
 const priceMap = {
   flowers: 35,
   redWine: 2.5,
@@ -75,12 +81,13 @@ const BANK = {
   bic: "BYBALBBX",
 };
 
-/* [NEU] Referral-Code lesen (mobil/desktop tauglich) */
+/* Referral-Code lesen (mobil/desktop tauglich) */
 function getReferralCode() {
   if (typeof window === "undefined") return null;
   try {
     const ls = window.localStorage.getItem("referral_code");
     if (ls && ls.trim()) return ls;
+
     const m = document.cookie.match(/(?:^|;\s*)referral_code=([^;]+)/);
     return m ? decodeURIComponent(m[1]) : null;
   } catch {
@@ -88,7 +95,16 @@ function getReferralCode() {
   }
 }
 
-/* ===================== */
+/* ✅ Robust: Vehicle label ohne [0].toUpperCase-Crash */
+function getVehicleLabel(v, L) {
+  const val = (v ?? "").toString().trim();
+  if (!val) return L?.notSelected || "—";
+
+  const key = "vehicle" + val.charAt(0).toUpperCase() + val.slice(1);
+  return (L && L[key]) ? L[key] : val;
+}
+
+/* ===================== Component ===================== */
 export default function ContactStep({
   orig,
   dest,
@@ -115,10 +131,10 @@ export default function ContactStep({
   returnDistance,
   returnDuration,
   distance,
-  totalBeforeVoucher,
+  totalBeforeVoucher, // aktuell nicht genutzt, bleibt aber drin
   totalPrice,
   returnVehicle = "",
-  partnerId: _ignored,
+  partnerId: _ignored, // wird lokal neu gepflegt
 }) {
   const { locale } = useLocale();
   const L = t[locale] || t.de;
@@ -132,7 +148,6 @@ export default function ContactStep({
   // Firmendaten
   const firmEmail = "info@amd-germancenter.com";
   const whatsappFull = "+96181622668";
-  const whatsappDisplay = "+961 81 622 668";
   const whatsappDisplayCondensed = "+96181622668";
 
   // Form-State
@@ -149,58 +164,79 @@ export default function ContactStep({
 
   /* ---------- Extras ---------- */
   function renderSeatExtras(seatDetails) {
-    if (!seatDetails.length) return [];
-    const all = seatDetails
+    const list = Array.isArray(seatDetails) ? seatDetails : [];
+    if (!list.length) return [];
+
+    const all = list
       .map(({ key, count, unit }) => ({ key, count, unit }))
-      .filter(({ count }) => count > 0)
-      .sort((a, b) => a.unit - b.unit);
+      .filter(({ count }) => Number(count) > 0)
+      .sort((a, b) => (a.unit || 0) - (b.unit || 0));
+
     if (!all.length) return [];
+
     const items = [];
     let freeGiven = false;
+
     all.forEach(({ key, count, unit }) => {
-      let label = `${L[seatLabelMap[key]]} x${count}`;
+      const c = Number(count) || 0;
+      const u = Number(unit) || 0;
+
+      let label = `${L[seatLabelMap[key]]} x${c}`;
+
       if (!freeGiven) {
-        if (count === 1) {
+        if (c === 1) {
           label += ` (${L.freeBadgeText}): $0.00`;
           freeGiven = true;
-        } else if (count > 1) {
-          label += `: $${((count - 1) * unit).toFixed(2)} (${L.freeBadgeText})`;
+        } else if (c > 1) {
+          label += `: $${((c - 1) * u).toFixed(2)} (${L.freeBadgeText})`;
           freeGiven = true;
         }
       } else {
-        label += `: $${(count * unit).toFixed(2)}`;
+        label += `: $${(c * u).toFixed(2)}`;
       }
+
       items.push(label);
     });
+
     return items;
   }
+
   function renderOtherExtras(details) {
-    return details
-      .filter(({ count }) => count > 0)
-      .map(
-        ({ key, count }) =>
-          `${L[key]} x${count}: $${((priceMap[key] || 0) * count).toFixed(2)}`
-      );
+    const list = Array.isArray(details) ? details : [];
+    return list
+      .filter(({ count }) => Number(count) > 0)
+      .map(({ key, count }) => {
+        const c = Number(count) || 0;
+        const price = Number(priceMap[key] || 0);
+        return `${L[key]} x${c}: $${(price * c).toFixed(2)}`;
+      });
   }
+
   function calcExtrasTotal(seatDetails, otherDetails) {
-    let seats = seatDetails
-      .map(({ count, unit }) => Array(count).fill(unit))
+    const seatList = Array.isArray(seatDetails) ? seatDetails : [];
+    const otherList = Array.isArray(otherDetails) ? otherDetails : [];
+
+    let seats = seatList
+      .map(({ count, unit }) => Array(Number(count) || 0).fill(Number(unit) || 0))
       .flat()
       .sort((a, b) => a - b);
-    if (seats.length > 0) seats.shift(); // erster Sitz kostenlos
+
+    // erster Sitz kostenlos
+    if (seats.length > 0) seats.shift();
+
     const seatSum = seats.reduce((a, b) => a + b, 0);
-    const otherSum = otherDetails.reduce(
-      (sum, { key, count }) => sum + (priceMap[key] || 0) * count,
-      0
-    );
+    const otherSum = otherList.reduce((sum, { key, count }) => {
+      const c = Number(count) || 0;
+      const price = Number(priceMap[key] || 0);
+      return sum + price * c;
+    }, 0);
+
     return seatSum + otherSum;
   }
 
   /* ---------- Mail/WA-Text ---------- */
   function buildBookingText() {
-    const partnerLabel =
-      (L.partnerIdLabel || "Partner ID").replace(/\s*\(.*\)/, "");
-
+    const partnerLabel = (L.partnerIdLabel || "Partner ID").replace(/\s*\(.*\)/, "");
     const referral = getReferralCode();
 
     let lines = [
@@ -217,78 +253,71 @@ export default function ContactStep({
           ? L.cashBtn
           : L.bankBtn || "Banküberweisung"
       }`,
-      `${L.vehicleLabel}: ${
-        L["vehicle" + vehicle[0].toUpperCase() + vehicle.slice(1)] || vehicle
-      }`,
+      `${L.vehicleLabel}: ${getVehicleLabel(vehicle, L)}`,
       `${L.pickupLabel}: ${orig}`,
       `${L.destinationLabel}: ${dest}`,
       `${L.dateTimeLabel}: ${fmt(dateTime)}`,
-      `${L.ridePriceLabel}: $${ridePrice?.toFixed(2)}`,
-      `${L.vehicleSurchargeLabel}: $${vehicleSurcharge?.toFixed(2)}`,
+      `${L.ridePriceLabel}: $${Number(ridePrice || 0).toFixed(2)}`,
+      `${L.vehicleSurchargeLabel}: $${Number(vehicleSurcharge || 0).toFixed(2)}`,
       `${
         L.streckeLabel
-          ? L.streckeLabel.replace("{km}", distance?.toFixed(1) || "")
-          : (L.distanceLabel || "").replace("{km}", distance?.toFixed(1) || "")
+          ? L.streckeLabel.replace("{km}", distance?.toFixed?.(1) || "")
+          : (L.distanceLabel || "").replace("{km}", distance?.toFixed?.(1) || "")
       }`,
       `${L.durationLabel}: ${formatDurationText(duration, L, locale)}`,
       ...(flightNo ? [`${L.flightNoLabel}: ${flightNo}`] : []),
       `${L.adultsLabel}: ${adults}`,
       `${L.childrenLabel}: ${children}`,
     ];
+
     if (isReturn) {
       lines = lines.concat([
         "",
         "----",
         `${L.returnTripLabel}:`,
-        `${L.vehicleLabel}: ${
-          L[
-            "vehicle" + returnVehicle[0].toUpperCase() + returnVehicle.slice(1)
-          ] || returnVehicle
-        }`,
+        `${L.vehicleLabel}: ${getVehicleLabel(returnVehicle, L)}`,
         `${L.pickupLabel}: ${returnOrig}`,
         `${L.destinationLabel}: ${returnDest}`,
         `${L.returnDateTimeLabel}: ${fmt(returnDateTime)}`,
         `${
           L.streckeLabel
-            ? L.streckeLabel.replace("{km}", returnDistance?.toFixed(1) || "")
-            : (L.distanceLabel || "").replace(
-                "{km}",
-                returnDistance?.toFixed(1) || ""
-              )
+            ? L.streckeLabel.replace("{km}", returnDistance?.toFixed?.(1) || "")
+            : (L.distanceLabel || "").replace("{km}", returnDistance?.toFixed?.(1) || "")
         }`,
         `${L.durationLabel}: ${formatDurationText(returnDuration, L, locale)}`,
       ]);
     }
+
     const seatList = renderSeatExtras(seatExtrasDetails);
     const otherList = renderOtherExtras(otherExtrasDetails);
+
     if (seatList.length || otherList.length) {
-      lines.push("", L.extrasStepTitle + ":");
+      lines.push("", (L.extrasStepTitle || "Extras") + ":");
       seatList.forEach((x) => lines.push("- " + x));
       otherList.forEach((x) => lines.push("- " + x));
       lines.push(
-        `${L.extrasTotalLabel}: $${calcExtrasTotal(
-          seatExtrasDetails,
-          otherExtrasDetails
-        ).toFixed(2)}`
+        `${L.extrasTotalLabel}: $${calcExtrasTotal(seatExtrasDetails, otherExtrasDetails).toFixed(2)}`
       );
     }
-    if (isReturn)
-      lines.push(
-        `${L.returnDiscountLabel}: -$${Math.abs(returnDiscount).toFixed(2)}`
-      );
-    if (voucherDiscount)
-      lines.push(`${L.voucherLabel}: -$${voucherDiscount.toFixed(2)}`);
+
+    if (isReturn) {
+      lines.push(`${L.returnDiscountLabel}: -$${Math.abs(Number(returnDiscount || 0)).toFixed(2)}`);
+    }
+
+    if (Number(voucherDiscount || 0) > 0) {
+      lines.push(`${L.voucherLabel}: -$${Number(voucherDiscount || 0).toFixed(2)}`);
+    }
+
     lines.push(`${L.totalLabel}: $${totalPrice}`);
     return lines.join("\n");
   }
 
   const body = encodeURIComponent(buildBookingText());
-  const mailtoLink = `mailto:${firmEmail}?subject=${encodeURIComponent(
-    L.emailSubject
-  )}&body=${body}`;
+  const subject = L.emailSubject || "Booking request";
+  const mailtoLink = `mailto:${firmEmail}?subject=${encodeURIComponent(subject)}&body=${body}`;
   const whatsappLink = `https://wa.me/${whatsappFull.replace(/\D/g, "")}?text=${body}`;
 
-  const canSubmit = firstName && lastName && email && phone;
+  const canSubmit = Boolean(firstName && lastName && email && phone);
 
   const copy = async (text, which) => {
     try {
@@ -296,14 +325,12 @@ export default function ContactStep({
       setCopied(which);
       setTimeout(() => setCopied(""), 1200);
     } catch {
-      /* ignore */
+      // ignore
     }
   };
 
   /* ===================== Premium tokens (nur Styles) ===================== */
   const ACCENT = "#1f6f3a";
-  const ACCENT_SOFT = "rgba(31,111,58,.10)";
-  const ACCENT_BORDER = "rgba(31,111,58,.20)";
   const HEADING = "#0b1f3a";
   const TEXT = "rgba(17,24,39,.74)";
   const BORDER = "rgba(17,24,39,.10)";
@@ -343,13 +370,12 @@ export default function ContactStep({
         />
         <div style={{ padding: "1.1rem 1.1rem 1.15rem 1.45rem" }}>
           <div className="flex items-center font-extrabold mb-2" style={{ color: HEADING }}>
-            <span className="mr-2" style={{ color: "#C09743" }}>{icon}</span>
+            <span className="mr-2" style={{ color: "#C09743" }}>
+              {icon}
+            </span>
             {title}
           </div>
-          <div
-            aria-hidden="true"
-            style={{ height: 1, background: "rgba(17,24,39,.08)", marginBottom: ".75rem" }}
-          />
+          <div aria-hidden="true" style={{ height: 1, background: "rgba(17,24,39,.08)", marginBottom: ".75rem" }} />
           {children}
         </div>
       </div>
@@ -371,99 +397,86 @@ export default function ContactStep({
         {/* Hin- und Rückfahrt Übersicht */}
         <div className="grid md:grid-cols-2 gap-4">
           {/* Hinfahrt */}
-          <Section
-            icon={<FaCar className="w-5 h-5" />}
-            title={L.outwardTripTitle || "Hinfahrt"}
-            tone="green"
-          >
+          <Section icon={<FaCar className="w-5 h-5" />} title={L.outwardTripTitle || "Hinfahrt"} tone="green">
             <div className="flex flex-col gap-1" style={{ color: "rgba(17,24,39,.86)" }}>
               <div className="flex items-center min-w-0">
                 <MapPinIcon className="w-4 h-4 mr-1 shrink-0" />
                 <span className="truncate">{orig}</span>
               </div>
+
               <div className="flex items-center min-w-0">
                 <MapPinIcon className="w-4 h-4 mr-1 rotate-180 shrink-0" />
                 <span className="truncate">{dest}</span>
               </div>
+
               <div className="flex items-center min-w-0">
                 <CalendarIcon className="w-4 h-4 mr-1 shrink-0" />
                 <span className="truncate">{fmt(dateTime)}</span>
               </div>
+
               <div className="flex items-center min-w-0">
                 <ClockIcon className="w-4 h-4 mr-1 shrink-0" />
-                <span className="truncate">
-                  {formatDurationText(duration, L, locale)}
-                </span>
+                <span className="truncate">{formatDurationText(duration, L, locale)}</span>
               </div>
+
               <div className="flex items-center min-w-0">
                 <span className="w-4 h-4 mr-1 shrink-0">📏</span>
                 <span className="truncate">
-                  {(L.streckeLabel ? L.streckeLabel : L.distanceLabel || "").replace(
-                    "{km}",
-                    distance?.toFixed(1) || ""
-                  )}
+                  {(L.streckeLabel ? L.streckeLabel : L.distanceLabel || "").replace("{km}", distance?.toFixed?.(1) || "")}
                 </span>
               </div>
+
               {flightNo && (
                 <div className="flex items-center min-w-0">
                   <TicketIcon className="w-4 h-4 mr-1 shrink-0" />
                   <span className="truncate">{flightNo}</span>
                 </div>
               )}
+
               <div className="flex items-center min-w-0">
                 <CheckCircleIcon className="w-4 h-4 mr-1 shrink-0" style={{ color: ACCENT }} />
-                <span className="truncate">
-                  {L["vehicle" + vehicle[0].toUpperCase() + vehicle.slice(1)] ||
-                    vehicle}
-                </span>
+                <span className="truncate">{getVehicleLabel(vehicle, L)}</span>
               </div>
             </div>
           </Section>
 
           {/* Rückfahrt */}
           {isReturn && (
-            <Section
-              icon={<FaCar className="w-5 h-5" />}
-              title={L.returnTripLabel}
-              tone="green"
-            >
+            <Section icon={<FaCar className="w-5 h-5" />} title={L.returnTripLabel} tone="green">
               <div className="flex flex-col gap-1" style={{ color: "rgba(17,24,39,.86)" }}>
                 <div className="flex items-center min-w-0">
                   <MapPinIcon className="w-4 h-4 mr-1 shrink-0" />
                   <span className="truncate">{returnOrig}</span>
                 </div>
+
                 <div className="flex items-center min-w-0">
                   <MapPinIcon className="w-4 h-4 mr-1 rotate-180 shrink-0" />
                   <span className="truncate">{returnDest}</span>
                 </div>
+
                 <div className="flex items-center min-w-0">
                   <CalendarIcon className="w-4 h-4 mr-1 shrink-0" />
                   <span className="truncate">{fmt(returnDateTime)}</span>
                 </div>
+
                 <div className="flex items-center min-w-0">
                   <ClockIcon className="w-4 h-4 mr-1 shrink-0" />
-                  <span className="truncate">
-                    {formatDurationText(returnDuration, L, locale)}
-                  </span>
+                  <span className="truncate">{formatDurationText(returnDuration, L, locale)}</span>
                 </div>
+
                 <div className="flex items-center min-w-0">
                   <span className="w-4 h-4 mr-1 shrink-0">📏</span>
                   <span className="truncate">
                     {(L.streckeLabel ? L.streckeLabel : L.distanceLabel || "").replace(
                       "{km}",
-                      returnDistance?.toFixed(1) || ""
+                      returnDistance?.toFixed?.(1) || ""
                     )}
                   </span>
                 </div>
+
                 <div className="flex items-center min-w-0">
                   <CheckCircleIcon className="w-4 h-4 mr-1 shrink-0" style={{ color: ACCENT }} />
-                  <span className="truncate">
-                    {L[
-                      "vehicle" +
-                        returnVehicle[0].toUpperCase() +
-                        returnVehicle.slice(1)
-                    ] || returnVehicle}
-                  </span>
+                  <span className="truncate">{getVehicleLabel(returnVehicle, L)}</span>
                 </div>
               </div>
             </Section>
@@ -471,11 +484,7 @@ export default function ContactStep({
         </div>
 
         {/* Passagiere & Fahrzeug */}
-        <Section
-          icon={<UsersIcon className="w-5 h-5" />}
-          title={L.passengersVehicleTitle || "Passagiere & Fahrzeug"}
-          tone="white"
-        >
+        <Section icon={<UsersIcon className="w-5 h-5" />} title={L.passengersVehicleTitle || "Passagiere & Fahrzeug"} tone="white">
           <div className="flex flex-col md:flex-row md:items-center md:gap-8 gap-2">
             <div className="flex items-center gap-2">
               <UsersIcon className="w-5 h-5" style={{ color: "#C09743" }} />
@@ -483,29 +492,29 @@ export default function ContactStep({
                 {adults} {L.adultsLabel}
               </span>
             </div>
+
             <div className="flex items-center gap-2">
               <UserIcon className="w-5 h-5" style={{ color: "#C09743" }} />
               <span className="font-semibold" style={{ color: HEADING }}>
                 {children} {L.childrenLabel}
               </span>
             </div>
+
             <div className="flex items-center gap-2">
               <FaCar className="w-5 h-5" style={{ color: "#C09743" }} />
               <span className="font-semibold" style={{ color: HEADING }}>
-                {L["vehicle" + vehicle[0].toUpperCase() + vehicle.slice(1)] ||
-                  vehicle}
+                {getVehicleLabel(vehicle, L)}
               </span>
             </div>
           </div>
         </Section>
 
         {/* Extras */}
-        {(renderSeatExtras(seatExtrasDetails).length > 0 ||
-          renderOtherExtras(otherExtrasDetails).length > 0) && (
+        {(renderSeatExtras(seatExtrasDetails).length > 0 || renderOtherExtras(otherExtrasDetails).length > 0) && (
           <Section icon={<GiftIcon className="w-5 h-5" />} title={L.extrasStepTitle} tone="green">
             <ul className="ml-5 space-y-1" style={{ color: "rgba(17,24,39,.86)", listStyleType: "disc" }}>
               {renderSeatExtras(seatExtrasDetails).map((x, i) => (
-                <li key={"seat" + i} style={{ markerColor: ACCENT }}>
+                <li key={"seat" + i}>
                   <span>{x}</span>
                 </li>
               ))}
@@ -515,57 +524,55 @@ export default function ContactStep({
                 </li>
               ))}
             </ul>
+
             <div className="font-extrabold mt-3" style={{ color: HEADING }}>
-              {L.extrasTotalLabel}: $
-              {calcExtrasTotal(seatExtrasDetails, otherExtrasDetails).toFixed(2)}
+              {L.extrasTotalLabel}: ${calcExtrasTotal(seatExtrasDetails, otherExtrasDetails).toFixed(2)}
             </div>
           </Section>
         )}
 
         {/* Preisübersicht */}
-        <Section
-          icon={<CreditCardIcon className="w-5 h-5" />}
-          title={L.priceOverviewTitle || "Preisübersicht"}
-          tone="warm"
-        >
+        <Section icon={<CreditCardIcon className="w-5 h-5" />} title={L.priceOverviewTitle || "Preisübersicht"} tone="warm">
           <div className="space-y-1" style={{ color: "rgba(17,24,39,.86)" }}>
             <div className="flex justify-between">
               <span style={{ color: TEXT }}>{L.ridePriceLabel}:</span>
-              <span className="font-semibold">${ridePrice?.toFixed(2)}</span>
+              <span className="font-semibold">${Number(ridePrice || 0).toFixed(2)}</span>
             </div>
+
             <div className="flex justify-between">
               <span style={{ color: TEXT }}>{L.vehicleSurchargeLabel}:</span>
-              <span className="font-semibold">${vehicleSurcharge?.toFixed(2)}</span>
+              <span className="font-semibold">${Number(vehicleSurcharge || 0).toFixed(2)}</span>
             </div>
+
             {isReturn && (
               <div className="flex justify-between">
                 <span style={{ color: TEXT }}>{L.returnDiscountLabel}:</span>
                 <span className="font-semibold" style={{ color: ACCENT }}>
-                  -${Math.abs(returnDiscount).toFixed(2)}
+                  -${Math.abs(Number(returnDiscount || 0)).toFixed(2)}
                 </span>
               </div>
             )}
-            {voucherDiscount > 0 && (
+
+            {Number(voucherDiscount || 0) > 0 && (
               <div className="flex justify-between">
                 <span style={{ color: TEXT }}>{L.voucherLabel}:</span>
                 <span className="font-semibold" style={{ color: ACCENT }}>
-                  -${voucherDiscount.toFixed(2)}
+                  -${Number(voucherDiscount || 0).toFixed(2)}
                 </span>
               </div>
             )}
+
             <div className="flex justify-between">
               <span style={{ color: TEXT }}>{L.extrasTotalLabel}:</span>
-              <span className="font-semibold">
-                $
-                {calcExtrasTotal(seatExtrasDetails, otherExtrasDetails).toFixed(2)}
-              </span>
+              <span className="font-semibold">${calcExtrasTotal(seatExtrasDetails, otherExtrasDetails).toFixed(2)}</span>
             </div>
 
             <div
               className="pt-3 mt-2 flex justify-between text-lg font-extrabold"
               style={{ borderTop: "1px solid rgba(17,24,39,.10)", color: HEADING }}
             >
-              <span>{L.totalLabel}:</span> <span>${totalPrice}</span>
+              <span>{L.totalLabel}:</span>
+              <span>${totalPrice}</span>
             </div>
           </div>
         </Section>
@@ -603,6 +610,7 @@ export default function ContactStep({
             style={{ borderColor: BORDER }}
           />
         </div>
+
         <div>
           <label className="block mb-1 font-semibold" style={{ color: HEADING }}>
             {L.lastNameLabel}
@@ -615,6 +623,7 @@ export default function ContactStep({
             style={{ borderColor: BORDER }}
           />
         </div>
+
         <div>
           <label className="block mb-1 font-semibold" style={{ color: HEADING }}>
             {L.emailLabel}
@@ -628,6 +637,7 @@ export default function ContactStep({
             autoComplete="off"
           />
         </div>
+
         <div>
           <label className="block mb-1 font-semibold" style={{ color: HEADING }}>
             {L.phoneLabel}
@@ -644,7 +654,7 @@ export default function ContactStep({
         </div>
       </div>
 
-      {/* Flugnummer – jetzt vor Reisebüro-ID */}
+      {/* Flugnummer */}
       <div>
         <label className="block mb-1 font-semibold" style={{ color: HEADING }}>
           {L.flightNoLabel}
@@ -660,7 +670,7 @@ export default function ContactStep({
         />
       </div>
 
-      {/* Reisebüro-ID – nach Flugnummer */}
+      {/* Reisebüro-ID */}
       <div>
         <label className="block mb-1 font-semibold" style={{ color: HEADING }}>
           {L.partnerIdLabel || "Reisebüro-ID (optional)"}
@@ -680,212 +690,201 @@ export default function ContactStep({
         />
       </div>
 
-{/* Zahlungsarten */}
-<div>
-  <label className="block mb-2 font-semibold" style={{ color: HEADING }}>
-    {L.paymentTitle}
-  </label>
+      {/* Zahlungsarten */}
+      <div>
+        <label className="block mb-2 font-semibold" style={{ color: HEADING }}>
+          {L.paymentTitle}
+        </label>
 
-  <div className="flex flex-wrap items-center gap-2">
-    {[
-      { key: "whish", label: L.whishBtn },
-      { key: "cash", label: L.cashBtn },
-      { key: "bank", label: L.bankBtn || "Banküberweisung" },
-    ].map((m) => {
-      const active = paymentMethod === m.key;
+        <div className="flex flex-wrap items-center gap-2">
+          {[
+            { key: "whish", label: L.whishBtn },
+            { key: "cash", label: L.cashBtn },
+            { key: "bank", label: L.bankBtn || "Banküberweisung" },
+          ].map((m) => {
+            const active = paymentMethod === m.key;
 
-      return (
-        <button
-          key={m.key}
-          type="button"
-          onClick={() => setPaymentMethod(m.key)}
-          className="px-3 py-2 rounded-xl border font-semibold transition"
-          style={{
-            background: active ? "var(--amd-primary,#c1272d)" : "#fff",
-            color: active ? "#fff" : HEADING,
-            borderColor: active ? "rgba(193,39,45,.55)" : BORDER,
-          }}
-        >
-          {m.label}
-        </button>
-      );
-    })}
-  </div>
-</div>
-
-{/* Whish-Details */}
-{paymentMethod === "whish" && (
-  <div
-    className="rounded-2xl p-4 sm:p-5 my-4 overflow-hidden w-full max-w-full"
-    style={{
-      border: "1px solid rgba(31,111,58,.28)",
-      background:
-        "linear-gradient(180deg, rgba(31,111,58,.08) 0%, rgba(255,255,255,1) 62%)",
-      boxShadow: "0 14px 34px rgba(15,23,42,.08)",
-    }}
-  >
-    <div className="mb-2 font-semibold" style={{ color: "#0b1f3a" }}>
-      {L.whishInfoTitle}
-    </div>
-
-    <div className="mb-2 text-sm break-words [word-break:anywhere]" style={{ color: "rgba(17,24,39,.80)" }}>
-      {L.whishStep1}
-      <br />
-      {L.whishStep2}
-    </div>
-
-    <div className="flex flex-wrap items-center gap-4 min-w-0 w-full max-w-full">
-      <span
-        className="font-bold font-mono break-words [word-break:anywhere]"
-        dir="ltr"
-        style={{ color: "#0b1f3a" }}
-      >
-        {L.whishStep3.replace("{number}", ltr(whatsappDisplayCondensed))}
-      </span>
-
-      <button
-        type="button"
-        className="text-xs font-semibold shrink-0 rounded-lg px-2 py-1"
-        onClick={() => setShowWhishQr((v) => !v)}
-        style={{
-          border: "1px solid rgba(31,111,58,.22)",
-          color: "rgba(31,111,58,.95)",
-          background: "rgba(31,111,58,.08)",
-        }}
-      >
-        {showWhishQr ? (L.whishToggleToText?.qr || "Einfacher Modus") : (L.whishToggleToText?.text || "QR-Code anzeigen")}
-      </button>
-    </div>
-
-    {showWhishQr && (
-      <div className="mt-4 flex flex-col items-center">
-        <div
-          style={{
-            borderRadius: 16,
-            border: "1px solid rgba(31,111,58,.22)",
-            background: "#fff",
-            padding: 10,
-            boxShadow: "0 10px 24px rgba(15,23,42,.08)",
-          }}
-        >
-          <img
-            src={WHISH_QR_SRC}
-            alt="Whish QR"
-            style={{ width: 130, height: 130, objectFit: "contain" }}
-          />
-        </div>
-
-        <div
-          className="text-xs mt-2 font-mono text-center break-words [word-break:anywhere]"
-          dir="ltr"
-          style={{ color: "rgba(17,24,39,.58)" }}
-        >
-          {L.whishStep3.replace("{number}", ltr(whatsappDisplayCondensed))}
+            return (
+              <button
+                key={m.key}
+                type="button"
+                onClick={() => setPaymentMethod(m.key)}
+                className="px-3 py-2 rounded-xl border font-semibold transition"
+                style={{
+                  background: active ? "var(--amd-primary,#c1272d)" : "#fff",
+                  color: active ? "#fff" : HEADING,
+                  borderColor: active ? "rgba(193,39,45,.55)" : BORDER,
+                }}
+              >
+                {m.label}
+              </button>
+            );
+          })}
         </div>
       </div>
-    )}
-  </div>
-)}
 
-
-{/* Bank-Details (FEHLTE BEI DIR) */}
-{paymentMethod === "bank" && (
-  <div
-    className="rounded-2xl p-4 sm:p-5 my-4 space-y-2 overflow-hidden"
-    style={{
-      border: "1px solid rgba(31,111,58,.28)",
-      background:
-        "linear-gradient(180deg, rgba(31,111,58,.06) 0%, rgba(255,255,255,1) 70%)",
-      boxShadow: "0 14px 34px rgba(15,23,42,.08)",
-    }}
-  >
-    <div className="font-semibold" style={{ color: "#0b1f3a" }}>
-      {L.bankInfoTitle || "Bankdaten für Überweisung"}
-    </div>
-
-    <div className="grid md:grid-cols-2 gap-3 text-sm" style={{ color: "rgba(17,24,39,.82)" }}>
-      <div>
-        <span className="font-medium">{L.accountName || "Kontoinhaber"}:</span>{" "}
-        {BANK.accountName}
-      </div>
-
-      <div>
-        <span className="font-medium">{L.bankName || "Bank"}:</span> {BANK.bankName}
-      </div>
-
-      {/* IBAN */}
-      <div className="flex items-center gap-2 min-w-0">
-        <span className="font-medium shrink-0">{L.iban || "IBAN"}:</span>
-
-        <span
-          className="font-mono overflow-x-auto block md:[letter-spacing:0.02em]"
-          dir="ltr"
-          translate="no"
-          title={BANK.ibanRaw}
+      {/* Whish-Details */}
+      {paymentMethod === "whish" && (
+        <div
+          className="rounded-2xl p-4 sm:p-5 my-4 overflow-hidden w-full max-w-full"
           style={{
-            padding: "6px 10px",
-            borderRadius: 12,
-            border: "1px solid rgba(31,111,58,.18)",
-            background: "rgba(31,111,58,.06)",
-            maxWidth: "100%",
+            border: "1px solid rgba(31,111,58,.28)",
+            background: "linear-gradient(180deg, rgba(31,111,58,.08) 0%, rgba(255,255,255,1) 62%)",
+            boxShadow: "0 14px 34px rgba(15,23,42,.08)",
           }}
         >
-          {BANK.ibanRaw}
-        </span>
+          <div className="mb-2 font-semibold" style={{ color: "#0b1f3a" }}>
+            {L.whishInfoTitle}
+          </div>
 
-        <button
-          type="button"
-          className="text-xs font-semibold shrink-0 rounded-lg px-2 py-1"
-          onClick={() => copy(BANK.ibanRaw, "iban")}
+          <div className="mb-2 text-sm break-words [word-break:anywhere]" style={{ color: "rgba(17,24,39,.80)" }}>
+            {L.whishStep1}
+            <br />
+            {L.whishStep2}
+          </div>
+
+          <div className="flex flex-wrap items-center gap-4 min-w-0 w-full max-w-full">
+            <span className="font-bold font-mono break-words [word-break:anywhere]" dir="ltr" style={{ color: "#0b1f3a" }}>
+              {L.whishStep3.replace("{number}", ltr(whatsappDisplayCondensed))}
+            </span>
+
+            <button
+              type="button"
+              className="text-xs font-semibold shrink-0 rounded-lg px-2 py-1"
+              onClick={() => setShowWhishQr((v) => !v)}
+              style={{
+                border: "1px solid rgba(31,111,58,.22)",
+                color: "rgba(31,111,58,.95)",
+                background: "rgba(31,111,58,.08)",
+              }}
+            >
+              {showWhishQr
+                ? (L.whishToggleToText?.qr || "Einfacher Modus")
+                : (L.whishToggleToText?.text || "QR-Code anzeigen")}
+            </button>
+          </div>
+
+          {showWhishQr && (
+            <div className="mt-4 flex flex-col items-center">
+              <div
+                style={{
+                  borderRadius: 16,
+                  border: "1px solid rgba(31,111,58,.22)",
+                  background: "#fff",
+                  padding: 10,
+                  boxShadow: "0 10px 24px rgba(15,23,42,.08)",
+                }}
+              >
+                <img src={WHISH_QR_SRC} alt="Whish QR" style={{ width: 130, height: 130, objectFit: "contain" }} />
+              </div>
+
+              <div
+                className="text-xs mt-2 font-mono text-center break-words [word-break:anywhere]"
+                dir="ltr"
+                style={{ color: "rgba(17,24,39,.58)" }}
+              >
+                {L.whishStep3.replace("{number}", ltr(whatsappDisplayCondensed))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Bank-Details */}
+      {paymentMethod === "bank" && (
+        <div
+          className="rounded-2xl p-4 sm:p-5 my-4 space-y-2 overflow-hidden"
           style={{
-            border: "1px solid rgba(31,111,58,.22)",
-            color: "rgba(31,111,58,.95)",
-            background: "rgba(31,111,58,.08)",
+            border: "1px solid rgba(31,111,58,.28)",
+            background: "linear-gradient(180deg, rgba(31,111,58,.06) 0%, rgba(255,255,255,1) 70%)",
+            boxShadow: "0 14px 34px rgba(15,23,42,.08)",
           }}
         >
-          {copied === "iban" ? (L.copied || "Kopiert!") : (L.copy || "Kopieren")}
-        </button>
-      </div>
+          <div className="font-semibold" style={{ color: "#0b1f3a" }}>
+            {L.bankInfoTitle || "Bankdaten für Überweisung"}
+          </div>
 
-      {/* BIC */}
-      <div className="flex items-center gap-2 min-w-0">
-        <span className="font-medium shrink-0">{L.bic || "BIC"}:</span>
+          <div className="grid md:grid-cols-2 gap-3 text-sm" style={{ color: "rgba(17,24,39,.82)" }}>
+            <div>
+              <span className="font-medium">{L.accountName || "Kontoinhaber"}:</span> {BANK.accountName}
+            </div>
 
-        <span
-          className="font-mono overflow-x-auto block"
-          dir="ltr"
-          translate="no"
-          title={BANK.bic}
-          style={{
-            padding: "6px 10px",
-            borderRadius: 12,
-            border: "1px solid rgba(31,111,58,.18)",
-            background: "rgba(31,111,58,.06)",
-            maxWidth: "100%",
-          }}
-        >
-          {BANK.bic}
-        </span>
+            <div>
+              <span className="font-medium">{L.bankName || "Bank"}:</span> {BANK.bankName}
+            </div>
 
-        <button
-          type="button"
-          className="text-xs font-semibold shrink-0 rounded-lg px-2 py-1"
-          onClick={() => copy(BANK.bic, "bic")}
-          style={{
-            border: "1px solid rgba(31,111,58,.22)",
-            color: "rgba(31,111,58,.95)",
-            background: "rgba(31,111,58,.08)",
-          }}
-        >
-          {copied === "bic" ? (L.copied || "Kopiert!") : (L.copy || "Kopieren")}
-        </button>
-      </div>
-    </div>
-  </div>
-)}
+            {/* IBAN */}
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="font-medium shrink-0">{L.iban || "IBAN"}:</span>
 
+              <span
+                className="font-mono overflow-x-auto block md:[letter-spacing:0.02em]"
+                dir="ltr"
+                translate="no"
+                title={BANK.ibanRaw}
+                style={{
+                  padding: "6px 10px",
+                  borderRadius: 12,
+                  border: "1px solid rgba(31,111,58,.18)",
+                  background: "rgba(31,111,58,.06)",
+                  maxWidth: "100%",
+                }}
+              >
+                {BANK.ibanRaw}
+              </span>
 
-      {/* Buttons (mobile-first, kompakt) */}
+              <button
+                type="button"
+                className="text-xs font-semibold shrink-0 rounded-lg px-2 py-1"
+                onClick={() => copy(BANK.ibanRaw, "iban")}
+                style={{
+                  border: "1px solid rgba(31,111,58,.22)",
+                  color: "rgba(31,111,58,.95)",
+                  background: "rgba(31,111,58,.08)",
+                }}
+              >
+                {copied === "iban" ? (L.copied || "Kopiert!") : (L.copy || "Kopieren")}
+              </button>
+            </div>
+
+            {/* BIC */}
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="font-medium shrink-0">{L.bic || "BIC"}:</span>
+
+              <span
+                className="font-mono overflow-x-auto block"
+                dir="ltr"
+                translate="no"
+                title={BANK.bic}
+                style={{
+                  padding: "6px 10px",
+                  borderRadius: 12,
+                  border: "1px solid rgba(31,111,58,.18)",
+                  background: "rgba(31,111,58,.06)",
+                  maxWidth: "100%",
+                }}
+              >
+                {BANK.bic}
+              </span>
+
+              <button
+                type="button"
+                className="text-xs font-semibold shrink-0 rounded-lg px-2 py-1"
+                onClick={() => copy(BANK.bic, "bic")}
+                style={{
+                  border: "1px solid rgba(31,111,58,.22)",
+                  color: "rgba(31,111,58,.95)",
+                  background: "rgba(31,111,58,.08)",
+                }}
+              >
+                {copied === "bic" ? (L.copied || "Kopiert!") : (L.copy || "Kopieren")}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Buttons */}
       <div className="mt-6">
         <div className="grid grid-cols-2 sm:flex sm:flex-row gap-3 items-stretch">
           {/* Zurück */}

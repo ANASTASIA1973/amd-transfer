@@ -27,6 +27,20 @@ body {
 /* Global Fixes                                            */
 /* ===================================================== */
 
+/* iOS / Safari: Tap-Highlight aus + weniger Render-Flackern (nur Transfer-App) */
+body[data-app="amd-transfer"] * {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@supports (-webkit-touch-callout: none) {
+  body[data-app="amd-transfer"] .ios-fix {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}
+
 /* Google-Autocomplete immer über dem Layout anzeigen */
 .pac-container {
   z-index: 10000 !important;
