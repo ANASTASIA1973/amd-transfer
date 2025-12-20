@@ -43,7 +43,7 @@ function CounterRow({ icon, label, value, onMinus, onPlus, minusDisabled }) {
           onClick={onMinus}
           disabled={minusDisabled}
           className={[
-            "w-11 h-11 rounded-full ios-fix",
+           "w-11 h-11 rounded-full ios-fix counter-pill",
             "inline-flex items-center justify-center text-xl",
             "transition focus:outline-none",
             minusDisabled ? "opacity-40 cursor-not-allowed" : "hover:shadow-sm",
@@ -87,7 +87,7 @@ function CounterRow({ icon, label, value, onMinus, onPlus, minusDisabled }) {
         <button
           type="button"
           onClick={onPlus}
-          className="w-11 h-11 rounded-full ios-fix inline-flex items-center justify-center text-xl transition hover:shadow-sm focus:outline-none"
+          className="w-11 h-11 rounded-full ios-fix counter-pill inline-flex items-center justify-center text-xl transition hover:shadow-sm focus:outline-none"
           style={{
             background: "#fff",
             color: "rgba(11,31,58,.95)",

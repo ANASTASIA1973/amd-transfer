@@ -256,15 +256,14 @@ body[data-app="amd-transfer"] .lang-switch .active {
     margin-left:auto;
   }
 }
-/* ========================================= */
-/* iOS: Plus/Minus Pills – kein Jump bei Tap */
-/* ========================================= */
-body[data-app="amd-transfer"] button:focus {
+/* Counter Pills: iPhone Tap darf NICHT “springen” */
+body[data-app="amd-transfer"] .counter-pill:focus {
   outline: none;
-  box-shadow: none;
+  box-shadow: inset 0 0 0 1px rgba(17,24,39,.14);
 }
 
-body[data-app="amd-transfer"] button:focus-visible {
+/* Ring nur bei Tastatur (Tab) */
+body[data-app="amd-transfer"] .counter-pill:focus-visible {
   box-shadow:
     inset 0 0 0 1px rgba(31,111,58,.22),
     0 0 0 4px rgba(31,111,58,.10);
