@@ -93,18 +93,50 @@ export default function RouteStep({
 
   // Map initialisieren
   useEffect(() => {
-    if (!window.google?.maps || !mapRef.current) return;
+    if (!mapRef.current) return;
     if (map) return;
 
-    const _map = new window.google.maps.Map(mapRef.current, {
-      center: { lat: 33.8886, lng: 35.4955 },
-      zoom: 11,
-      disableDefaultUI: true,
-      zoomControl: true,
-    });
+    let cancelled = false;
 
-    setMap(_map);
+    const tryInit = () => {
+      if (cancelled) return;
+
+      const g = window.google?.maps;
+      if (!g) {
+        // Script ist noch nicht da → später nochmal versuchen
+        requestAnimationFrame(tryInit);
+        return;
+      }
+
+      // Container muss eine Größe haben, sonst rendert Google "leer"
+      const rect = mapRef.current.getBoundingClientRect();
+      if (rect.width < 10 || rect.height < 10) {
+        requestAnimationFrame(tryInit);
+        return;
+      }
+
+      const _map = new g.Map(mapRef.current, {
+        center: { lat: 33.8886, lng: 35.4955 },
+        zoom: 11,
+        disableDefaultUI: true,
+        zoomControl: true,
+      });
+
+      if (!cancelled) setMap(_map);
+
+      // einmal resize triggern, falls Layout noch nachzieht
+      setTimeout(() => {
+        if (!cancelled) g.event.trigger(_map, "resize");
+      }, 50);
+    };
+
+    tryInit();
+
+    return () => {
+      cancelled = true;
+    };
   }, [map]);
+
 
   // DirectionsRenderer an Map hängen
   useEffect(() => {
@@ -130,15 +162,11 @@ export default function RouteStep({
 
   // Hinfahrt: Autocomplete + Distanz/Dauer + Route
   useEffect(() => {
-    if (!window.google?.maps?.places) return;
     if (!pickupRef.current || !destRef.current) return;
 
-    const pickupAC = new window.google.maps.places.Autocomplete(pickupRef.current, {
-      componentRestrictions: { country: "lb" },
-    });
-    const destAC = new window.google.maps.places.Autocomplete(destRef.current, {
-      componentRestrictions: { country: "lb" },
-    });
+    let cancelled = false;
+    let pickupAC = null;
+    let destAC = null;
 
     const calcDistance = () => {
       const o = pickupRef.current?.value || "";
@@ -171,14 +199,36 @@ export default function RouteStep({
       );
     };
 
-    pickupAC.addListener("place_changed", calcDistance);
-    destAC.addListener("place_changed", calcDistance);
+    const start = () => {
+      if (cancelled) return;
+
+      if (!window.google?.maps?.places) {
+        requestAnimationFrame(start);
+        return;
+      }
+
+      pickupAC = new window.google.maps.places.Autocomplete(pickupRef.current, {
+        componentRestrictions: { country: "lb" },
+      });
+
+      destAC = new window.google.maps.places.Autocomplete(destRef.current, {
+        componentRestrictions: { country: "lb" },
+      });
+
+      pickupAC.addListener("place_changed", calcDistance);
+      destAC.addListener("place_changed", calcDistance);
+    };
+
+    start();
 
     return () => {
-      window.google.maps.event.clearInstanceListeners(pickupAC);
-      window.google.maps.event.clearInstanceListeners(destAC);
+      cancelled = true;
+
+      if (pickupAC) window.google.maps.event.clearInstanceListeners(pickupAC);
+      if (destAC) window.google.maps.event.clearInstanceListeners(destAC);
     };
   }, [map, directionsRenderer, setOrig, setDest, setDistance, setDuration]);
+
 
   // Rückfahrt: Autocomplete + Distanz/Dauer
   useEffect(() => {
@@ -212,6 +262,17 @@ export default function RouteStep({
           }
         }
       );
+            // Route auf der Karte anzeigen (Rückfahrt)
+      if (!map) return;
+
+      const ds = new window.google.maps.DirectionsService();
+      ds.route(
+        { origin: o, destination: d, travelMode: window.google.maps.TravelMode.DRIVING },
+        (res, stat) => {
+          if (stat === "OK") directionsRenderer?.setDirections(res);
+        }
+      );
+
     };
 
     pickupAC.addListener("place_changed", calcReturnDistance);
@@ -221,7 +282,8 @@ export default function RouteStep({
       window.google.maps.event.clearInstanceListeners(pickupAC);
       window.google.maps.event.clearInstanceListeners(destAC);
     };
-  }, [isReturn, setReturnOrig, setReturnDest, setReturnDistance, setReturnDuration]);
+    }, [isReturn, map, directionsRenderer, setReturnOrig, setReturnDest, setReturnDistance, setReturnDuration]);
+
 
   const dt = dateTime ? new Date(dateTime) : new Date();
   const rdt = returnDateTime ? new Date(returnDateTime) : new Date();
