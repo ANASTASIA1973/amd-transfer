@@ -10,6 +10,8 @@ transferHeroTitle: "Airport Transfer im Libanon",
 transferHeroSub: "Zuverlässige Abholung. Klare Kommunikation. Deutschsprachiger Service.",
 stepLabel: "Schritt",
 ofLabel: "von",
+backToMainLabel: "Zurück zur Hauptseite",
+
 
 
 
@@ -102,7 +104,7 @@ ofLabel: "von",
     /* Übersicht & Buchen */
     checkoutTitle: "Übersicht & Buchen",
     voucherLabel: "Gutscheincode (10 %)",
-    voucherPlaceholder: "AMDGC2025",
+    voucherPlaceholder: "AMD2026",
     minimumFareLabel: "Zwischensumme vor Gutschein",
     ridePriceLabel: "Fahrtpreis",
     vehicleSurchargeLabel: "Aufschlag",
@@ -224,6 +226,7 @@ transferHeroTitle: "Airport Transfer in Lebanon",
 transferHeroSub: "Reliable pickup. Clear communication. Premium service.",
 stepLabel: "Step",
 ofLabel: "of",
+backToMainLabel: "Back to main site",
 
 
 
@@ -314,7 +317,7 @@ ofLabel: "of",
     /* Summary & Book */
     checkoutTitle: "Summary & Book",
     voucherLabel: "Voucher code (10 %)",
-    voucherPlaceholder: "AMDGC2025",
+    voucherPlaceholder: "AMD2026",
     minimumFareLabel: "Subtotal before voucher",
     ridePriceLabel: "Ride price",
     vehicleSurchargeLabel: "Surcharge",
@@ -433,6 +436,7 @@ transferHeroTitle: "خدمة نقل المطار في لبنان",
 transferHeroSub: "استقبال موثوق. تواصل واضح. خدمة مميزة.",
 stepLabel: "الخطوة",
 ofLabel: "من",
+backToMainLabel: "العودة إلى الصفحة الرئيسية",
 
 
 
@@ -523,7 +527,7 @@ ofLabel: "من",
     /* الملخص والحجز */
     checkoutTitle: "ملخص وحجز",
     voucherLabel: "قسيمة (10 %):",
-    voucherPlaceholder: "AMDGC2025",
+    voucherPlaceholder: "AMD2026",
     minimumFareLabel: "الإجمالي قبل القسيمة",
     ridePriceLabel: "سعر الرحلة",
     vehicleSurchargeLabel: "رسوم إضافية",

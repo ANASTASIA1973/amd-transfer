@@ -1,6 +1,4 @@
 // app/components/RouteStep.jsx
-"use client";
-
 import React, { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import t from "../i18n/translations";
@@ -318,6 +316,7 @@ export default function RouteStep({
           >
             {L.moreLink}
           </Link>
+ 
         </div>
       </div>
 

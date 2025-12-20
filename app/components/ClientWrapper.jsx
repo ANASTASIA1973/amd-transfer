@@ -7,6 +7,8 @@ import GoogleMapsLoader from "./GoogleMapsLoader";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useLocale } from "../context/LocaleContext";
 import t from "../i18n/translations";
+import { MAIN_SITE_BASE } from "../config/mainSite";
+
 
 export default function ClientWrapper({ children }) {
   const { locale } = useLocale();
@@ -83,6 +85,29 @@ export default function ClientWrapper({ children }) {
         <section className="w-full">
           <div className="max-w-5xl mx-auto px-4 pt-5 sm:pt-7">
             <div className="relative overflow-hidden rounded-3xl border border-gray-200 shadow-[0_18px_50px_rgba(2,6,23,.14)]">
+             {/* Back to main site (Hero-Link ohne Pill) */}
+<a
+  href={`${MAIN_SITE_BASE}/${locale}/index.html`}
+  className="absolute left-6 top-6 z-40"
+  style={{ textDecoration: "none" }}
+>
+  <span
+    className="inline-flex items-center gap-2 text-sm sm:text-base font-semibold"
+    style={{
+      color: "#ffffff",
+      padding: "8px 14px",
+      background:
+        "linear-gradient(90deg, rgba(0,33,71,.88) 0%, rgba(0,33,71,.50) 65%, rgba(0,33,71,0) 100%)",
+      backdropFilter: "blur(6px)",
+      WebkitBackdropFilter: "blur(6px)",
+      textShadow: "0 2px 8px rgba(0,0,0,.70)",
+      borderRadius: "6px", // klein -> kein Pill-Look
+    }}
+  >
+    ← {L.backToMainLabel || "Zurück zur Hauptseite"}
+  </span>
+</a>
+
               <div
                 className="h-[200px] sm:h-[260px] md:h-[300px] bg-cover"
                 style={{
