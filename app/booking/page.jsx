@@ -96,8 +96,9 @@ export default function BookingPage() {
 const goToStep = (n) => {
   const target = Math.max(1, Math.min(totalSteps, Number(n) || 1));
   setStep(target);
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
 };
+
 
   // Form state
   const [orig, setOrig] = React.useState("");
@@ -174,10 +175,17 @@ const [voucher, setVoucher] = React.useState("AMD2026");
 
   const returnDiscount = isReturn ? -10 : 0;
   const totalBeforeVoucher = ridePrice + vehicleSurcharge + extrasSeatsCost + otherExtrasCost + returnDiscount;
+function roundDownToHalf(n) {
+  const x = Number(n);
+  if (!Number.isFinite(x)) return 0;
+  return Math.floor(x * 2) / 2;
+}
 
   const isVoucherValid = voucher.trim().toUpperCase() === "AMD2026";
   const voucherDiscount = isVoucherValid ? Math.floor(totalBeforeVoucher * 0.1 * 100) / 100 : 0;
-  const totalPrice = Math.ceil(totalBeforeVoucher - voucherDiscount);
+ const totalAfterVoucher = totalBeforeVoucher - voucherDiscount;
+const totalPrice = roundDownToHalf(totalAfterVoucher);
+
 
   const seatExtrasDetails = Object.entries(seatExtrasCounts)
     .filter(([, c]) => c > 0)

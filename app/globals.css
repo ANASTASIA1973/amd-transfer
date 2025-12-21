@@ -268,3 +268,12 @@ body[data-app="amd-transfer"] .counter-pill:focus-visible {
     inset 0 0 0 1px rgba(31,111,58,.22),
     0 0 0 4px rgba(31,111,58,.10);
 }
+/* iOS Safari: korrektes Clipping in Cards (verhindert „Plus läuft raus“) */
+body[data-app="amd-transfer"] .amd-card-clip{
+  position: relative;
+  overflow: hidden;
+
+  /* Safari-Fix */
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  transform: translateZ(0);
+}

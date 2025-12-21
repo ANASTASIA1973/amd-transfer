@@ -164,62 +164,65 @@ export default function PassengerStep({
     <div className="w-full">
       <div className="space-y-4">
         {/* Card */}
-        <div
-          className="rounded-2xl border ios-fix"
-          style={{
-            borderColor: "var(--amd-border,#e5e7eb)",
-            background: "#fff",
-            boxShadow: "0 14px 34px rgba(15,23,42,.06)",
-            WebkitMaskImage: "-webkit-radial-gradient(white, black)",
-          }}
-        >
-          <div style={{ display: "grid", gridTemplateColumns: "6px 1fr" }}>
-            <div
-              aria-hidden="true"
-              style={{
-                background: `linear-gradient(180deg, ${GREEN_LINE} 0%, rgba(31,111,58,.10) 55%, rgba(31,111,58,0) 100%)`,
-              }}
-            />
-            <div className="px-5 sm:px-6 py-4 sm:py-5">
-              <CounterRow
-                icon={<FaUser />}
-                label={L.adultsLabel}
-                value={adults}
-                onMinus={() => setAdults(Math.max(1, adults - 1))}
-                onPlus={() => setAdults(adults + 1)}
-                minusDisabled={adults <= 1}
-              />
+     <div
+  className="rounded-2xl border"
+  style={{
+    borderColor: "var(--amd-border,#e5e7eb)",
+    background: "#fff",
+    boxShadow: "0 14px 34px rgba(15,23,42,.06)",
+  }}
+>
+  {/* iOS Clip Wrapper */}
+  <div className="amd-card-clip">
+    <div style={{ display: "grid", gridTemplateColumns: "6px 1fr" }}>
+      <div
+        aria-hidden="true"
+        style={{
+          background: `linear-gradient(180deg, ${GREEN_LINE} 0%, rgba(31,111,58,.10) 55%, rgba(31,111,58,0) 100%)`,
+        }}
+      />
+      <div className="px-5 sm:px-6 py-4 sm:py-5">
+        <CounterRow
+          icon={<FaUser />}
+          label={L.adultsLabel}
+          value={adults}
+          onMinus={() => setAdults(Math.max(1, adults - 1))}
+          onPlus={() => setAdults(adults + 1)}
+          minusDisabled={adults <= 1}
+        />
 
-              <div style={{ height: 1, background: "rgba(17,24,39,.06)" }} />
+        <div style={{ height: 1, background: "rgba(17,24,39,.06)" }} />
 
-              <CounterRow
-                icon={<FaChild />}
-                label={L.childrenLabel}
-                value={children}
-                onMinus={() => setChildren(Math.max(0, children - 1))}
-                onPlus={() => setChildren(children + 1)}
-                minusDisabled={children <= 0}
-              />
+        <CounterRow
+          icon={<FaChild />}
+          label={L.childrenLabel}
+          value={children}
+          onMinus={() => setChildren(Math.max(0, children - 1))}
+          onPlus={() => setChildren(children + 1)}
+          minusDisabled={children <= 0}
+        />
 
-              {total === maxPassengers && (
-                <div
-                  className="mt-3 text-sm"
-                  style={{
-                    color: GREEN_DARK,
-                    fontWeight: 700,
-                    background: GREEN_SOFT2,
-                    border: `1px solid ${GREEN_BORDER}`,
-                    padding: ".55rem .75rem",
-                    borderRadius: "12px",
-                  }}
-                >
-                  {L.maxPassengersHint ||
-                    "Maximal 8 Fahrgäste pro Fahrzeug (der Fahrer zählt nicht dazu)."}
-                </div>
-              )}
-            </div>
+        {total === maxPassengers && (
+          <div
+            className="mt-3 text-sm"
+            style={{
+              color: GREEN_DARK,
+              fontWeight: 700,
+              background: GREEN_SOFT2,
+              border: `1px solid ${GREEN_BORDER}`,
+              padding: ".55rem .75rem",
+              borderRadius: "12px",
+            }}
+          >
+            {L.maxPassengersHint ||
+              "Maximal 8 Fahrgäste pro Fahrzeug (der Fahrer zählt nicht dazu)."}
           </div>
-        </div>
+        )}
+      </div>
+    </div>
+  </div>
+</div>
+
 
         {/* Navigation */}
         <div className="mt-2 flex flex-col sm:flex-row sm:justify-end gap-3">
