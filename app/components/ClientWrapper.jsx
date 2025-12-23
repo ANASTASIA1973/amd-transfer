@@ -8,10 +8,18 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import { useLocale } from "../context/LocaleContext";
 import t from "../i18n/translations";
 import { MAIN_SITE_BASE } from "../config/mainSite";
+import AmdFooter from "./AmdFooter";
+
 
 
 export default function ClientWrapper({ children }) {
   const { locale } = useLocale();
+  useEffect(() => {
+  try {
+    localStorage.setItem("amd_locale", locale);
+  } catch (e) {}
+}, [locale]);
+
   const L = t[locale] || t.de;
 
   // ✅ Theme-Scope zuverlässig setzen (damit globals.css greift)
@@ -46,26 +54,26 @@ export default function ClientWrapper({ children }) {
       <div className="flex flex-wrap items-center gap-2 sm:gap-3 justify-start sm:justify-end">
         <LanguageSwitcher />
 
-        <a
-          href={whatsappLink}
-          target="_blank"
-          rel="noopener noreferrer"
-      className="inline-flex items-center gap-2 font-semibold rounded-2xl px-4 sm:px-6 py-2 transition shadow-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-offset-2"
+       <a
+  href={whatsappLink}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="amd-whatsapp-cta inline-flex items-center gap-2 font-semibold rounded-2xl px-4 sm:px-6 py-2 transition shadow-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-offset-2"
+  style={{
+    background: "var(--amd-primary, #002147)",
+    color: "#ffffff",
+    boxShadow: "0 14px 28px rgba(0,0,0,0.18)",
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.filter = "brightness(0.95)";
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.filter = "none";
+  }}
+>
+  📱 {L.tourRequestBtn}
+</a>
 
-          style={{
-            background: "var(--amd-primary, #002147)",
-            color: "#ffffff",
-            boxShadow: "0 14px 28px rgba(0,0,0,0.18)",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.filter = "brightness(0.95)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.filter = "none";
-          }}
-        >
-          📱 {L.tourRequestBtn}
-        </a>
       </div>
     </div>
   </div>
@@ -149,6 +157,8 @@ export default function ClientWrapper({ children }) {
         <main className="w-full flex flex-col items-center justify-start px-2 pb-10">
           <div className="w-full mt-6 sm:mt-8">{children}</div>
         </main>
+        <AmdFooter />
+
       </div>
 
       <style jsx global>{`

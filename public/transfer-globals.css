@@ -291,9 +291,8 @@ body[data-app="amd-transfer"] .amd-card-clip{
   }
 }
 /* ===================================================== */
-/* AMD Transfer – Footer (App + Legal)                    */
+/* AMD Transfer – Footer (wie Schwester-Website)          */
 /* ===================================================== */
-
 body[data-app="amd-transfer"] .amd-footer,
 .amd-footer{
   background:#0b1220;
@@ -310,7 +309,7 @@ body[data-app="amd-transfer"] .footer-grid,
   display:grid;
   grid-template-columns:repeat(3, minmax(0,1fr));
   gap:2rem;
-  align-items:start; /* sorgt für saubere Symmetrie oben */
+  align-items:start;
 }
 
 @media (max-width: 768px){
@@ -371,15 +370,93 @@ body[data-app="amd-transfer"] .footer-social img:hover,
   opacity:1;
 }
 
-/* Center-Spalte wirklich zentrieren */
+/* Symmetrie: Center wirklich mittig */
 .footer-column--center{ text-align:center; }
 
-/* RTL: linke/rechte Spalten sauber rechtsbündig */
+/* RTL: links/rechts sauber ausrichten (Center bleibt mittig) */
 .amd-footer[dir="rtl"] .footer-column:not(.footer-column--center){
   text-align:right;
 }
-.amd-footer[dir="ltr"] .footer-column:not(.footer-column--center){
-  text-align:left;
+
+/* ===== Transfer Legal Pages: Header Logo fix ===== */
+[data-app="amd-transfer"] .amd-header .amd-logo img{
+  height: 44px;
+  width: auto;
+  display: block;
+}
+
+@media (max-width: 520px){
+  [data-app="amd-transfer"] .amd-header .amd-logo img{
+    height: 38px;
+  }
+}
+/* ===================================================== */
+/* AMD Transfer – Footer (GLOBAL, auch für /legal/*)      */
+/* ===================================================== */
+
+.amd-footer{
+  background:#0b1220;
+  color:rgba(255,255,255,.92);
+  border-top:1px solid rgba(255,255,255,.08);
+  margin-top:3rem;
+  padding:2.5rem 1rem;
+}
+
+.footer-grid{
+  max-width:1100px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap:2rem;
+}
+
+@media (max-width: 768px){
+  .footer-grid{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+}
+
+.footer-links{
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+.footer-links li{
+  margin-bottom:.55rem;
+}
+
+.footer-links a{
+  color:rgba(255,255,255,.84);
+  text-decoration:none;
+  font-weight:500;
+}
+
+.footer-links a:hover{
+  color: var(--amd-gold, #c09743);
+}
+
+.footer-title{
+  font-weight:700;
+  margin-bottom:.75rem;
+  color:rgba(255,255,255,.92);
+}
+
+.footer-social{
+  display:flex;
+  gap:.75rem;
+  justify-content:center;
+}
+
+.footer-social img{
+  width:28px;
+  height:28px;
+  opacity:.9;
+}
+
+.footer-social img:hover{
+  opacity:1;
 }
 /* Footer Typo etwas kleiner + kompakter */
 .amd-footer .footer-links a{
@@ -412,4 +489,78 @@ body[data-app="amd-transfer"] .footer-social img:hover,
   justify-self: center;
   text-align: center;
 }
+html, body {
+  direction: ltr !important;
+}
+/* ===================================================== */
+/* AMD Transfer – Footer COMPACT Override (ganz unten)    */
+/* ===================================================== */
+body[data-app="amd-transfer"] .amd-footer,
+.amd-footer{
+  padding: 1.35rem 1rem !important;
+  margin-top: 2rem !important;
+}
 
+body[data-app="amd-transfer"] .footer-grid,
+.footer-grid{
+  gap: 1.15rem !important;
+  max-width: 980px !important;
+}
+
+body[data-app="amd-transfer"] .footer-links li,
+.footer-links li{
+  margin-bottom: .38rem !important;
+}
+
+body[data-app="amd-transfer"] .footer-links a,
+.footer-links a{
+  font-size: 13px !important;
+  line-height: 1.3 !important;
+}
+
+body[data-app="amd-transfer"] .footer-title,
+.footer-title{
+  font-size: 13.5px !important;
+  margin: 0 0 .55rem 0 !important;
+}
+
+body[data-app="amd-transfer"] .footer-social img,
+.footer-social img{
+  width: 22px !important;
+  height: 22px !important;
+}
+
+body[data-app="amd-transfer"] .footer-social,
+.footer-social{
+  gap: .55rem !important;
+}
+/* ===================================================== */
+/* AMD Transfer – Footer COMPACT Override                 */
+/* (mobile-first: weniger Höhe, bessere Balance)          */
+/* ===================================================== */
+body[data-app="amd-transfer"] .amd-footer{
+  padding: 1.35rem 1rem !important;
+  margin-top: 2rem !important;
+}
+body[data-app="amd-transfer"] .footer-grid{
+  gap: 1.15rem !important;
+  max-width: 980px !important;
+}
+body[data-app="amd-transfer"] .footer-title{
+  font-size: 13.5px !important;
+  margin: 0 0 .55rem 0 !important;
+}
+body[data-app="amd-transfer"] .footer-links a{
+  font-size: 13px !important;
+  line-height: 1.3 !important;
+}
+body[data-app="amd-transfer"] .footer-links li{
+  margin-bottom: .38rem !important;
+}
+body[data-app="amd-transfer"] .footer-social{
+  gap: .55rem !important;
+}
+body[data-app="amd-transfer"] .footer-social img{
+  width: 22px !important;
+  height: 22px !important;
+}

@@ -12,20 +12,26 @@ const seatTypes = [
   { key: "booster", labelKey: "boosterLabel", price: 5 },
 ];
 
+/**
+ * ✅ Deine echten Bilder liegen laut dir unter /public/images
+ * In Next.js sind die dann per "/images/..." erreichbar.
+ * Falls ein Bild nicht gefunden wird, fällt es automatisch auf den alten /seats/... Pfad zurück.
+ */
+const seatImageMap = {
+  baby: "/images/babyschale.jpg",
+  child: "/images/kindersitz.jpg",
+  booster: "/images/sitzerhoehung.jpg",
+};
+
 export default function SeatExtras({ counts, setCounts, onNext, onBack }) {
   const { locale } = useLocale();
   const L = t[locale] || t.de;
   const currencySymbol = L.currencySymbol || "$";
 
-  const occupied = seatTypes.filter((s) => (counts?.[s.key] || 0) > 0);
-  const cheapest = occupied.length
-    ? occupied.reduce((a, b) => (a.price <= b.price ? a : b))
-    : null;
-
   const costFor = (type) => {
     const c = counts?.[type.key] || 0;
     if (!c) return 0;
-    return type.key === cheapest?.key ? Math.max(0, (c - 1) * type.price) : c * type.price;
+    return c * type.price;
   };
 
   const totalCost = seatTypes.map(costFor).reduce((sum, v) => sum + v, 0);
@@ -38,7 +44,7 @@ export default function SeatExtras({ counts, setCounts, onNext, onBack }) {
     });
 
   // ===== Main-page look tokens (lokal, weil Transfer-App eigenständig) =====
-  const ACCENT = "#1f6f3a";                 // zedern-grün (gedeckt)
+  const ACCENT = "#1f6f3a"; // zedern-grün (gedeckt)
   const ACCENT_SOFT = "rgba(31,111,58,.10)";
   const ACCENT_BORDER = "rgba(31,111,58,.20)";
   const HEADING = "#0b1f3a";
@@ -47,11 +53,10 @@ export default function SeatExtras({ counts, setCounts, onNext, onBack }) {
   const SHADOW = "0 14px 34px rgba(15,23,42,.08)";
   const CARD_RADIUS = 18;
 
+  const getSeatImageSrc = (key) => seatImageMap[key] || `/seats/${key}-seat.jpg`;
+
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      {/* Titel bleibt weg – WizardLayout zeigt den Step-Titel bereits */}
-
-      {/* Outer container wie Hauptseite: clean card */}
       <div
         className="bg-white border p-7 sm:p-8 mb-12 flex flex-col"
         style={{
@@ -63,7 +68,6 @@ export default function SeatExtras({ counts, setCounts, onNext, onBack }) {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
           {seatTypes.map((type) => {
             const count = counts?.[type.key] || 0;
-            const isCheapest = type.key === cheapest?.key;
             const isActive = count > 0;
 
             return (
@@ -74,12 +78,14 @@ export default function SeatExtras({ counts, setCounts, onNext, onBack }) {
                   border: `1px solid ${BORDER}`,
                   borderRadius: CARD_RADIUS,
                   background: "#fff",
-                  boxShadow: isActive ? "0 18px 40px rgba(15,23,42,.10)" : "0 12px 28px rgba(15,23,42,.06)",
+                  boxShadow: isActive
+                    ? "0 18px 40px rgba(15,23,42,.10)"
+                    : "0 12px 28px rgba(15,23,42,.06)",
                   transform: isActive ? "translateY(-1px)" : "none",
                   transition: "all .16s ease",
                 }}
               >
-                {/* Left accent stripe (Hauptseiten-Look) */}
+                {/* Left accent stripe */}
                 <div
                   aria-hidden="true"
                   style={{
@@ -98,26 +104,14 @@ export default function SeatExtras({ counts, setCounts, onNext, onBack }) {
                   aria-hidden="true"
                   style={{
                     height: 1,
-                    background: "linear-gradient(90deg, rgba(31,111,58,.18), rgba(31,111,58,0))",
+                    background:
+                      "linear-gradient(90deg, rgba(31,111,58,.18), rgba(31,111,58,0))",
                     marginLeft: 4,
                   }}
                 />
 
                 <div className="p-5 flex flex-col items-center text-center" style={{ paddingLeft: 22 }}>
-                  {isCheapest && occupied.length > 0 && (
-                    <span
-                      className="absolute top-3 right-3 text-xs font-semibold px-2 py-1 rounded-full"
-                      style={{
-                        background: ACCENT_SOFT,
-                        color: ACCENT,
-                        border: `1px solid ${ACCENT_BORDER}`,
-                      }}
-                    >
-                      {L.freeBadgeText || "Erster Sitz kostenlos"}
-                    </span>
-                  )}
-
-                  {/* Image frame: macht PNG/JPG Ränder egal – ABER Pfad bleibt exakt wie bei dir */}
+                  {/* Image frame */}
                   <div
                     className="w-full rounded-xl border overflow-hidden flex items-center justify-center"
                     style={{
@@ -127,11 +121,17 @@ export default function SeatExtras({ counts, setCounts, onNext, onBack }) {
                     }}
                   >
                     <img
-                      src={`/seats/${type.key}-seat.jpg`}
+                      src={getSeatImageSrc(type.key)}
                       alt={L[type.labelKey]}
                       className="max-h-[96px] w-auto object-contain"
                       loading="lazy"
                       decoding="async"
+                      onError={(e) => {
+                        // Fallback: alter Pfad, falls /images/... nicht existiert
+                        const fallback = `/seats/${type.key}-seat.jpg`;
+                        if (e.currentTarget.src.endsWith(fallback)) return;
+                        e.currentTarget.src = fallback;
+                      }}
                     />
                   </div>
 
@@ -145,7 +145,7 @@ export default function SeatExtras({ counts, setCounts, onNext, onBack }) {
                     </div>
                   </div>
 
-                  {/* Counter – clean (outline), nicht dunkelblau blockig */}
+                  {/* Counter */}
                   <div className="mt-5 flex items-center gap-3">
                     <button
                       onClick={() => change(type.key, -1)}
@@ -154,7 +154,8 @@ export default function SeatExtras({ counts, setCounts, onNext, onBack }) {
                       className="w-10 h-10 rounded-full border inline-flex items-center justify-center text-lg font-semibold transition"
                       style={{
                         background: "#fff",
-                        borderColor: count === 0 ? "rgba(17,24,39,.10)" : "rgba(17,24,39,.16)",
+                        borderColor:
+                          count === 0 ? "rgba(17,24,39,.10)" : "rgba(17,24,39,.16)",
                         color: HEADING,
                         opacity: count === 0 ? 0.45 : 1,
                         cursor: count === 0 ? "not-allowed" : "pointer",
@@ -172,7 +173,10 @@ export default function SeatExtras({ counts, setCounts, onNext, onBack }) {
                       –
                     </button>
 
-                    <span className="min-w-[2.2rem] text-center text-base font-extrabold tabular-nums" style={{ color: HEADING }}>
+                    <span
+                      className="min-w-[2.2rem] text-center text-base font-extrabold tabular-nums"
+                      style={{ color: HEADING }}
+                    >
                       {count}
                     </span>
 
@@ -183,7 +187,8 @@ export default function SeatExtras({ counts, setCounts, onNext, onBack }) {
                       className="w-10 h-10 rounded-full border inline-flex items-center justify-center text-lg font-semibold transition"
                       style={{
                         background: "#fff",
-                        borderColor: count === 3 ? "rgba(17,24,39,.10)" : "rgba(17,24,39,.16)",
+                        borderColor:
+                          count === 3 ? "rgba(17,24,39,.10)" : "rgba(17,24,39,.16)",
                         color: HEADING,
                         opacity: count === 3 ? 0.45 : 1,
                         cursor: count === 3 ? "not-allowed" : "pointer",
@@ -208,9 +213,10 @@ export default function SeatExtras({ counts, setCounts, onNext, onBack }) {
                         {currencySymbol}
                         {costFor(type).toFixed(2)}
                       </span>
-                    ) : (
-                      L.selectPrompt || "Bitte wählen"
-                    )}
+                   ) : (
+  L.selectPrompt
+)}
+
                   </div>
                 </div>
               </div>
@@ -218,7 +224,7 @@ export default function SeatExtras({ counts, setCounts, onNext, onBack }) {
           })}
         </div>
 
-        {/* Total summary – clean card */}
+        {/* Total summary */}
         <div
           className="border rounded-xl p-4 mb-2"
           style={{

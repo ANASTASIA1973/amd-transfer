@@ -165,7 +165,6 @@ const [voucher, setVoucher] = React.useState("AMD2026");
   const allSeats = Object.entries(seatExtrasCounts)
     .flatMap(([k, c]) => Array(c).fill(seatPrices[k]))
     .sort((a, b) => a - b);
-  if (allSeats.length > 0) allSeats.shift();
   const extrasSeatsCost = allSeats.reduce((sum, p) => sum + p, 0);
 
   const otherExtrasCost = Object.entries(extrasCounts).reduce(
@@ -182,8 +181,13 @@ function roundDownToHalf(n) {
 }
 
   const isVoucherValid = voucher.trim().toUpperCase() === "AMD2026";
-  const voucherDiscount = isVoucherValid ? Math.floor(totalBeforeVoucher * 0.1 * 100) / 100 : 0;
- const totalAfterVoucher = totalBeforeVoucher - voucherDiscount;
+
+// Gutschein gilt NUR für die Fahrt (inkl. Fahrzeug-Aufschlag & Rückfahrtrabatt),
+// NICHT für Kindersitze/Extras.
+const voucherBase = Math.max(0, (ridePrice || 0) + (vehicleSurcharge || 0) + (returnDiscount || 0));
+const voucherDiscount = isVoucherValid ? Math.floor(voucherBase * 0.1 * 100) / 100 : 0;
+
+const totalAfterVoucher = totalBeforeVoucher - voucherDiscount;
 const totalPrice = roundDownToHalf(totalAfterVoucher);
 
 

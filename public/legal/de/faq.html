@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <title>AMD German Center – FAQ Libanon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Häufige Fragen zur Reise in den Libanon – Einreise, Sicherheit, Gesundheit, Versicherung und Gepäck." />
+
+  <!-- Transfer-App Styles -->
+  <link rel="stylesheet" href="/transfer-globals.css" />
+
+  <style>
+    /* =========================
+       PREMIUM FAQ LAYOUT
+       ========================= */
+
+    :root{
+      --faq-bg: var(--amd-bg, #f5f5f7);
+      --faq-card: var(--amd-card-bg, #ffffff);
+      --faq-border: rgba(17,24,39,.08);
+      --faq-shadow: 0 16px 40px rgba(15,23,42,.08);
+      --faq-text: var(--amd-text, #111827);
+      --faq-muted: var(--amd-text-muted, #6b7280);
+      --faq-heading: var(--amd-heading, #111827);
+      --faq-green: var(--amd-accent, #1b6f5a);   /* Zedern-Grün */
+      --faq-radius: var(--amd-radius-lg, 18px);
+    }
+
+    body.amd-page{
+      background: var(--faq-bg);
+    }
+
+    .faq-wrap{
+      min-height: 100vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    /* Main spacing */
+    .faq-main{
+      flex:1;
+      padding: 2.2rem 1rem 3.2rem;
+    }
+
+    .faq-container{
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    /* Hero */
+    .faq-hero{
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      background:
+        radial-gradient(900px 420px at 18% 30%, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 60%),
+        linear-gradient(180deg, rgba(2,6,23,.76), rgba(2,6,23,.52));
+      color:#fff;
+      box-shadow: 0 22px 60px rgba(2,6,23,.18);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 1.35rem 1.35rem 1.45rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .faq-hero h1{
+      margin:0;
+      font-size: clamp(1.35rem, 2.6vw, 2.0rem);
+      font-weight: 900;
+      letter-spacing: .2px;
+      line-height: 1.15;
+    }
+    .faq-hero p{
+      margin:.55rem 0 0;
+      opacity:.92;
+      line-height:1.45;
+      max-width: 62ch;
+    }
+
+    /* Card */
+    .faq-card{
+      background: var(--faq-card);
+      border: 1px solid var(--faq-border);
+      border-radius: var(--faq-radius);
+      box-shadow: var(--faq-shadow);
+      overflow: hidden;
+    }
+
+    .faq-card-head{
+      padding: 1.15rem 1.25rem;
+      border-bottom: 1px solid var(--faq-border);
+      background: linear-gradient(180deg, rgba(17,24,39,.02), rgba(17,24,39,0));
+    }
+
+    .faq-card-head h2{
+      margin:0;
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--faq-heading);
+    }
+
+    .faq-card-head .sub{
+      margin:.35rem 0 0;
+      color: var(--faq-muted);
+      font-size: .95rem;
+      line-height: 1.45;
+    }
+
+    .faq-block{
+      padding: 1.15rem 1.25rem 1.25rem;
+      border-top: 1px solid var(--faq-border);
+    }
+    .faq-block:first-of-type{ border-top: 0; }
+
+    .faq-block-title{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: .75rem;
+      margin: 0 0 .85rem;
+    }
+
+    .faq-block-title h3{
+      margin:0;
+      font-size: 1.02rem;
+      font-weight: 900;
+      color: var(--faq-heading);
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      padding:.25rem .6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(17,24,39,.03);
+      color: var(--faq-muted);
+      font-size: .82rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* Accordion via details/summary */
+    .faq-item{
+      border-top: 1px solid var(--faq-border);
+      padding: 0;
+    }
+    .faq-item:first-child{ border-top: 0; }
+
+    .faq-item summary{
+      list-style: none;
+      cursor: pointer;
+      padding: .95rem 0;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 1rem;
+      font-weight: 900;
+      color: var(--faq-heading);
+      line-height: 1.3;
+    }
+
+    /* remove default marker */
+    .faq-item summary::-webkit-details-marker{ display:none; }
+
+    .chev{
+      flex: 0 0 auto;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.18);
+      display:grid;
+      place-items:center;
+      margin-top: 2px;
+      opacity:.92;
+      transition: transform .18s ease;
+    }
+    .chev svg{ width: 14px; height: 14px; }
+
+    details[open] .chev{ transform: rotate(180deg); }
+
+    .faq-a{
+      padding: 0 0 1rem;
+      color: var(--faq-text);
+      line-height: 1.6;
+      font-size: .98rem;
+    }
+    .faq-a p{ margin:.6rem 0 0; }
+    .faq-a p:first-child{ margin-top:0; }
+
+    .faq-a ul{
+      margin: .65rem 0 0 1.1rem;
+      padding:0;
+    }
+    .faq-a li::marker{ color: var(--faq-green); }
+
+    /* Buttons inside FAQ */
+    .faq-a .btn.btn-primary{
+      border-radius: 999px;
+      padding-left: 1.2rem;
+      padding-right: 1.2rem;
+    }
+
+    /* subtle divider between language blocks */
+    .lang-divider{
+      height: 1px;
+      background: rgba(17,24,39,.08);
+      margin: 1.1rem 0 0;
+    }
+
+    /* Keep the whole page LTR always (mixed-language page) */
+    html, body { direction: ltr; }
+
+    /* Arabic list can still be RTL inside its own block */
+    .rtl-block{ direction: rtl; text-align: right; }
+    .rtl-block .faq-item summary{ text-align: right; }
+    .rtl-block .faq-a{ text-align: right; }
+    .rtl-block .faq-a ul{ margin: .65rem 1.1rem 0 0; }
+
+    /* Mobile */
+    @media (max-width: 640px){
+      .faq-hero{ border-radius: 18px; padding: 1.05rem 1.05rem 1.1rem; }
+      .faq-card-head{ padding: 1rem 1rem; }
+      .faq-block{ padding: 1rem 1rem 1.05rem; }
+    }
+  </style>
+</head>
+
+<body class="amd-page" data-app="amd-transfer">
+  <div class="faq-wrap">
+
+    <!-- HEADER -->
+    <header class="amd-header">
+      <div class="amd-header-inner">
+        <a href="/" class="amd-logo" aria-label="AMD German Center">
+          <img src="/logo.png" alt="AMD German Center Logo" />
+        </a>
+
+        <div class="amd-header-right">
+          <a href="/" class="btn btn-secondary" id="backToTransferApp" data-i18n="back">Zurück zur Transfer-App</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="faq-main">
+      <div class="faq-container">
+
+        <!-- HERO -->
+        <div class="faq-hero">
+          <h1>FAQ Libanon / Lebanon Travel FAQ / الأسئلة الشائعة عن السفر إلى لبنان</h1>
+          <p class="section-subtitle faq-muted" style="color: rgba(255,255,255,.88);">
+            Wichtige Hinweise für Ihre Reise in den Libanon
+          </p>
+        </div>
+
+        <!-- CARD -->
+        <div class="faq-card">
+          <div class="faq-card-head">
+            <h2>Reiseinformationen – kompakt & praxisnah</h2>
+            <p class="sub">Alle Inhalte stehen auf einer Seite (Deutsch / English / العربية) – Layout bleibt bewusst LTR.</p>
+          </div>
+
+          <!-- ==================== Deutsch ==================== -->
+          <div class="faq-block">
+            <div class="faq-block-title">
+              <h3>FAQs für eine Reise in den Libanon (Deutsch)</h3>
+              <span class="badge">Deutsch</span>
+            </div>
+            <p class="faq-muted"><strong>Das sollten Sie bei Ihrer Reise beachten</strong></p>
+
+            <details class="faq-item">
+              <summary>
+                <span>Benötige ich ein Visum für den Libanon?</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  Ja, die meisten Reisenden benötigen ein Visum. In der Regel erhalten Sie dieses bei der
+                  Einreise am Flughafen Beirut kostenlos. Bitte informieren Sie sich vorab bei den
+                  offiziellen Stellen, da sich Bestimmungen ändern können.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>Was sind die Einreisebestimmungen?</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>Neben dem Visum können weitere Dokumente erforderlich sein, zum Beispiel:</p>
+                <ul>
+                  <li>ein gültiger Reisepass (mindestens 6&nbsp;Monate gültig)</li>
+                  <li>Nachweise über Unterkunft oder Rückflug</li>
+                </ul>
+                <p>
+                  Führen Sie außerdem unsere ausgestellte <strong>Reisebestätigung</strong> ausgedruckt mit sich.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>Benötige ich eine Impfberatung?</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  Es wird empfohlen, vor der Reise Standardimpfungen wie z.&nbsp;B. gegen Hepatitis&nbsp;A
+                  und B, Typhus und Tetanus zu prüfen bzw. aufzufrischen. Lassen Sie sich vor der Reise
+                  von einem Arzt oder einem spezialisierten Reisemediziner individuell beraten.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>Wie ist die Sicherheitssituation im Libanon?</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  Der Libanon ist ein vielfältiges Reiseland mit einer wechselhaften Sicherheitslage.
+                  Während touristische Regionen wie Beirut, Byblos oder das Chouf-Gebirge in der Regel
+                  stabil bleiben, wird von Reisen in bestimmte Grenzgebiete (z.&nbsp;B. nahe der syrischen
+                  Grenze oder in Teilen des Südlibanon) abgeraten.
+                </p>
+                <p>
+                  Unsere Reisen konzentrieren sich ausschließlich auf Gebiete, die nach aktuellen
+                  Einschätzungen sicher und für den Tourismus geöffnet sind. Die Sicherheit unserer Gäste
+                  steht an erster Stelle. Wir stehen in engem Austausch mit lokalen Behörden und Partnern
+                  und passen unsere Routen bei Bedarf tagesaktuell an.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>Welche Währung wird im Libanon verwendet?</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  Die offizielle Währung ist die <strong>libanesische Lira (LBP)</strong>. In vielen
+                  Situationen werden aber auch Zahlungen in US-Dollar akzeptiert. Es ist ratsam, immer
+                  etwas Bargeld dabei zu haben, da Kartenzahlung nicht überall möglich ist.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>Gibt es kulturelle oder religiöse Gepflogenheiten, die ich beachten sollte?</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  Ja. Bitte respektieren Sie lokale Bräuche und religiöse Stätten. Kleidung sollte
+                  insbesondere beim Besuch von Moscheen und Kirchen <strong>angemessen und eher
+                  zurückhaltend</strong> sein. Fragen Sie im Zweifel nach, bevor Sie Personen oder
+                  heilige Orte fotografieren.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>Was sollte ich bezüglich Sicherheit und Gesundheit beachten?</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  Trinken Sie möglichst nur abgefülltes Wasser, achten Sie auf Lebensmittelhygiene und
+                  vermeiden Sie riskante Situationen. Befolgen Sie die Hinweise der lokalen Behörden sowie
+                  Ihres Reiseleiters.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>Welche Sprache wird im Libanon gesprochen?</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  Amtssprache ist <strong>Arabisch</strong>. In vielen touristischen Gebieten werden
+                  außerdem <strong>Englisch und Französisch</strong> häufig verstanden und gesprochen.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>Gibt es eine empfohlene Reiseversicherung?</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  Wir empfehlen dringend eine <strong>Reiseversicherung</strong>, die mindestens
+                  medizinische Versorgung, Reiserücktritt/Reiseabbruch und Gepäckverlust abdeckt.
+                </p>
+                <p>Sie können Ihre Reiseversicherung bequem online vergleichen und abschließen, zum Beispiel hier:</p>
+                <p>
+                  <a
+                    href="https://reisevergleich.covomo.de/reise?products=1&travel_persons=1&destination_region=1&r=eyJhZmZpbGlhdGVfaWQiOiI0OTE0OTAyNzUzIiwgInJlZiI6IjAwN1ZVTSJ9&theme=embedded"
+                    target="_blank"
+                    rel="noopener"
+                    class="btn btn-primary"
+                  >
+                    Jetzt Reiseversicherung online abschließen
+                  </a>
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>Was sollte ich in meinem Gepäck nicht vergessen?</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>Eine kleine Checkliste für Ihre Libanon-Reise:</p>
+                <ul>
+                  <li>Reisepass (und ggf. Visum)</li>
+                  <li>Reiseunterlagen und unsere Reisebestätigung</li>
+                  <li>Persönliche Medikamente und kleine Reiseapotheke</li>
+                  <li>Sonnencreme, Kopfbedeckung, Sonnenbrille</li>
+                  <li>Schwimmkleidung</li>
+                  <li>Bequeme Kleidung und Schuhe für Stadt und Ausflüge</li>
+                  <li>Kleiner Tagesrucksack</li>
+                  <li>Adapter für Steckdosen (falls erforderlich)</li>
+                  <li>Und ganz wichtig: viel gute Laune</li>
+                </ul>
+              </div>
+            </details>
+
+            <div class="lang-divider"></div>
+          </div>
+
+          <!-- ==================== English ==================== -->
+          <div class="faq-block">
+            <div class="faq-block-title">
+              <h3>Lebanon Travel FAQ (English)</h3>
+              <span class="badge">English</span>
+            </div>
+            <p class="faq-muted"><strong>Important information for your trip</strong></p>
+
+            <details class="faq-item">
+              <summary>
+                <span>Do I need a visa for Lebanon?</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  Yes, most travellers need a visa. In many cases, you receive it on arrival at Beirut
+                  Airport free of charge. However, regulations may change, so please check with official
+                  sources before travelling.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>What are the entry requirements?</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>In addition to the visa, the following may be required:</p>
+                <ul>
+                  <li>a valid passport (usually at least 6&nbsp;months validity)</li>
+                  <li>proof of accommodation or return flight</li>
+                </ul>
+                <p>
+                  We also recommend carrying a printed copy of our official <strong>travel confirmation</strong>.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>Do I need vaccination advice?</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  It is recommended to review standard travel vaccinations (e.g. Hepatitis&nbsp;A and B,
+                  typhoid, tetanus) before your trip. Please consult your doctor or a travel medicine
+                  specialist for individual medical advice.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>How safe is Lebanon for travellers?</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  Lebanon is a diverse country with a security situation that can change regionally.
+                  Tourist areas such as Beirut, Byblos or the Chouf mountains are generally considered
+                  more stable, while some border regions are not recommended for travel.
+                </p>
+                <p>
+                  Our programmes focus only on areas that are currently open and considered safe for
+                  tourism. Your safety is our top priority. We stay in close contact with local partners
+                  and adjust our routes if necessary.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>Which currency is used in Lebanon?</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  The official currency is the <strong>Lebanese Pound (LBP)</strong>. Payments in
+                  US-Dollars are also common in many situations. We recommend carrying some cash, as card
+                  payments are not always available.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>Are there cultural or religious customs I should respect?</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  Yes. Please respect local customs and religious sites. Clothing should be modest,
+                  especially when visiting mosques and churches. If in doubt, ask before taking photos of
+                  people or religious places.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>What should I consider regarding health and safety?</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  Drink bottled water only, pay attention to food hygiene and avoid risky situations.
+                  Follow the advice of local authorities and your guide.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>Which languages are spoken in Lebanon?</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  The official language is <strong>Arabic</strong>. In many tourist areas,
+                  <strong>English and French</strong> are also widely spoken and understood.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>Do I need travel insurance?</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  We strongly recommend comprehensive travel insurance that covers medical treatment,
+                  trip cancellation/interruption and loss of luggage.
+                </p>
+                <p>
+                  You can compare and book travel insurance online, for example via our partner link on
+                  the main website.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>What should I definitely pack?</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>A short packing checklist for Lebanon:</p>
+                <ul>
+                  <li>passport (and visa if required)</li>
+                  <li>travel documents and confirmation</li>
+                  <li>personal medication and small first aid kit</li>
+                  <li>sunscreen, hat, sunglasses</li>
+                  <li>swimwear</li>
+                  <li>comfortable clothing and walking shoes</li>
+                  <li>small daypack</li>
+                  <li>power adapter (if needed)</li>
+                  <li>and most importantly: a positive mood</li>
+                </ul>
+              </div>
+            </details>
+
+            <div class="lang-divider"></div>
+          </div>
+
+          <!-- ==================== Arabic ==================== -->
+          <div class="faq-block rtl-block">
+            <div class="faq-block-title" style="flex-direction: row-reverse;">
+              <h3>الأسئلة الشائعة عن السفر إلى لبنان (العربية)</h3>
+              <span class="badge">العربية</span>
+            </div>
+            <p class="faq-muted"><strong>أهم الإرشادات قبل رحلتك</strong></p>
+
+            <details class="faq-item">
+              <summary>
+                <span>هل أحتاج إلى تأشيرة دخول إلى لبنان؟</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  نعم، معظم المسافرين يحتاجون إلى تأشيرة. في الكثير من الحالات يمكن الحصول على
+                  التأشيرة مجانًا عند الوصول إلى مطار بيروت. لكن يُنصح دائمًا بالتحقق من التعليمات
+                  الرسمية قبل السفر، لأن القوانين قد تتغيّر.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>ما هي متطلبات الدخول إلى لبنان؟</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>بالإضافة إلى التأشيرة قد تحتاج إلى:</p>
+                <ul>
+                  <li>جواز سفر ساري المفعول (عادة لستة أشهر على الأقل)</li>
+                  <li>إثبات حجز السكن أو تذكرة عودة</li>
+                </ul>
+                <p>كما نوصي بحمل <strong>تأكيد الحجز</strong> الصادر عنّا مطبوعًا معك.</p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>هل أحتاج إلى استشارة طبية أو لقاحات خاصة؟</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  يُفضّل مراجعة اللقاحات الأساسية قبل السفر مثل التهاب الكبد A و B، والتيفوئيد،
+                  والتيتانوس. ننصح باستشارة طبيبك أو عيادة متخصّصة في الطبّ السفرّي للحصول على
+                  نصيحة شخصية.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>ما هي الأوضاع الأمنية في لبنان؟</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  لبنان بلد متنوع، والوضع الأمني قد يختلف من منطقة إلى أخرى. غالبًا ما تُعتبر
+                  المناطق السياحية مثل بيروت، جبيل (بيبلوس) أو جبال الشوف أكثر استقرارًا، بينما لا
+                  يُنصح أحيانًا بزيارة بعض المناطق الحدودية.
+                </p>
+                <p>
+                  برامجنا تتركّز فقط على المناطق المفتوحة حاليًا للسياحة والتي تُقيّم بأنها آمنة.
+                  سلامة ضيوفنا هي الأولوية الأولى بالنسبة لنا، ونبقى على تواصل مستمر مع شركائنا
+                  المحليين لتعديل مسار الرحلات عند الحاجة.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>ما هي العملة المستخدمة في لبنان؟</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  العملة الرسمية هي <strong>الليرة اللبنانية (LBP)</strong>. في الكثير من الأماكن
+                  يمكن الدفع بالدولار الأمريكي أيضًا. يُستحسن حمل بعض المبلغ النقدي لأن الدفع
+                  بالبطاقة غير متوفر في كل مكان.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>هل هناك عادات ثقافية أو دينية يجب احترامها؟</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  نعم، يُرجى احترام العادات المحلية والأماكن الدينية. يُفضّل ارتداء ملابس محتشمة
+                  عند زيارة المساجد والكنائس، والاستئذان قبل تصوير الأشخاص أو الأماكن المقدسة.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>ماذا عن الصحة والسلامة؟</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  ننصح بشرب مياه معبّأة فقط، والانتباه إلى نظافة الطعام، وتجنّب المواقف الخطرة،
+                  واتباع إرشادات السلطات المحلية ومرشد الرحلة.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>ما هي اللغة المتداولة في لبنان؟</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  اللغة الرسمية هي <strong>العربية</strong>، كما تُستخدم
+                  <strong>الإنجليزية والفرنسية</strong> على نطاق واسع في المناطق السياحية.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>هل يُنصح بالتأمين على السفر؟</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  نعم، نوصي بشدة بالحصول على تأمين سفر يشمل على الأقل الرعاية الطبية، وإلغاء أو
+                  قطع الرحلة، وضياع الأمتعة.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>ماذا يجب أن أحمل في حقيبتي؟</span>
+                <span class="chev" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </summary>
+              <div class="faq-a">
+                <p>قائمة مختصرة للأغراض المهمة:</p>
+                <ul class="packing-list-ar">
+                  <li>جواز سفر (وتأشيرة إذا لزم الأمر)</li>
+                  <li>أوراق الحجز وتأكيد الرحلة</li>
+                  <li>الأدوية الشخصية وبعض مستلزمات الإسعافات الأولية</li>
+                  <li>واقي شمس، قبعة، ونظارات شمسية</li>
+                  <li>ملابس سباحة</li>
+                  <li>ملابس وأحذية مريحة للمدينة والرحلات</li>
+                  <li>حقيبة صغيرة لليوم الواحد</li>
+                  <li>محول كهرباء (عند الحاجة)</li>
+                  <li>وقبل كل شيء: مزاج جيد ورغبة في الاستمتاع</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+
+        </div><!-- /faq-card -->
+
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="amd-footer" dir="ltr">
+      <div class="footer-grid">
+        <!-- Left column -->
+        <div class="footer-column">
+          <p class="footer-title" data-i18n="footer.colLeftTitle">Services</p>
+          <ul class="footer-links">
+            <li><a href="https://amdtransfer.netlify.app/" target="_blank" rel="noopener" data-i18n="footer.links.transfer">Airport Transfer</a></li>
+            <li><a href="https://amdtourbooking.netlify.app/" target="_blank" rel="noopener" data-i18n="footer.links.tours">Tagestouren</a></li>
+            <li><a href="https://www.amd-germancenter.com/de/car-rental.html" target="_blank" rel="noopener" data-i18n="footer.links.carRental">Mietwagen</a></li>
+            <li><a href="https://www.amd-germancenter.com/de/package-tours.html" target="_blank" rel="noopener" data-i18n="footer.links.packageTours">Pauschalreisen</a></li>
+            <li><a href="https://amd-tarifcheck.de/" target="_blank" rel="noopener" data-i18n="footer.links.tarifcheck">AMD Tarifcheck</a></li>
+          </ul>
+        </div>
+
+        <!-- Center column -->
+        <div class="footer-column footer-column--center">
+          <p class="footer-title" data-i18n="footer.colCenterTitle">Folgen Sie uns auf:</p>
+          <div class="footer-social">
+            <a href="https://wa.me/96181622668" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <img src="/images/icon-whatsapp.svg" alt="WhatsApp" />
+            </a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+              <img src="/images/icon-instagram.svg" alt="Instagram" />
+            </a>
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+              <img src="/images/icon-facebook.svg" alt="Facebook" />
+            </a>
+            <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok">
+              <img src="/images/icon-tiktok.svg" alt="TikTok" />
+            </a>
+          </div>
+        </div>
+
+        <!-- Right column -->
+        <div class="footer-column">
+        
+          <ul class="footer-links">
+            <li><a href="/legal/de/faq.html" data-i18n="footer.links.faq">FAQ Libanon</a></li>
+            <li><a href="/legal/de/about.html" data-i18n="footer.links.about">Über uns</a></li>
+            <li><a href="/legal/de/imprint.html" data-i18n="footer.links.imprint">Impressum</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+  </div><!-- /faq-wrap -->
+
+  <script>
+    (function () {
+      var STORAGE_KEY = "amd_locale";
+      var SUPPORTED = { de: true, en: true, ar: true };
+
+      function getLang() {
+        var v = (localStorage.getItem(STORAGE_KEY) || "de").toLowerCase();
+        return SUPPORTED[v] ? v : "de";
+      }
+
+      function deepGet(obj, path) {
+        var parts = path.split(".");
+        var cur = obj;
+        for (var i = 0; i < parts.length; i++) {
+          if (!cur || typeof cur !== "object") return null;
+          cur = cur[parts[i]];
+        }
+        return cur;
+      }
+
+      var T = {
+        de: {
+          back: "Zurück zur Transfer-App",
+          backArrow: "← Zurück zur Transfer-App",
+          footer: {
+            colLeftTitle: "Services",
+            colCenterTitle: "Folgen Sie uns auf:",
+           
+            links: {
+              transfer: "Airport Transfer",
+              tours: "Tagestouren",
+              carRental: "Mietwagen",
+              packageTours: "Pauschalreisen",
+              tarifcheck: "AMD Tarifcheck",
+              faq: "FAQ Libanon",
+              about: "Über uns",
+              imprint: "Impressum"
+            }
+          }
+        },
+        en: {
+          back: "Back to the transfer app",
+          backArrow: "← Back to the transfer app",
+          footer: {
+            colLeftTitle: "Services",
+            colCenterTitle: "Follow us:",
+          
+            links: {
+              transfer: "Airport Transfer",
+              tours: "Day Tours",
+              carRental: "Car Rental",
+              packageTours: "Package Tours",
+              tarifcheck: "AMD Tariff Check",
+              faq: "Lebanon FAQ",
+              about: "About Us",
+              imprint: "Imprint"
+            }
+          }
+        },
+        ar: {
+          back: "العودة إلى تطبيق النقل",
+          backArrow: "← العودة إلى تطبيق النقل",
+          footer: {
+            colLeftTitle: "الخدمات",
+            colCenterTitle: "تابعنا:",
+         
+            links: {
+              transfer: "نقل المطار",
+              tours: "جولات يومية",
+              carRental: "تأجير سيارات",
+              packageTours: "رحلات وباقات",
+              tarifcheck: "فحص التعرفة",
+              faq: "الأسئلة الشائعة",
+              about: "من نحن",
+              imprint: "بيانات قانونية"
+            }
+          }
+        }
+      };
+
+      function applyLang(lang) {
+        var dict = T[lang] || T.de;
+
+        /* Keep the page LTR always (mixed language page) */
+        document.documentElement.setAttribute("lang", lang);
+        document.documentElement.setAttribute("dir", "ltr");
+
+        var footer = document.querySelector(".amd-footer");
+        if (footer) footer.setAttribute("dir", "ltr");
+
+        // translate text nodes
+        var nodes = document.querySelectorAll("[data-i18n]");
+        for (var i = 0; i < nodes.length; i++) {
+          var el = nodes[i];
+          var key = el.getAttribute("data-i18n");
+          var val = deepGet(dict, key);
+          if (val == null) continue;
+          el.textContent = val;
+        }
+
+        // rewrite internal legal links: /legal/{lang}/...
+        // (works because you now have /legal/de, /legal/en, /legal/ar folders)
+        var legalLinks = document.querySelectorAll('a[href^="/legal/"]');
+        for (var j = 0; j < legalLinks.length; j++) {
+          var a = legalLinks[j];
+          var href = a.getAttribute("href") || "";
+          href = href.replace(/^\/legal\/(de|en|ar)\//, "/legal/" + lang + "/");
+          a.setAttribute("href", href);
+        }
+
+        // rewrite amd-germancenter.com locale paths
+        var external = document.querySelectorAll('a[href*="www.amd-germancenter.com/"]');
+        for (var k = 0; k < external.length; k++) {
+          var ex = external[k];
+          var eh = ex.getAttribute("href") || "";
+          eh = eh.replace(/\/de\//, "/" + lang + "/");
+          eh = eh.replace(/\/en\//, "/" + lang + "/");
+          eh = eh.replace(/\/ar\//, "/" + lang + "/");
+          ex.setAttribute("href", eh);
+        }
+      }
+
+      applyLang(getLang());
+    })();
+  </script>
+</body>
+</html>

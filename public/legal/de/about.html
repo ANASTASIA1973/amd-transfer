@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>AMD German Center – Über uns</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Transfer-App: nutzt deine App-Styles -->
+  <link rel="stylesheet" href="/transfer-globals.css" />
+
+  <style>
+    /* =========================
+       PREMIUM ABOUT PAGE
+       - Text unchanged
+       - Footer stays original width (not stretched)
+       ========================= */
+
+    .about-page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--amd-bg, #f5f5f7);
+    }
+
+    .about-main {
+      flex: 1;
+      padding: 2.2rem 1rem 3.2rem;
+    }
+
+    /* Keep main content premium + centered */
+    .about-container {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    /* Premium hero */
+    .about-hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      background:
+        radial-gradient(900px 420px at 18% 30%, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 60%),
+        linear-gradient(180deg, rgba(2,6,23,.76), rgba(2,6,23,.52));
+      color: #fff;
+      box-shadow: 0 22px 60px rgba(2, 6, 23, .18);
+      border: 1px solid rgba(255, 255, 255, .12);
+      padding: 1.35rem 1.35rem 1.45rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .about-hero h1 {
+      margin: 0;
+      font-size: clamp(1.35rem, 2.6vw, 2.0rem);
+      font-weight: 900;
+      letter-spacing: .2px;
+      line-height: 1.15;
+    }
+
+    .about-hero p {
+      margin: .55rem 0 0;
+      opacity: .92;
+      line-height: 1.45;
+      max-width: 70ch;
+    }
+
+    /* Premium wrapper card */
+    .about-card {
+      background: var(--amd-card-bg, #ffffff);
+      border: 1px solid rgba(17, 24, 39, .08);
+      border-radius: var(--amd-radius-lg, 18px);
+      box-shadow: 0 16px 44px rgba(15, 23, 42, 0.10);
+      overflow: hidden;
+    }
+
+    .about-card-head {
+      padding: 1.1rem 1.25rem;
+      border-bottom: 1px solid rgba(17, 24, 39, .08);
+      background: linear-gradient(180deg, rgba(17, 24, 39, .02), rgba(17, 24, 39, 0));
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .about-card-head p {
+      margin: 0;
+      color: var(--amd-text-muted, #6b7280);
+      font-size: .95rem;
+      line-height: 1.45;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .25rem .6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(17, 24, 39, .10);
+      background: rgba(17, 24, 39, .03);
+      color: var(--amd-text-muted, #6b7280);
+      font-size: .82rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .about-content {
+      padding: 1.2rem 1.25rem 1.25rem;
+    }
+
+    .team-section {
+      margin-top: .75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .team-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      padding: 1.1rem;
+      background: #fff;
+      border-radius: 18px;
+      border: 1px solid rgba(17, 24, 39, .08);
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+      overflow: hidden;
+      height: auto !important;
+      align-items: flex-start !important;
+    }
+
+    /* subtle top accent */
+    .team-card {
+      position: relative;
+    }
+
+    .team-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--amd-accent, #1b6f5a), rgba(193,39,45,.0));
+      opacity: .9;
+    }
+
+    .team-info {
+      flex: 1;
+      min-width: 0;
+      width: 100%;
+    }
+
+ .team-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 16px;
+  object-fit: cover;
+  object-position: center;
+
+  /* roter Rahmen wie in der alten Datei */
+  border: 3px solid var(--amd-primary, #c1272d);
+
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.10);
+  flex-shrink: 0;
+  display: block;
+  background: rgba(255,255,255,.6);
+}
+
+
+    .team-info h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--amd-heading, #111827);
+      min-width: 0;
+      letter-spacing: .2px;
+    }
+
+    .team-role {
+      margin: .15rem 0 .75rem 0;
+      color: var(--amd-accent, #1b6f5a);
+      font-weight: 700;
+    }
+
+    .team-bio-block {
+      margin-bottom: .85rem;
+      padding-top: .25rem;
+    }
+
+    .team-bio-label {
+      font-weight: 800;
+      font-size: .88rem;
+      color: var(--amd-text-muted, #6b7280);
+      margin-bottom: .25rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+    }
+
+    .team-bio-label::before {
+      content: "";
+      width: 6px;
+      height: 12px;
+      border-radius: 999px;
+      background: var(--amd-accent, #1b6f5a);
+      opacity: .95;
+      display: inline-block;
+    }
+
+    .team-bio-block p {
+      margin: 0;
+      line-height: 1.55;
+      color: var(--amd-text, #111827);
+      font-size: .97rem;
+    }
+
+    .team-bio-block p + p { margin-top: .55rem; }
+
+    .team-bio-block[dir="rtl"] p {
+      text-align: right;
+    }
+
+    .about-back-link {
+      margin-top: 1.25rem;
+      padding: 0 1.25rem 1.25rem;
+    }
+
+    .about-back-link a {
+      text-decoration: none;
+      font-weight: 800;
+      padding: 0.6rem 1.05rem;
+      border-radius: 999px;
+      border: 1px solid rgba(17, 24, 39, .10);
+      display: inline-block;
+      background: rgba(255,255,255,.8);
+      color: var(--amd-heading, #111827);
+      box-shadow: 0 10px 24px rgba(15,23,42,.06);
+    }
+
+    .about-back-link a:hover {
+      background: rgba(255,255,255,1);
+      border-color: rgba(17,24,39,.16);
+    }
+
+    /* FOOTER WIDTH RULE:
+       Do NOT stretch or widen footer.
+       We only add a small inner padding so it feels cleaner, but keep full-width behavior. */
+    .amd-footer {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+    @media (min-width: 900px) {
+      .amd-footer {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .team-photo {
+        display: block;
+        margin: 0 auto;
+      }
+
+      .team-info {
+        width: 100%;
+      }
+
+      .team-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .team-photo {
+        width: 170px;
+        height: 170px;
+      }
+
+      .team-bio-block[dir="rtl"] p {
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 640px){
+      .about-hero{ border-radius: 18px; padding: 1.05rem 1.05rem 1.1rem; }
+      .about-card-head{ padding: 1rem 1rem; }
+      .about-content{ padding: 1rem 1rem 1rem; }
+      .about-back-link{ padding: 0 1rem 1rem; }
+    }
+  </style>
+</head>
+
+<body class="amd-page" data-app="amd-transfer">
+
+  <div class="about-page-wrapper">
+    <!-- HEADER -->
+    <header class="amd-header">
+      <div class="amd-header-inner">
+        <a href="/" class="amd-logo">
+         <img src="/logo.png" alt="AMD German Center Logo" />
+        </a>
+
+        <div class="amd-header-right">
+          <a href="/" class="btn btn-secondary" id="backToTransferApp" data-i18n="back">Zurück zur Transfer-App</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="about-main">
+      <div class="about-container">
+
+        <!-- Premium Hero -->
+        <div class="about-hero">
+          <h1>Über uns / About us / من نحن</h1>
+          <p>AMD German Center – persönlich, zuverlässig, mehrsprachig.</p>
+        </div>
+
+        <!-- Premium Card Wrapper -->
+        <div class="about-card">
+          <div class="about-card-head">
+            <p>Team &amp; Ansprechpartner – im gleichen Look wie deine Premium-Legal-Seiten.</p>
+            <span class="badge">About</span>
+          </div>
+
+          <div class="about-content">
+            <section class="team-section">
+              <!-- ALI -->
+              <article class="team-card">
+                <img
+                  src="/images/ali-ahmad.jpg"
+                  alt="Ali Mohsen Ahmad – Owner / CEO AMD German Center"
+                  class="team-photo"
+                />
+
+                <div class="team-info">
+                  <h3>Ali Mohsen Ahmad</h3>
+                  <p class="team-role">
+                    Owner / CEO<br />
+                    AMD German Center
+                  </p>
+
+                  <div class="team-bio-block">
+                    <div class="team-bio-label">Deutsch</div>
+                    <p>
+                      Geboren und aufgewachsen im hohen Norden Deutschlands, wo das herzliche
+                      „Moin Moin“ Teil des Alltags ist, kann ich auf eine langjährige Karriere von
+                      20 Jahren in der Tourismus-, Versicherungs- und Finanzbranche zurückblicken.
+                      Doch schon als Kind legte mein Vater mir nahe, die Wurzeln zu ehren und
+                      zurückzukehren – zurück in die Heimat des Libanon, wo ich heute lebe.
+                    </p>
+                    <p>
+                      Hier, im Süden des Libanon, vereine ich meine deutsche Herkunft und
+                      berufliche Erfahrung mit der Lebensfreude, Gastfreundschaft und Kultur
+                      dieses einzigartigen Landes. Dieser kulturelle Brückenschlag prägt nicht nur
+                      meinen Alltag, sondern auch meine Arbeit.
+                    </p>
+                    <p>
+                      Mein Ziel ist es, Ihnen als Kunde maßgeschneiderte, exklusive
+                      Dienstleistungen zu bieten, die höchsten Ansprüchen gerecht werden. Mit
+                      meinem Team und einem engen Netzwerk sowohl in Deutschland als auch im
+                      Libanon stelle ich sicher, dass Ihre Reise oder Ihr Aufenthalt unvergesslich
+                      wird.
+                    </p>
+                    <p>
+                      Ob exklusive Tagestouren, individuelle Pauschalreisen oder komfortable
+                      Flughafentransfers – alle Angebote zeichnen sich durch erstklassigen Service
+                      und eine authentische Begegnung mit dem Libanon aus.
+                    </p>
+                    <p>
+                      Vertrauen Sie auf meine jahrelange Erfahrung und die perfekte Balance
+                      zwischen deutscher Präzision und der herzlichen Gastfreundschaft des
+                      Libanon. Lassen Sie uns gemeinsam Ihre Wünsche verwirklichen und Ihnen ein
+                      maßgeschneidertes Erlebnis bieten, das Sie so schnell nicht vergessen werden.
+                    </p>
+                  </div>
+
+                  <div class="team-bio-block">
+                    <div class="team-bio-label">English</div>
+                    <p>
+                      I was born and raised in northern Germany, where the friendly greeting
+                      “Moin Moin” is part of everyday life, and I look back on a 20-year career in
+                      tourism, insurance and financial services. Following my father’s advice to
+                      honour our roots, I eventually returned to the homeland of Lebanon, where I
+                      live today.
+                    </p>
+                    <p>
+                      Here in the south of Lebanon, I combine my German background and
+                      professional experience with the joy of life, hospitality and culture of this
+                      unique country. This cultural bridge shapes both my daily life and my work.
+                    </p>
+                    <p>
+                      My goal is to offer you tailor-made, exclusive services that meet the highest
+                      expectations. Together with my team and a close network in both Germany and
+                      Lebanon, I make sure that your trip or stay becomes unforgettable – whether
+                      through private day tours, customised travel packages or comfortable airport
+                      transfers.
+                    </p>
+                    <p>
+                      You can rely on my many years of experience and the balance between German
+                      precision and the warm hospitality of Lebanon. Let us realise your wishes and
+                      create a bespoke experience you will not forget.
+                    </p>
+                  </div>
+
+                  <div class="team-bio-block" dir="rtl">
+                    <div class="team-bio-label">العربية</div>
+                    <p>
+                      وُلِدتُ ونشأتُ في شمال ألمانيا، حيث يُعدّ الترحيب الودود «موين موين»
+                      جزءًا من الحياة اليومية، ولديّ مسيرة مهنية تمتد لأكثر من 20 عامًا في
+                      مجالات السياحة والتأمين والقطاع المالي. منذ طفولتي كان والدي يشجّعني
+                      على احترام الجذور والعودة إلى الوطن الأم لبنان، حيث أعيش اليوم.
+                    </p>
+                    <p>
+                      هنا في جنوب لبنان أجمع بين خلفيتي الألمانية وخبرتي المهنية من جهة،
+                      وبين روح الحياة والضيافة والثقافة اللبنانية من جهة أخرى. هذا الجسر
+                      الثقافي ينعكس على حياتي اليومية وعلى عملي معًا.
+                    </p>
+                    <p>
+                      هدفي هو تقديم خدمات حصرية ومصمَّمة خصيصًا لتلبية أعلى التوقّعات. وبمساعدة
+                      فريقي وشبكة قوية من الشركاء في كلٍّ من ألمانيا ولبنان، أضمن أن تكون رحلتكم
+                      أو إقامتكم تجربة لا تُنسى – سواء عبر جولات يومية خاصة، أو برامج سفر فردية،
+                      أو خدمات نقل مريحة من وإلى المطار.
+                    </p>
+                    <p>
+                      يمكنكم الاعتماد على خبرتي الطويلة وعلى التوازن بين الدقّة الألمانية
+                      وحرارة الضيافة اللبنانية. دعونا نحقّق رغباتكم معًا ونقدّم لكم تجربة
+                      مخصّصة لن تُنسى بسهولة.
+                    </p>
+                  </div>
+                </div>
+              </article>
+
+              <!-- FRANCIS -->
+              <article class="team-card">
+                <img
+                  src="/images/francis-lange.jpg"
+                  alt="Francis Lange – Vertriebsleitung Versicherungen und Energie"
+                  class="team-photo"
+                />
+
+                <div class="team-info">
+                  <h3>Francis Lange</h3>
+                  <p class="team-role">
+                    Vertriebsleitung<br />
+                    Versicherungen und Energie
+                  </p>
+
+                  <div class="team-bio-block">
+                    <div class="team-bio-label">Deutsch</div>
+                    <p>
+                      In Berlin, der wunderschönen Hauptstadt, geboren und seit 2010 im Vertrieb tätig.
+                      Von der Gastronomie über das Gesundheitswesen bis hin zu Versicherungen und
+                      Energie verfüge ich über ein breites Spektrum an Erfahrungen, die ich an meine
+                      Kunden weitergebe und gezielt zu ihrem Vorteil einsetze.
+                    </p>
+                    <p>
+                      Ich biete individuelle Beratung mit optimalen Lösungen für Privat- und
+                      Gewerbekunden. Ergänzt wird dies durch ein großes Netzwerk aus Partnern, mit
+                      denen wir Ihnen kompetente Unterstützung in den verschiedensten Bereichen
+                      anbieten können.
+                    </p>
+                  </div>
+
+                  <div class="team-bio-block">
+                    <div class="team-bio-label">English</div>
+                    <p>
+                      Born in Berlin, Germany’s beautiful capital, I have been working in sales since
+                      2010. From gastronomy and healthcare to insurance and energy, I bring a wide
+                      range of experience which I pass on to my clients and use to their advantage.
+                    </p>
+                    <p>
+                      I offer individual consulting with optimal solutions for private and business
+                      customers, supported by a broad network of partners who provide professional
+                      assistance in many different areas.
+                    </p>
+                  </div>
+
+                  <div class="team-bio-block" dir="rtl">
+                    <div class="team-bio-label">العربية</div>
+                    <p>
+                      وُلدت في برلين، عاصمة ألمانيا الجميلة، وأعمل في مجال المبيعات منذ عام 2010.
+                      تمتد خبرتي من قطاع المطاعم إلى قطاع الرعاية الصحية مرورًا بالتأمين والطاقة،
+                      مما يمنحني قاعدة واسعة أنقلها إلى عملائي وأستخدمها لصالحهم.
+                    </p>
+                    <p>
+                      أقدّم استشارات فردية وحلولاً مثالية للعملاء من القطاعين الخاص والتجاري،
+                      مدعومة بشبكة كبيرة من الشركاء الذين يوفّرون دعمًا مهنيًا في مجالات متعددة.
+                    </p>
+                  </div>
+                </div>
+              </article>
+
+              <!-- MOHAMMAD -->
+              <article class="team-card">
+                <img
+                  src="/images/Mohammad-ali-al-hagh_square_v4_headmore.jpg"
+                  alt="Mohammad Ali Al Hagh – Tourenmanagement"
+                  class="team-photo"
+                />
+
+                <div class="team-info">
+                  <h3>Mohammad Ali Al Hagh</h3>
+                  <p class="team-role">Tourenmanagement</p>
+
+                  <div class="team-bio-block">
+                    <div class="team-bio-label">Deutsch</div>
+                    <p>
+                      Geboren bin ich im Süden Libanons, wo ich auch lebe. Seit zehn Jahren bin ich im
+                      Tagestouren- und Wandern-Geschäft tätig. Ich kenne jede Ecke und jeden Hügel im
+                      Süden und Norden Libanons.
+                    </p>
+                    <p>
+                      Mein Fokus liegt auf maßgeschneiderten Erlebnissen, die Sicherheit, lokale Kultur
+                      und Naturverbundenheit verbinden. Deutsche Zuverlässigkeit sowie die Sicherheit
+                      unserer Gäste stehen bei der AMD an erster Stelle. Ich biete persönliche Beratung,
+                      professionelle Führung und authentische Touren, die auf die Wünsche und Grenzen
+                      unserer Gäste abgestimmt sind. Unsere Touren sind flexibel, nachhaltig und darauf
+                      ausgerichtet, unvergessliche Momente zu schaffen.
+                    </p>
+                  </div>
+
+                  <div class="team-bio-block">
+                    <div class="team-bio-label">English</div>
+                    <p>
+                      I was born and raised in the south of Lebanon, where I still live today. For more
+                      than ten years I have been working in day tours and hiking. I know almost every
+                      corner and hill in both the south and the north of the country.
+                    </p>
+                    <p>
+                      My focus is on tailor-made experiences that combine safety, local culture and a
+                      close connection to nature. German-style reliability and the safety of our guests
+                      are top priorities at AMD. I provide personal advice, professional guiding and
+                      authentic tours that are adapted to our guests’ wishes and limits. Our tours are
+                      flexible, sustainable and designed to create memorable moments.
+                    </p>
+                  </div>
+
+                  <div class="team-bio-block" dir="rtl">
+                    <div class="team-bio-label">العربية</div>
+                    <p>
+                      وُلدت وأعيش في جنوب لبنان، ولديّ أكثر من عشر سنوات من الخبرة في تنظيم
+                      الرحلات اليومية ورحلات المشي. أعرف معظم الزوايا والتلال في جنوب وشمال لبنان.
+                    </p>
+                    <p>
+                      أركّز على تجارب مصمّمة خصيصًا تجمع بين السلامة والثقافة المحلية والارتباط
+                      بالطبيعة. المصداقية على الطريقة الألمانية وسلامة ضيوفنا تأتي في المقام الأول
+                      لدى AMD. أقدّم استشارات شخصية، وإرشادًا مهنيًا، وجولات أصيلة تُصمَّم وفقًا
+                      لرغبات وضوابط ضيوفنا. جولاتنا مرنة، مستدامة، وتهدف إلى صناعة لحظات لا تُنسى.
+                    </p>
+                  </div>
+                </div>
+              </article>
+            </section>
+          </div>
+
+          <div class="about-back-link">
+            <a href="/" data-i18n="backArrow">← Zurück zur Transfer-App</a>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="amd-footer">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <ul class="footer-links">
+            <li>
+              <a href="https://amdtransfer.netlify.app/" target="_blank" rel="noopener">
+                Airport Transfer
+              </a>
+            </li>
+            <li><a href="https://www.amd-germancenter.com/de/car-rental.html" target="_blank" rel="noopener">Mietwagen</a></li>
+            <li><a href="https://www.amd-germancenter.com/de/package-tours.html" target="_blank" rel="noopener">Pauschalreisen</a></li>
+            <li><a href="/legal/de/faq.html">FAQ Libanon</a></li>
+            <li><a href="/legal/de/about.html">Über uns</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column footer-column--center">
+          <p class="footer-title" data-i18n="footer.follow">Folgen Sie uns auf:</p>
+
+          <div class="footer-social">
+            <a href="https://wa.me/96181622668" target="_blank" rel="noopener">
+              <img src="/images/icon-whatsapp.svg" alt="WhatsApp" />
+            </a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener">
+              <img src="/images/icon-instagram.svg" alt="Instagram" />
+            </a>
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener">
+              <img src="/images/icon-facebook.svg" alt="Facebook" />
+            </a>
+            <a href="https://www.tiktok.com/" target="_blank" rel="noopener">
+              <img src="/images/icon-tiktok.svg" alt="TikTok" />
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <ul class="footer-links">
+            <li><a href="/legal/de/imprint.html">Impressum</a></li>
+            <li>
+              <a href="https://amd-tarifcheck.de/" target="_blank" rel="noopener">
+                AMD Tarifcheck
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        // Hard-fix: Es gibt nur /legal/de/*.html (static export).
+        // Wenn jemand /legal/en/ oder /legal/ar/ öffnet -> sofort auf /legal/de/ umleiten.
+        (function enforceLegalDePath() {
+          var p = window.location.pathname || "";
+          if (p.indexOf("/legal/en/") === 0 || p.indexOf("/legal/ar/") === 0) {
+            window.location.replace(p.replace(/^\/legal\/(en|ar)\//, "/legal/de/"));
+          }
+        })();
+
+        function normalizeLocale(v) {
+          var s = String(v || "").toLowerCase().trim();
+          var short = s.slice(0, 2);
+          return (short === "de" || short === "en" || short === "ar") ? short : "de";
+        }
+
+        var lang = "de";
+        try { lang = normalizeLocale(localStorage.getItem("amd_locale")); } catch (e) { }
+
+        // Texte
+        var dict = {
+          de: {
+            back: "Zurück zur Transfer-App",
+            backArrow: "← Zurück zur Transfer-App",
+            footer: {
+              transfer: "Airport Transfer",
+              carRental: "Mietwagen",
+              packageTours: "Pauschalreisen",
+              faq: "FAQ Libanon",
+              about: "Über uns",
+              follow: "Folgen Sie uns auf:",
+              imprint: "Impressum",
+              tarifcheck: "AMD Tarifcheck"
+            }
+          },
+          en: {
+            back: "Back to the transfer app",
+            backArrow: "← Back to the transfer app",
+            footer: {
+              transfer: "Airport transfer",
+              carRental: "Car rental",
+              packageTours: "Package tours",
+              faq: "Lebanon FAQ",
+              about: "About us",
+              follow: "Follow us on:",
+              imprint: "Imprint",
+              tarifcheck: "AMD Tarifcheck"
+            }
+          },
+          ar: {
+            back: "العودة إلى تطبيق النقل",
+            backArrow: "← العودة إلى تطبيق النقل",
+            footer: {
+              transfer: "نقل المطار",
+              carRental: "تأجير السيارات",
+              packageTours: "الباقات",
+              faq: "الأسئلة الشائعة",
+              about: "من نحن",
+              follow: "تابعنا على:",
+              imprint: "البيانات القانونية",
+              tarifcheck: "AMD Tarifcheck"
+            }
+          }
+        };
+
+        var D = dict[lang] || dict.de;
+
+        // 1) Text ersetzen für alles mit data-i18n
+        document.querySelectorAll("[data-i18n]").forEach(function (el) {
+          var key = el.getAttribute("data-i18n");
+          var val = null;
+
+          if (key === "back") val = D.back;
+          else if (key === "backArrow") val = D.backArrow;
+          else if (key.indexOf("footer.") === 0) {
+            var k = key.split(".")[1];
+            val = D.footer && D.footer[k];
+          }
+
+          if (val) el.textContent = val;
+        });
+
+        // 2) Für Legal-Seiten immer LTR (weil Inhalt gemischt DE/EN/AR)
+        document.documentElement.setAttribute("dir", "ltr");
+
+        // lang-Attribut darf trotzdem auf ar stehen (für Screenreader/Fonts)
+        document.documentElement.setAttribute("lang", lang === "ar" ? "ar" : lang);
+
+        // 3) Externe Links auf richtige Sprach-URL umbiegen (nur wenn sie /de/ enthalten)
+        //    (Car rental + package tours)
+        function swapLocaleInUrl(url) {
+          return url.replace("/de/", "/" + lang + "/");
+        }
+
+        document.querySelectorAll('a[href*="amd-germancenter.com/de/"]').forEach(function (a) {
+          a.setAttribute("href", swapLocaleInUrl(a.getAttribute("href")));
+        });
+
+      })();
+    </script>
+
+</body>
+
+</html>

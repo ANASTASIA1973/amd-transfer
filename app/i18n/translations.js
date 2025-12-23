@@ -75,6 +75,8 @@ backToMainLabel: "Zurück zur Hauptseite",
     childLabel: "Kindersitz",
     boosterLabel: "Sitzerhöhung",
     freeBadgeText: "Erster Sitz kostenlos",
+    selectPrompt: "Bitte wählen",
+
 
     /* Extras-Gruppen */
     extrasStepTitle: "Weitere Extras",
@@ -115,6 +117,10 @@ backToMainLabel: "Zurück zur Hauptseite",
     lastNameLabel: "Nachname",
     emailLabel: "E-Mail",
     phoneLabel: "Telefon",
+    invalidEmail: "Bitte eine gültige E-Mail eingeben.",
+invalidPhone: "Bitte eine gültige Telefonnummer eingeben.",
+voucherTourOnlyNote: "nur Tour",
+
 
     /* Partnerfeld */
     partnerIdLabel: "Reisebüro-ID (optional)",
@@ -215,7 +221,23 @@ backToMainLabel: "Zurück zur Hauptseite",
       legalNote:
         "Diese Website dient der Information und Buchung privater Transfers/Touren. Preise können je nach Route und Verfügbarkeit variieren.",
     },
+    footer: {
+  colLeftTitle: "Services",
+  colCenterTitle: "Folgen Sie uns auf:",
+
+  links: {
+    transfer: "Airport Transfer",
+    tours: "Tagestouren",
+    carRental: "Mietwagen",
+    packageTours: "Pauschalreisen",
+    tarifcheck: "AMD Tarifcheck",
+    faq: "FAQ Libanon",
+    about: "Über uns",
+    imprint: "Impressum",
   },
+},
+
+},
 
   en: {
     /* General */
@@ -289,6 +311,8 @@ backToMainLabel: "Back to main site",
     childLabel: "Child seat",
     boosterLabel: "Booster seat",
     freeBadgeText: "First seat free",
+    selectPrompt: "Please choose",
+
 
     /* Extras Groups */
     extrasStepTitle: "Additional Extras",
@@ -328,6 +352,10 @@ backToMainLabel: "Back to main site",
     lastNameLabel: "Last name",
     emailLabel: "Email",
     phoneLabel: "Phone",
+    invalidEmail: "Please enter a valid email address.",
+invalidPhone: "Please enter a valid phone number.",
+voucherTourOnlyNote: "tour only",
+
 
     /* Partner field */
     partnerIdLabel: "Travel agency ID (optional)",
@@ -423,8 +451,22 @@ backToMainLabel: "Back to main site",
       legalTitle: "Notice",
       legalNote:
         "This website provides information and bookings for private transfers/tours. Prices may vary by route and availability.",
-    },
+    },footer: {
+  colLeftTitle: "Services",
+  colCenterTitle: "Follow us on:",
+
+  links: {
+    transfer: "Airport transfer",
+    tours: "Day tours",
+    carRental: "Car rental",
+    packageTours: "Package tours",
+    tarifcheck: "AMD Tarifcheck",
+    faq: "Lebanon FAQ",
+    about: "About us",
+    imprint: "Imprint",
   },
+},
+},
 
   ar: {
     /* عام */
@@ -500,6 +542,8 @@ backToMainLabel: "العودة إلى الصفحة الرئيسية",
     childLabel: "مقعد أطفال",
     boosterLabel: "مقعد مرتفع",
     freeBadgeText: "الأول مجاني",
+    selectPrompt: "يرجى الاختيار",
+
 
     /* الإضافات */
     extrasStepTitle: "إضافات",
@@ -538,6 +582,10 @@ backToMainLabel: "العودة إلى الصفحة الرئيسية",
     lastNameLabel: "اسم العائلة",
     emailLabel: "البريد الإلكتروني",
     phoneLabel: "رقم الهاتف",
+    invalidEmail: "يرجى إدخال بريد إلكتروني صحيح.",
+invalidPhone: "يرجى إدخال رقم هاتف صحيح.",
+voucherTourOnlyNote: "للتour فقط",
+
 
     /* حقل الشريك */
     partnerIdLabel: "معرّف وكالة السفر (اختياري)",
@@ -633,8 +681,23 @@ backToMainLabel: "العودة إلى الصفحة الرئيسية",
       legalTitle: "ملاحظة",
       legalNote:
         "هذا الموقع مخصص للمعلومات وحجوزات النقل/الجولات الخاصة. قد تختلف الأسعار حسب المسار والتوافر.",
-    },
+    },footer: {
+  colLeftTitle: "الخدمات",
+  colCenterTitle: "تابعنا على:",
+ 
+  links: {
+    transfer: "توصيل المطار",
+    tours: "الجولات اليومية",
+    carRental: "تأجير السيارات",
+    packageTours: "الباقات",
+    tarifcheck: "AMD Tarifcheck",
+    faq: "أسئلة وأجوبة عن لبنان",
+    about: "معلومات عنا",
+    imprint: "البيانات القانونية",
   },
+},
+},
+
 };
 
 export default t;

@@ -1,14 +1,13 @@
 // app/components/ContactStep.jsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import t from "../i18n/translations";
 import { useLocale } from "../context/LocaleContext";
 
 import {
   MapPinIcon,
   CalendarIcon,
-  UserIcon,
   UsersIcon,
   ClockIcon,
   GiftIcon,
@@ -18,7 +17,7 @@ import {
   EnvelopeIcon,
 } from "@heroicons/react/24/outline";
 
-import { FaCar, FaMobileAlt, FaWhatsapp } from "react-icons/fa";
+import { FaCar, FaMobileAlt, FaWhatsapp, FaUser, FaChild } from "react-icons/fa";
 
 /* ===================== Helpers ===================== */
 function formatDurationText(duration, L, locale) {
@@ -38,12 +37,17 @@ function formatDurationText(duration, L, locale) {
   if (minMatch) minutes = parseInt(minMatch[1], 10);
 
   const parts = [];
-  if (hours > 0) parts.push(hours + " " + (hours === 1 ? L.hourSingular : L.hourPlural));
-  if (minutes > 0) parts.push(minutes + " " + (minutes === 1 ? L.minuteSingular : L.minutePlural));
+  if (hours > 0)
+    parts.push(hours + " " + (hours === 1 ? L.hourSingular : L.hourPlural));
+  if (minutes > 0)
+    parts.push(
+      minutes + " " + (minutes === 1 ? L.minuteSingular : L.minutePlural)
+    );
 
-  // falls nur Minuten erkannt wurden, aber parts leer ist
   if (parts.length === 0 && minMatch) {
-    parts.push(minutes + " " + (minutes === 1 ? L.minuteSingular : L.minutePlural));
+    parts.push(
+      minutes + " " + (minutes === 1 ? L.minuteSingular : L.minutePlural)
+    );
   }
 
   return parts.join(", ");
@@ -51,7 +55,7 @@ function formatDurationText(duration, L, locale) {
 
 const ltr = (s) => `\u2066${s}\u2069`;
 
-// Extras-Preise (in $)
+// Extras-Preise (in $) — Keys müssen exakt bleiben
 const priceMap = {
   flowers: 35,
   redWine: 2.5,
@@ -81,6 +85,8 @@ const BANK = {
   bic: "BYBALBBX",
 };
 
+const FIXED_VOUCHER_CODE = "AMD2026";
+
 /* Referral-Code lesen (mobil/desktop tauglich) */
 function getReferralCode() {
   if (typeof window === "undefined") return null;
@@ -101,10 +107,19 @@ function getVehicleLabel(v, L) {
   if (!val) return L?.notSelected || "—";
 
   const key = "vehicle" + val.charAt(0).toUpperCase() + val.slice(1);
-  return (L && L[key]) ? L[key] : val;
+  return L && L[key] ? L[key] : val;
 }
 
-/* ===================== Component ===================== */
+/* ===== Validation (pragmatisch) ===== */
+const isValidEmail = (val) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(val || "").trim());
+const onlyDigits = (val) => String(val || "").replace(/\D/g, "");
+const isValidPhone = (val) => {
+  const d = onlyDigits(val);
+  return d.length >= 7; // wie in deiner Datei (funktioniert „locker“ auf Mobile)
+};
+
+const round2 = (n) => Math.round((Number(n || 0) + Number.EPSILON) * 100) / 100;
+
 export default function ContactStep({
   orig,
   dest,
@@ -115,7 +130,7 @@ export default function ContactStep({
   vehicle,
   vehicleSurcharge,
   returnDiscount,
-  voucherDiscount,
+  voucherDiscount, // bleibt als Prop drin, wird aber für Anzeige „tour-only“ überschrieben
   voucher,
   setVoucher,
   dateTime,
@@ -131,10 +146,10 @@ export default function ContactStep({
   returnDistance,
   returnDuration,
   distance,
-  totalBeforeVoucher, // aktuell nicht genutzt, bleibt aber drin
+  totalBeforeVoucher, // bleibt drin
   totalPrice,
   returnVehicle = "",
-  partnerId: _ignored, // wird lokal neu gepflegt
+  partnerId: _ignored,
 }) {
   const { locale } = useLocale();
   const L = t[locale] || t.de;
@@ -162,43 +177,28 @@ export default function ContactStep({
 
   const fmt = (dt) => (dt ? new Date(dt).toLocaleString(locale) : "");
 
+  // ✅ Gutschein fest setzen (nur einmal) + nicht editierbar
+  useEffect(() => {
+    if (typeof setVoucher === "function" && String(voucher || "").trim() !== FIXED_VOUCHER_CODE) {
+      setVoucher(FIXED_VOUCHER_CODE);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   /* ---------- Extras ---------- */
   function renderSeatExtras(seatDetails) {
     const list = Array.isArray(seatDetails) ? seatDetails : [];
     if (!list.length) return [];
 
-    const all = list
+    return list
       .map(({ key, count, unit }) => ({ key, count, unit }))
       .filter(({ count }) => Number(count) > 0)
-      .sort((a, b) => (a.unit || 0) - (b.unit || 0));
-
-    if (!all.length) return [];
-
-    const items = [];
-    let freeGiven = false;
-
-    all.forEach(({ key, count, unit }) => {
-      const c = Number(count) || 0;
-      const u = Number(unit) || 0;
-
-      let label = `${L[seatLabelMap[key]]} x${c}`;
-
-      if (!freeGiven) {
-        if (c === 1) {
-          label += ` (${L.freeBadgeText}): $0.00`;
-          freeGiven = true;
-        } else if (c > 1) {
-          label += `: $${((c - 1) * u).toFixed(2)} (${L.freeBadgeText})`;
-          freeGiven = true;
-        }
-      } else {
-        label += `: $${(c * u).toFixed(2)}`;
-      }
-
-      items.push(label);
-    });
-
-    return items;
+      .sort((a, b) => (a.unit || 0) - (b.unit || 0))
+      .map(({ key, count, unit }) => {
+        const c = Number(count) || 0;
+        const u = Number(unit) || 0;
+        return `${L[seatLabelMap[key]]} x${c}: $${(c * u).toFixed(2)}`;
+      });
   }
 
   function renderOtherExtras(details) {
@@ -216,15 +216,12 @@ export default function ContactStep({
     const seatList = Array.isArray(seatDetails) ? seatDetails : [];
     const otherList = Array.isArray(otherDetails) ? otherDetails : [];
 
-    let seats = seatList
-      .map(({ count, unit }) => Array(Number(count) || 0).fill(Number(unit) || 0))
-      .flat()
-      .sort((a, b) => a - b);
+    const seatSum = seatList.reduce((sum, { count, unit }) => {
+      const c = Number(count) || 0;
+      const u = Number(unit) || 0;
+      return sum + c * u;
+    }, 0);
 
-    // erster Sitz kostenlos
-    if (seats.length > 0) seats.shift();
-
-    const seatSum = seats.reduce((a, b) => a + b, 0);
     const otherSum = otherList.reduce((sum, { key, count }) => {
       const c = Number(count) || 0;
       const price = Number(priceMap[key] || 0);
@@ -234,7 +231,47 @@ export default function ContactStep({
     return seatSum + otherSum;
   }
 
-  /* ---------- Mail/WA-Text ---------- */
+  const extrasTotal = useMemo(
+    () => round2(calcExtrasTotal(seatExtrasDetails, otherExtrasDetails)),
+    [seatExtrasDetails, otherExtrasDetails]
+  );
+
+  /* ---------- ✅ Rabatt nur auf Tour (ohne Extras) ---------- */
+  const tourBase = useMemo(() => {
+    const base =
+      Number(ridePrice || 0) +
+      Number(vehicleSurcharge || 0) -
+      (isReturn ? Math.abs(Number(returnDiscount || 0)) : 0);
+    return round2(Math.max(0, base));
+  }, [ridePrice, vehicleSurcharge, isReturn, returnDiscount]);
+
+  const voucherIsActive = String(voucher || "").trim().toUpperCase() === FIXED_VOUCHER_CODE;
+
+  // 10% nur auf tourBase (ohne Extras)
+  const tourOnlyVoucherDiscount = useMemo(() => {
+    if (!voucherIsActive) return 0;
+    return round2(tourBase * 0.10);
+  }, [voucherIsActive, tourBase]);
+
+  // Anzeige: wenn Prop „voucherDiscount“ abweicht, zeig trotzdem tour-only (damit UI stimmt)
+  const displayVoucherDiscount = voucherIsActive ? tourOnlyVoucherDiscount : 0;
+
+  /* ---------- Validation ---------- */
+  const emailOk = isValidEmail(email);
+  const phoneOk = isValidPhone(phone);
+  const canSubmit = Boolean(firstName && lastName && emailOk && phoneOk);
+
+  const copy = async (text, which) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(which);
+      setTimeout(() => setCopied(""), 1200);
+    } catch {
+      // ignore
+    }
+  };
+
+  /* ---------- Mail/WA-Text (nutzt tour-only Rabatt) ---------- */
   function buildBookingText() {
     const partnerLabel = (L.partnerIdLabel || "Partner ID").replace(/\s*\(.*\)/, "");
     const referral = getReferralCode();
@@ -295,17 +332,15 @@ export default function ContactStep({
       lines.push("", (L.extrasStepTitle || "Extras") + ":");
       seatList.forEach((x) => lines.push("- " + x));
       otherList.forEach((x) => lines.push("- " + x));
-      lines.push(
-        `${L.extrasTotalLabel}: $${calcExtrasTotal(seatExtrasDetails, otherExtrasDetails).toFixed(2)}`
-      );
+      lines.push(`${L.extrasTotalLabel}: $${extrasTotal.toFixed(2)}`);
     }
 
     if (isReturn) {
       lines.push(`${L.returnDiscountLabel}: -$${Math.abs(Number(returnDiscount || 0)).toFixed(2)}`);
     }
 
-    if (Number(voucherDiscount || 0) > 0) {
-      lines.push(`${L.voucherLabel}: -$${Number(voucherDiscount || 0).toFixed(2)}`);
+    if (displayVoucherDiscount > 0) {
+      lines.push(`${L.voucherLabel}: -$${displayVoucherDiscount.toFixed(2)} (${L?.voucherTourOnlyNote || "nur Tour"})`);
     }
 
     lines.push(`${L.totalLabel}: $${totalPrice}`);
@@ -317,19 +352,7 @@ export default function ContactStep({
   const mailtoLink = `mailto:${firmEmail}?subject=${encodeURIComponent(subject)}&body=${body}`;
   const whatsappLink = `https://wa.me/${whatsappFull.replace(/\D/g, "")}?text=${body}`;
 
-  const canSubmit = Boolean(firstName && lastName && email && phone);
-
-  const copy = async (text, which) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopied(which);
-      setTimeout(() => setCopied(""), 1200);
-    } catch {
-      // ignore
-    }
-  };
-
-  /* ===================== Premium tokens (nur Styles) ===================== */
+  /* ===================== Styles (wie in deiner Datei) ===================== */
   const ACCENT = "#1f6f3a";
   const HEADING = "#0b1f3a";
   const TEXT = "rgba(17,24,39,.74)";
@@ -356,7 +379,6 @@ export default function ContactStep({
           boxShadow: BOX_SHADOW,
         }}
       >
-        {/* left accent stripe */}
         <div
           aria-hidden="true"
           style={{
@@ -370,9 +392,7 @@ export default function ContactStep({
         />
         <div style={{ padding: "1.1rem 1.1rem 1.15rem 1.45rem" }}>
           <div className="flex items-center font-extrabold mb-2" style={{ color: HEADING }}>
-            <span className="mr-2" style={{ color: "#C09743" }}>
-              {icon}
-            </span>
+            <span className="mr-2" style={{ color: HEADING }}>{icon}</span>
             {title}
           </div>
           <div aria-hidden="true" style={{ height: 1, background: "rgba(17,24,39,.08)", marginBottom: ".75rem" }} />
@@ -382,57 +402,44 @@ export default function ContactStep({
     );
   };
 
-  /* ===================== Render ===================== */
   return (
     <div
       className="p-6 space-y-6 w-full mx-auto max-w-[680px] sm:max-w-[720px] box-border overflow-hidden bg-white"
-      style={{
-        borderRadius: RADIUS,
-        border: `1px solid ${BORDER}`,
-        boxShadow: SHADOW,
-      }}
+      style={{ borderRadius: RADIUS, border: `1px solid ${BORDER}`, boxShadow: SHADOW }}
     >
-      {/* WARENKORB / BUCHUNGS-ÜBERSICHT */}
+      {/* ÜBERSICHT */}
       <div className="space-y-4">
-        {/* Hin- und Rückfahrt Übersicht */}
         <div className="grid md:grid-cols-2 gap-4">
-          {/* Hinfahrt */}
           <Section icon={<FaCar className="w-5 h-5" />} title={L.outwardTripTitle || "Hinfahrt"} tone="green">
             <div className="flex flex-col gap-1" style={{ color: "rgba(17,24,39,.86)" }}>
               <div className="flex items-center min-w-0">
                 <MapPinIcon className="w-4 h-4 mr-1 shrink-0" />
                 <span className="truncate">{orig}</span>
               </div>
-
               <div className="flex items-center min-w-0">
                 <MapPinIcon className="w-4 h-4 mr-1 rotate-180 shrink-0" />
                 <span className="truncate">{dest}</span>
               </div>
-
               <div className="flex items-center min-w-0">
                 <CalendarIcon className="w-4 h-4 mr-1 shrink-0" />
                 <span className="truncate">{fmt(dateTime)}</span>
               </div>
-
               <div className="flex items-center min-w-0">
                 <ClockIcon className="w-4 h-4 mr-1 shrink-0" />
                 <span className="truncate">{formatDurationText(duration, L, locale)}</span>
               </div>
-
               <div className="flex items-center min-w-0">
                 <span className="w-4 h-4 mr-1 shrink-0">📏</span>
                 <span className="truncate">
                   {(L.streckeLabel ? L.streckeLabel : L.distanceLabel || "").replace("{km}", distance?.toFixed?.(1) || "")}
                 </span>
               </div>
-
               {flightNo && (
                 <div className="flex items-center min-w-0">
                   <TicketIcon className="w-4 h-4 mr-1 shrink-0" />
                   <span className="truncate">{flightNo}</span>
                 </div>
               )}
-
               <div className="flex items-center min-w-0">
                 <CheckCircleIcon className="w-4 h-4 mr-1 shrink-0" style={{ color: ACCENT }} />
                 <span className="truncate">{getVehicleLabel(vehicle, L)}</span>
@@ -440,7 +447,6 @@ export default function ContactStep({
             </div>
           </Section>
 
-          {/* Rückfahrt */}
           {isReturn && (
             <Section icon={<FaCar className="w-5 h-5" />} title={L.returnTripLabel} tone="green">
               <div className="flex flex-col gap-1" style={{ color: "rgba(17,24,39,.86)" }}>
@@ -448,22 +454,18 @@ export default function ContactStep({
                   <MapPinIcon className="w-4 h-4 mr-1 shrink-0" />
                   <span className="truncate">{returnOrig}</span>
                 </div>
-
                 <div className="flex items-center min-w-0">
                   <MapPinIcon className="w-4 h-4 mr-1 rotate-180 shrink-0" />
                   <span className="truncate">{returnDest}</span>
                 </div>
-
                 <div className="flex items-center min-w-0">
                   <CalendarIcon className="w-4 h-4 mr-1 shrink-0" />
                   <span className="truncate">{fmt(returnDateTime)}</span>
                 </div>
-
                 <div className="flex items-center min-w-0">
                   <ClockIcon className="w-4 h-4 mr-1 shrink-0" />
                   <span className="truncate">{formatDurationText(returnDuration, L, locale)}</span>
                 </div>
-
                 <div className="flex items-center min-w-0">
                   <span className="w-4 h-4 mr-1 shrink-0">📏</span>
                   <span className="truncate">
@@ -473,7 +475,6 @@ export default function ContactStep({
                     )}
                   </span>
                 </div>
-
                 <div className="flex items-center min-w-0">
                   <CheckCircleIcon className="w-4 h-4 mr-1 shrink-0" style={{ color: ACCENT }} />
                   <span className="truncate">{getVehicleLabel(returnVehicle, L)}</span>
@@ -484,49 +485,57 @@ export default function ContactStep({
         </div>
 
         {/* Passagiere & Fahrzeug */}
-        <Section icon={<UsersIcon className="w-5 h-5" />} title={L.passengersVehicleTitle || "Passagiere & Fahrzeug"} tone="white">
-          <div className="flex flex-col md:flex-row md:items-center md:gap-8 gap-2">
-            <div className="flex items-center gap-2">
-              <UsersIcon className="w-5 h-5" style={{ color: "#C09743" }} />
-              <span className="font-semibold" style={{ color: HEADING }}>
-                {adults} {L.adultsLabel}
-              </span>
-            </div>
+        {(() => {
+          const IconBadge = ({ children: ch }) => (
+            <span
+              className="inline-flex items-center justify-center w-9 h-9 rounded-xl border ios-fix shrink-0"
+              style={{
+                background: "rgba(0,33,71,.03)",
+                borderColor: "rgba(17,24,39,.10)",
+                color: "rgba(11,31,58,.95)",
+                boxShadow: "inset 0 0 0 1px rgba(17,24,39,.06)",
+              }}
+              aria-hidden="true"
+            >
+              <span className="text-[18px] leading-none">{ch}</span>
+            </span>
+          );
 
-            <div className="flex items-center gap-2">
-              <UserIcon className="w-5 h-5" style={{ color: "#C09743" }} />
-              <span className="font-semibold" style={{ color: HEADING }}>
-                {children} {L.childrenLabel}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <FaCar className="w-5 h-5" style={{ color: "#C09743" }} />
-              <span className="font-semibold" style={{ color: HEADING }}>
-                {getVehicleLabel(vehicle, L)}
-              </span>
-            </div>
-          </div>
-        </Section>
+          return (
+            <Section icon={<UsersIcon className="w-5 h-5" style={{ color: HEADING }} />} title={L.passengersVehicleTitle || "Passagiere & Fahrzeug"} tone="white">
+              <div className="flex flex-col md:flex-row md:items-center md:gap-8 gap-3">
+                <div className="flex items-center gap-3">
+                  <IconBadge><FaUser /></IconBadge>
+                  <span className="font-semibold" style={{ color: HEADING }}>
+                    {adults} {L.adultsLabel}
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <IconBadge><FaChild /></IconBadge>
+                  <span className="font-semibold" style={{ color: HEADING }}>
+                    {children} {L.childrenLabel}
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <IconBadge><FaCar /></IconBadge>
+                  <span className="font-semibold" style={{ color: HEADING }}>
+                    {getVehicleLabel(vehicle, L)}
+                  </span>
+                </div>
+              </div>
+            </Section>
+          );
+        })()}
 
         {/* Extras */}
         {(renderSeatExtras(seatExtrasDetails).length > 0 || renderOtherExtras(otherExtrasDetails).length > 0) && (
           <Section icon={<GiftIcon className="w-5 h-5" />} title={L.extrasStepTitle} tone="green">
             <ul className="ml-5 space-y-1" style={{ color: "rgba(17,24,39,.86)", listStyleType: "disc" }}>
-              {renderSeatExtras(seatExtrasDetails).map((x, i) => (
-                <li key={"seat" + i}>
-                  <span>{x}</span>
-                </li>
-              ))}
-              {renderOtherExtras(otherExtrasDetails).map((x, i) => (
-                <li key={"extra" + i}>
-                  <span>{x}</span>
-                </li>
-              ))}
+              {renderSeatExtras(seatExtrasDetails).map((x, i) => <li key={"seat" + i}>{x}</li>)}
+              {renderOtherExtras(otherExtrasDetails).map((x, i) => <li key={"extra" + i}>{x}</li>)}
             </ul>
-
             <div className="font-extrabold mt-3" style={{ color: HEADING }}>
-              {L.extrasTotalLabel}: ${calcExtrasTotal(seatExtrasDetails, otherExtrasDetails).toFixed(2)}
+              {L.extrasTotalLabel}: ${extrasTotal.toFixed(2)}
             </div>
           </Section>
         )}
@@ -553,18 +562,21 @@ export default function ContactStep({
               </div>
             )}
 
-            {Number(voucherDiscount || 0) > 0 && (
+            {displayVoucherDiscount > 0 && (
               <div className="flex justify-between">
                 <span style={{ color: TEXT }}>{L.voucherLabel}:</span>
                 <span className="font-semibold" style={{ color: ACCENT }}>
-                  -${Number(voucherDiscount || 0).toFixed(2)}
+                  -${displayVoucherDiscount.toFixed(2)}{" "}
+                  <span className="text-xs" style={{ color: "rgba(17,24,39,.55)" }}>
+                    ({L?.voucherTourOnlyNote || "nur Tour"})
+                  </span>
                 </span>
               </div>
             )}
 
             <div className="flex justify-between">
               <span style={{ color: TEXT }}>{L.extrasTotalLabel}:</span>
-              <span className="font-semibold">${calcExtrasTotal(seatExtrasDetails, otherExtrasDetails).toFixed(2)}</span>
+              <span className="font-semibold">${extrasTotal.toFixed(2)}</span>
             </div>
 
             <div
@@ -578,25 +590,29 @@ export default function ContactStep({
         </Section>
       </div>
 
-      {/* Gutschein */}
+      {/* ✅ Gutschein (grau + gesperrt) */}
       <div>
         <label className="block mb-1 font-semibold" style={{ color: HEADING }}>
           {L.voucherLabel}
         </label>
+
         <input
           type="text"
-          value={voucher}
-          onChange={(e) => setVoucher(e.target.value)}
-          placeholder={L.voucherPlaceholder}
+          value={FIXED_VOUCHER_CODE}
+          readOnly
+          disabled
           className="border rounded-xl px-3 py-2 w-full"
           style={{
             borderColor: BORDER,
+            background: "rgba(17,24,39,.06)",
+            color: "rgba(17,24,39,.65)",
+            cursor: "not-allowed",
             boxShadow: "0 10px 22px rgba(15,23,42,.04)",
           }}
         />
       </div>
 
-      {/* Kontaktdaten */}
+      {/* Kontaktdaten (so wie deine Datei -> iPhone klickt sauber) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block mb-1 font-semibold" style={{ color: HEADING }}>
@@ -608,6 +624,7 @@ export default function ContactStep({
             onChange={(e) => setFirstName(e.target.value)}
             className="border rounded-xl px-3 py-2 w-full"
             style={{ borderColor: BORDER }}
+            autoComplete="given-name"
           />
         </div>
 
@@ -621,6 +638,7 @@ export default function ContactStep({
             onChange={(e) => setLastName(e.target.value)}
             className="border rounded-xl px-3 py-2 w-full"
             style={{ borderColor: BORDER }}
+            autoComplete="family-name"
           />
         </div>
 
@@ -633,9 +651,15 @@ export default function ContactStep({
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="border rounded-xl px-3 py-2 w-full break-words"
-            style={{ borderColor: BORDER }}
-            autoComplete="off"
+            style={{ borderColor: email && !emailOk ? "rgba(220,38,38,.55)" : BORDER }}
+            autoComplete="email"
+            inputMode="email"
           />
+          {email && !emailOk ? (
+            <div className="mt-1 text-xs" style={{ color: "rgba(220,38,38,.92)" }}>
+              {L.invalidEmail}
+            </div>
+          ) : null}
         </div>
 
         <div>
@@ -647,10 +671,16 @@ export default function ContactStep({
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             className="border rounded-xl px-3 py-2 w-full"
-            style={{ borderColor: BORDER }}
+            style={{ borderColor: phone && !phoneOk ? "rgba(220,38,38,.55)" : BORDER }}
             dir="ltr"
-            autoComplete="off"
+            inputMode="tel"
+            autoComplete="tel"
           />
+          {phone && !phoneOk ? (
+            <div className="mt-1 text-xs" style={{ color: "rgba(220,38,38,.92)" }}>
+              {L.invalidPhone}
+            </div>
+          ) : null}
         </div>
       </div>
 
@@ -813,7 +843,6 @@ export default function ContactStep({
               <span className="font-medium">{L.bankName || "Bank"}:</span> {BANK.bankName}
             </div>
 
-            {/* IBAN */}
             <div className="flex items-center gap-2 min-w-0">
               <span className="font-medium shrink-0">{L.iban || "IBAN"}:</span>
 
@@ -847,7 +876,6 @@ export default function ContactStep({
               </button>
             </div>
 
-            {/* BIC */}
             <div className="flex items-center gap-2 min-w-0">
               <span className="font-medium shrink-0">{L.bic || "BIC"}:</span>
 
@@ -887,7 +915,6 @@ export default function ContactStep({
       {/* Buttons */}
       <div className="mt-6">
         <div className="grid grid-cols-2 sm:flex sm:flex-row gap-3 items-stretch">
-          {/* Zurück */}
           <button
             onClick={onBack}
             type="button"
@@ -904,7 +931,6 @@ export default function ContactStep({
             {L.backBtn}
           </button>
 
-          {/* WhatsApp */}
           <a
             href={whatsappLink}
             className="col-span-1 sm:flex-1 rounded-xl font-semibold transition inline-flex items-center justify-center"
@@ -926,7 +952,6 @@ export default function ContactStep({
             {L.whatsappBtn}
           </a>
 
-          {/* Email */}
           <a
             href={mailtoLink}
             className="col-span-1 sm:flex-1 rounded-xl font-semibold transition inline-flex items-center justify-center"
@@ -948,7 +973,6 @@ export default function ContactStep({
             {L.emailBtn}
           </a>
 
-          {/* Jetzt anrufen */}
           <a
             href={`tel:${whatsappFull}`}
             className="col-span-2 sm:flex-1 rounded-xl font-semibold transition inline-flex items-center justify-center"

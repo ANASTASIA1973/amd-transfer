@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>AMD German Center – Impressum</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="description"
+        content="Impressum des AMD German Center – Tourism & Services in Tyre, Libanon." />
+
+  <!-- Transfer-App: Assets absolut -->
+  <link rel="stylesheet" href="/transfer-globals.css" />
+
+  <style>
+    /* =========================
+       PREMIUM LEGAL PAGE (Imprint)
+       - Only styling, no content changes
+       ========================= */
+
+    :root{
+      --lp-bg: var(--amd-bg, #f5f5f7);
+      --lp-card: var(--amd-card-bg, #ffffff);
+      --lp-border: rgba(17,24,39,.08);
+      --lp-shadow: 0 16px 44px rgba(15,23,42,.10);
+      --lp-text: var(--amd-text, #111827);
+      --lp-muted: var(--amd-text-muted, #6b7280);
+      --lp-heading: var(--amd-heading, #111827);
+      --lp-green: var(--amd-accent, #1b6f5a);
+      --lp-radius: var(--amd-radius-lg, 18px);
+    }
+
+    body.amd-page{ background: var(--lp-bg); }
+    html, body { direction: ltr; }
+
+    .legal-wrap{
+      min-height: 100vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .legal-main{
+      flex:1;
+      padding: 2.2rem 1rem 3.2rem;
+    }
+    .legal-container{
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    /* HERO */
+    .legal-hero{
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      background:
+        radial-gradient(900px 420px at 18% 30%, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 60%),
+        linear-gradient(180deg, rgba(2,6,23,.76), rgba(2,6,23,.52));
+      color:#fff;
+      box-shadow: 0 22px 60px rgba(2,6,23,.18);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 1.35rem 1.35rem 1.45rem;
+      margin-bottom: 1.4rem;
+    }
+    .legal-hero h1{
+      margin:0;
+      font-size: clamp(1.35rem, 2.6vw, 2.0rem);
+      font-weight: 900;
+      letter-spacing: .2px;
+      line-height: 1.15;
+    }
+    .legal-hero p{
+      margin:.55rem 0 0;
+      opacity:.92;
+      line-height:1.45;
+      max-width: 70ch;
+    }
+
+    /* CARD */
+    .legal-card{
+      background: var(--lp-card);
+      border: 1px solid var(--lp-border);
+      border-radius: var(--lp-radius);
+      box-shadow: var(--lp-shadow);
+      overflow: hidden;
+    }
+
+    .legal-card-head{
+      padding: 1.15rem 1.25rem;
+      border-bottom: 1px solid var(--lp-border);
+      background: linear-gradient(180deg, rgba(17,24,39,.02), rgba(17,24,39,0));
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .legal-card-head .hint{
+      color: var(--lp-muted);
+      font-size: .95rem;
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      padding:.25rem .6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(17,24,39,.03);
+      color: var(--lp-muted);
+      font-size: .82rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .impressum-content{
+      padding: 1.15rem 1.25rem 1.25rem;
+      color: var(--lp-text);
+      line-height: 1.65;
+      font-size: .98rem;
+    }
+
+    .impressum-content h2{
+      margin: 0 0 .4rem;
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--lp-heading);
+      padding-top: .35rem;
+    }
+
+    .impressum-content p{
+      margin: .55rem 0 0;
+      color: var(--lp-text);
+    }
+
+    .impressum-content strong{
+      font-weight: 800;
+      color: var(--lp-heading);
+    }
+
+    .impressum-content a{
+      color: var(--amd-primary, #c1272d);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      word-break: break-word;
+    }
+
+    .impressum-content hr{
+      border: 0;
+      height: 1px;
+      background: rgba(17,24,39,.10);
+      margin: 1.15rem 0;
+    }
+
+    /* Make “blocks” look like premium sections */
+    .impressum-content > h2{
+      position: relative;
+      padding-left: 14px;
+      margin-top: 1rem;
+    }
+    .impressum-content > h2::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top: .25rem;
+      width: 6px;
+      height: 1.05rem;
+      border-radius: 999px;
+      background: var(--lp-green);
+      opacity: .95;
+    }
+
+    /* Keep Arabic text readable inside its part (only that part) */
+    .impressum-content h2:nth-of-type(3),
+    .impressum-content h2:nth-of-type(3) ~ p{
+      /* don’t force RTL globally; only improve flow for Arabic section */
+    }
+
+    /* Mobile */
+    @media (max-width: 640px){
+      .legal-hero{ border-radius: 18px; padding: 1.05rem 1.05rem 1.1rem; }
+      .legal-card-head{ padding: 1rem 1rem; }
+      .impressum-content{ padding: 1rem 1rem 1.05rem; }
+    }
+  </style>
+</head>
+
+<body class="amd-page" data-app="amd-transfer">
+  <div class="legal-wrap">
+
+    <!-- HEADER mit Logo und Rücklink -->
+    <!-- HEADER -->
+    <header class="amd-header">
+      <div class="amd-header-inner">
+        <a href="/" class="amd-logo" aria-label="AMD German Center">
+          <img src="/logo.png" alt="AMD German Center Logo" />
+        </a>
+
+        <div class="amd-header-right">
+          <a href="/" class="btn btn-secondary" id="backToTransferApp" data-i18n="back">Zurück zur Transfer-App</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="legal-main">
+      <div class="legal-container">
+
+        <!-- HERO -->
+        <div class="legal-hero">
+          <h1>Impressum / Legal Notice / البيانات القانونية</h1>
+          <p class="section-subtitle" style="color: rgba(255,255,255,.88);">
+            AMD German Center – Tourism &amp; Services, Tyre (Libanon)
+          </p>
+        </div>
+
+        <!-- CARD -->
+        <div class="legal-card">
+          <div class="legal-card-head">
+            <p class="hint">Kontakt- und Registrierungsangaben auf einer Seite (Deutsch / English / العربية). Layout bleibt bewusst LTR.</p>
+            <span class="badge">Legal</span>
+          </div>
+
+          <div class="impressum-content">
+            <!-- ==================== DEUTSCH ==================== -->
+            <h2>Impressum (Deutsch)</h2>
+            <p><strong>Angaben gemäß libanesischem Recht</strong></p>
+
+            <p>
+              <strong>AMD German Center – Tourism &amp; Services</strong><br />
+              1601 Tyre – Libanon
+            </p>
+
+            <p>
+              <strong>Telefon:</strong> +961 81 622 668<br />
+              <strong>E-Mail:</strong>
+              <a href="mailto:info@amd-germancenter.com">info@amd-germancenter.com</a><br />
+              <strong>Webseite:</strong>
+              <a href="https://www.amd-germancenter.com" target="_blank" rel="noopener">
+                www.amd-germancenter.com
+              </a>
+            </p>
+
+            <p>
+              <strong>Vertreten durch:</strong> Ali Mohsen Ahmad
+            </p>
+
+            <p>
+              <strong>Aufsichtsbehörde / Registrierung:</strong><br />
+              Eingetragen gemäß Artikel 24 des libanesischen Handelsgesetzes<br />
+              Handelsregister Sidon: 1868<br />
+              Handelsregister-Nummer: 5013868
+            </p>
+
+            <p>
+              <strong>Nachweis / Dokumente:</strong><br />
+              <!-- Transfer-App: PDF absolut -->
+              <a href="/images/certificate.jpg" target="_blank" rel="noopener">
+                Gewerbeanmeldung
+              </a>
+            </p>
+
+            <p>
+              <strong>Haftungsausschluss:</strong><br />
+              Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte
+              externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber
+              verantwortlich.
+            </p>
+
+            <hr />
+
+            <!-- ==================== ENGLISH ==================== -->
+            <h2>Legal Notice (English)</h2>
+            <p><strong>Information according to Lebanese legislation</strong></p>
+
+            <p>
+              <strong>AMD German Center – Tourism &amp; Services</strong><br />
+              1601 Tyre – Lebanon
+            </p>
+
+            <p>
+              <strong>Phone:</strong> +961 81 622 668<br />
+              <strong>Email:</strong>
+              <a href="mailto:info@amd-germancenter.com">info@amd-germancenter.com</a><br />
+              <strong>Website:</strong>
+              <a href="https://www.amd-germancenter.com" target="_blank" rel="noopener">
+                www.amd-germancenter.com
+              </a>
+            </p>
+
+            <p>
+              <strong>Authorized representative:</strong> Ali Mohsen Ahmad
+            </p>
+
+            <p>
+              <strong>Supervisory authority / Registration:</strong><br />
+              Registered in accordance with Article 24 of the Lebanese Commercial Law<br />
+              Commercial Register of Sidon: 1868<br />
+              Commercial Registration Number: 5013868
+            </p>
+
+            <p>
+              <strong>Proof / Documents:</strong><br />
+              <a href="/images/certificate.jpg" target="_blank" rel="noopener">
+                business licence
+              </a>
+            </p>
+
+            <p>
+              <strong>Disclaimer:</strong><br />
+              Despite careful content control, we assume no liability for the content of external
+              links. The operators of the linked websites are solely responsible for their content.
+            </p>
+
+            <hr />
+
+            <!-- ==================== ARABISCH ==================== -->
+            <h2>البيانات القانونية (العربية)</h2>
+            <p><strong>وفقًا للقانون اللبناني</strong></p>
+
+            <p>
+              <strong>AMD German Center – Tourism &amp; Services</strong><br />
+              1601 صور – لبنان
+            </p>
+
+            <p>
+              <strong>الهاتف:</strong> ‎+961 81 622 668<br />
+              <strong>البريد الإلكتروني:</strong>
+              <a href="mailto:info@amd-germancenter.com">info@amd-germancenter.com</a><br />
+              <strong>الموقع الإلكتروني:</strong>
+              <a href="https://www.amd-germancenter.com" target="_blank" rel="noopener">
+                www.amd-germancenter.com
+              </a>
+            </p>
+
+            <p>
+              <strong>الممثل القانوني:</strong> علي محسن أحمد
+            </p>
+
+            <p>
+              <strong>الجهة الرقابية / التسجيل:</strong><br />
+              مسجّل وفقًا للمادة 24 من قانون التجارة اللبناني<br />
+              السجل التجاري في صيدا: 1868<br />
+              رقم السجل التجاري: 5013868
+            </p>
+
+            <p>
+              <strong>المستندات الرسمية:</strong><br />
+              <a href="/images/certificate.jpg" target="_blank" rel="noopener">
+                السجل التجاري
+              </a>
+            </p>
+
+            <p>
+              <strong>إخلاء المسؤولية:</strong><br />
+              على الرغم من التدقيق الدقيق في المحتوى، لا نتحمل أي مسؤولية عن محتوى الروابط
+              الخارجية. يتحمل مشغّلو المواقع المرتبطة المسؤولية الكاملة عن محتواها.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="amd-footer" dir="ltr">
+      <div class="footer-grid">
+        <!-- Left column -->
+        <div class="footer-column">
+          <p class="footer-title" data-i18n="footer.colLeftTitle">Services</p>
+          <ul class="footer-links">
+            <li><a href="https://amdtransfer.netlify.app/" target="_blank" rel="noopener" data-i18n="footer.links.transfer">Airport Transfer</a></li>
+            <li><a href="https://amdtourbooking.netlify.app/" target="_blank" rel="noopener" data-i18n="footer.links.tours">Tagestouren</a></li>
+            <li><a href="https://www.amd-germancenter.com/de/car-rental.html" target="_blank" rel="noopener" data-i18n="footer.links.carRental">Mietwagen</a></li>
+            <li><a href="https://www.amd-germancenter.com/de/package-tours.html" target="_blank" rel="noopener" data-i18n="footer.links.packageTours">Pauschalreisen</a></li>
+            <li><a href="https://amd-tarifcheck.de/" target="_blank" rel="noopener" data-i18n="footer.links.tarifcheck">AMD Tarifcheck</a></li>
+          </ul>
+        </div>
+
+        <!-- Center column -->
+        <div class="footer-column footer-column--center">
+          <p class="footer-title" data-i18n="footer.colCenterTitle">Folgen Sie uns auf:</p>
+          <div class="footer-social">
+            <a href="https://wa.me/96181622668" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <img src="/images/icon-whatsapp.svg" alt="WhatsApp" />
+            </a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+              <img src="/images/icon-instagram.svg" alt="Instagram" />
+            </a>
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+              <img src="/images/icon-facebook.svg" alt="Facebook" />
+            </a>
+            <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok">
+              <img src="/images/icon-tiktok.svg" alt="TikTok" />
+            </a>
+          </div>
+        </div>
+
+        <!-- Right column -->
+        <div class="footer-column">
+          
+          <ul class="footer-links">
+            <li><a href="/legal/de/faq.html" data-i18n="footer.links.faq">FAQ Libanon</a></li>
+            <li><a href="/legal/de/about.html" data-i18n="footer.links.about">Über uns</a></li>
+            <li><a href="/legal/de/imprint.html" data-i18n="footer.links.imprint">Impressum</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var STORAGE_KEY = "amd_locale";
+        var SUPPORTED = { de: true, en: true, ar: true };
+
+        function getLang() {
+          var v = (localStorage.getItem(STORAGE_KEY) || "de").toLowerCase();
+          return SUPPORTED[v] ? v : "de";
+        }
+
+        function deepGet(obj, path) {
+          var parts = path.split(".");
+          var cur = obj;
+          for (var i = 0; i < parts.length; i++) {
+            if (!cur || typeof cur !== "object") return null;
+            cur = cur[parts[i]];
+          }
+          return cur;
+        }
+
+        var T = {
+          de: {
+            back: "Zurück zur Transfer-App",
+            backArrow: "← Zurück zur Transfer-App",
+            footer: {
+              colLeftTitle: "Services",
+              colCenterTitle: "Folgen Sie uns auf:",
+
+              links: {
+                transfer: "Airport Transfer",
+                tours: "Tagestouren",
+                carRental: "Mietwagen",
+                packageTours: "Pauschalreisen",
+                tarifcheck: "AMD Tarifcheck",
+                faq: "FAQ Libanon",
+                about: "Über uns",
+                imprint: "Impressum"
+              }
+            }
+          },
+          en: {
+            back: "Back to the transfer app",
+            backArrow: "← Back to the transfer app",
+            footer: {
+              colLeftTitle: "Services",
+              colCenterTitle: "Follow us:",
+
+              links: {
+                transfer: "Airport Transfer",
+                tours: "Day Tours",
+                carRental: "Car Rental",
+                packageTours: "Package Tours",
+                tarifcheck: "AMD Tariff Check",
+                faq: "Lebanon FAQ",
+                about: "About Us",
+                imprint: "Imprint"
+              }
+            }
+          },
+          ar: {
+            back: "العودة إلى تطبيق النقل",
+            backArrow: "← العودة إلى تطبيق النقل",
+            footer: {
+              colLeftTitle: "الخدمات",
+              colCenterTitle: "تابعنا:",
+
+              links: {
+                transfer: "نقل المطار",
+                tours: "جولات يومية",
+                carRental: "تأجير سيارات",
+                packageTours: "رحلات وباقات",
+                tarifcheck: "فحص التعرفة",
+                faq: "الأسئلة الشائعة",
+                about: "من نحن",
+                imprint: "بيانات قانونية"
+              }
+            }
+          }
+        };
+
+        function applyLang(lang) {
+          var dict = T[lang] || T.de;
+
+          // html lang/dir (Legal-Seiten: immer LTR, weil Inhalt gemischt)
+          document.documentElement.setAttribute("lang", lang === "ar" ? "ar" : lang);
+          document.documentElement.setAttribute("dir", "ltr");
+
+          var footer = document.querySelector(".amd-footer");
+          if (footer) footer.setAttribute("dir", "ltr");
+
+          // translate text nodes
+          var nodes = document.querySelectorAll("[data-i18n]");
+          for (var i = 0; i < nodes.length; i++) {
+            var el = nodes[i];
+            var key = el.getAttribute("data-i18n");
+            var val = deepGet(dict, key);
+            if (val == null) continue;
+            el.textContent = val;
+          }
+
+          // rewrite internal legal links: /legal/{lang}/...
+          var legalLinks = document.querySelectorAll('a[href^="/legal/"]');
+          for (var j = 0; j < legalLinks.length; j++) {
+            var a = legalLinks[j];
+            var href = a.getAttribute("href") || "";
+            href = href.replace(/^\/legal\/(de|en|ar)\//, "/legal/" + lang + "/");
+            a.setAttribute("href", href);
+          }
+
+          // rewrite amd-germancenter.com locale paths
+          var external = document.querySelectorAll('a[href*="www.amd-germancenter.com/"]');
+          for (var k = 0; k < external.length; k++) {
+            var ex = external[k];
+            var eh = ex.getAttribute("href") || "";
+            eh = eh.replace(/\/de\//, "/" + lang + "/");
+            eh = eh.replace(/\/en\//, "/" + lang + "/");
+            eh = eh.replace(/\/ar\//, "/" + lang + "/");
+            ex.setAttribute("href", eh);
+          }
+        }
+
+        // Init
+        applyLang(getLang());
+      })();
+    </script>
+
+  </div>
+</body>
+</html>

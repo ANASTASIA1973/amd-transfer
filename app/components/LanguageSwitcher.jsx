@@ -11,6 +11,16 @@ export default function LanguageSwitcher({ className = "" }) {
     { code: "en", label: "EN", flag: "/images/flag-us.svg" },
   ];
 
+  const onPick = (code) => {
+    // 1) sofort persistent machen (damit Legal-HTML es direkt lesen kann)
+    try {
+      localStorage.setItem("amd_locale", code);
+    } catch (e) {}
+
+    // 2) React Locale setzen
+    setLocale(code);
+  };
+
   return (
     <div
       className={`amd-flag-switcher ${className}`}
@@ -21,7 +31,7 @@ export default function LanguageSwitcher({ className = "" }) {
         <button
           key={it.code}
           type="button"
-          onClick={() => setLocale(it.code)}
+          onClick={() => onPick(it.code)}
           aria-pressed={locale === it.code}
           className="amd-flag-pill"
         >
