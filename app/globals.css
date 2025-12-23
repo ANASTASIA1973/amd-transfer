@@ -516,6 +516,25 @@ body[data-app="amd-transfer"] .amd-footer .footer-social img{
 /* CTA Button unten: wirklich mittig + gleiche Ränder */
 @media (max-width: 640px){
   body[data-app="amd-transfer"] .amd-whatsapp-cta{
+    @media (max-width: 640px){
+
+  /* Footer braucht unten Platz, weil CTA fixed ist */
+  body[data-app="amd-transfer"] .amd-footer{
+    padding-bottom: 110px !important; /* genug Platz für Follow+Icons + CTA */
+  }
+
+  /* Social-Zeile soll wirklich sichtbar bleiben */
+  body[data-app="amd-transfer"] .footer-column--center{
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+
+  /* Die Seite soll nicht vom fixed CTA „verdeckt“ werden */
+  body[data-app="amd-transfer"] main{
+    padding-bottom: 120px !important;
+  }
+}
+
     position: fixed;
     left: 50% !important;
     transform: translateX(-50%) !important;
