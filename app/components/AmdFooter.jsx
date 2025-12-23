@@ -13,22 +13,20 @@ function normalizeLocale(value) {
 export default function AmdFooter() {
   const { locale } = useLocale();
 
-  const lang = normalizeLocale(locale);       // <- immer de/en/ar
+  const lang = normalizeLocale(locale); // immer de/en/ar
   const L = t[lang] || t.de;
 
   const F = L.footer || {};
-  const FL = (F.links || {});
+  const FL = F.links || {};
 
   const isAr = lang === "ar";
 
-// Legal-Seiten existieren nur unter /public/legal/de/ (Inhalt ist mehrsprachig)
-const legal = {
-  faq: "/legal/de/faq.html",
-  about: "/legal/de/about.html",
-  imprint: "/legal/de/imprint.html",
-};
-
-
+  // Legal-Seiten existieren nur unter /public/legal/de/ (Inhalt ist mehrsprachig)
+  const legal = {
+    faq: "/legal/de/faq.html",
+    about: "/legal/de/about.html",
+    imprint: "/legal/de/imprint.html",
+  };
 
   // Website-Links (extern) mit Sprachpfad
   const siteBase = "https://www.amd-germancenter.com";
@@ -38,8 +36,7 @@ const legal = {
   };
 
   return (
-<footer className="amd-footer" dir="ltr">
-
+    <footer className="amd-footer" dir={isAr ? "rtl" : "ltr"}>
       <div className="footer-grid">
         {/* Left column */}
         <div className="footer-column footer-column--left">
@@ -121,9 +118,15 @@ const legal = {
           {F.colRightTitle ? <p className="footer-title">{F.colRightTitle}</p> : null}
 
           <ul className="footer-links">
-            <li><a href={legal.faq}>{FL.faq || "Lebanon FAQ"}</a></li>
-            <li><a href={legal.about}>{FL.about || "About us"}</a></li>
-            <li><a href={legal.imprint}>{FL.imprint || "Imprint"}</a></li>
+            <li>
+              <a href={legal.faq}>{FL.faq || "Lebanon FAQ"}</a>
+            </li>
+            <li>
+              <a href={legal.about}>{FL.about || "About us"}</a>
+            </li>
+            <li>
+              <a href={legal.imprint}>{FL.imprint || "Imprint"}</a>
+            </li>
           </ul>
         </div>
       </div>
