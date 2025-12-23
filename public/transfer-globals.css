@@ -493,242 +493,66 @@ html, body {
   direction: ltr !important;
 }
 /* ===================================================== */
-/* AMD Transfer – Footer COMPACT Override (ganz unten)    */
-/* ===================================================== */
-body[data-app="amd-transfer"] .amd-footer,
-.amd-footer{
-  padding: 1.35rem 1rem !important;
-  margin-top: 2rem !important;
-}
-
-body[data-app="amd-transfer"] .footer-grid,
-.footer-grid{
-  gap: 1.15rem !important;
-  max-width: 980px !important;
-}
-
-body[data-app="amd-transfer"] .footer-links li,
-.footer-links li{
-  margin-bottom: .38rem !important;
-}
-
-body[data-app="amd-transfer"] .footer-links a,
-.footer-links a{
-  font-size: 13px !important;
-  line-height: 1.3 !important;
-}
-
-body[data-app="amd-transfer"] .footer-title,
-.footer-title{
-  font-size: 13.5px !important;
-  margin: 0 0 .55rem 0 !important;
-}
-
-body[data-app="amd-transfer"] .footer-social img,
-.footer-social img{
-  width: 22px !important;
-  height: 22px !important;
-}
-
-body[data-app="amd-transfer"] .footer-social,
-.footer-social{
-  gap: .55rem !important;
-}
-/* ===================================================== */
-/* AMD Transfer – Footer COMPACT Override                 */
-/* (mobile-first: weniger Höhe, bessere Balance)          */
-/* ===================================================== */
-body[data-app="amd-transfer"] .amd-footer{
-  padding: 1.35rem 1rem !important;
-  margin-top: 2rem !important;
-}
-body[data-app="amd-transfer"] .footer-grid{
-  gap: 1.15rem !important;
-  max-width: 980px !important;
-}
-body[data-app="amd-transfer"] .footer-title{
-  font-size: 13.5px !important;
-  margin: 0 0 .55rem 0 !important;
-}
-body[data-app="amd-transfer"] .footer-links a{
-  font-size: 13px !important;
-  line-height: 1.3 !important;
-}
-body[data-app="amd-transfer"] .footer-links li{
-  margin-bottom: .38rem !important;
-}
-body[data-app="amd-transfer"] .footer-social{
-  gap: .55rem !important;
-}
-body[data-app="amd-transfer"] .footer-social img{
-  width: 22px !important;
-  height: 22px !important;
-}
-/* Footer – mobile friendly, ohne Desktop kaputt zu machen */
-@media (max-width: 640px) {
-  .footer-grid {
-    grid-template-columns: 1fr !important;
-    gap: 14px !important;
-  }
-
-  .amd-footer {
-    padding-bottom: 10px;
-  }
-
-  .footer-title {
-    margin-bottom: 8px;
-  }
-
-  .footer-links a {
-    font-size: 13px;
-  }
-
-  .footer-social {
-    gap: 10px;
-  }
-
-  .footer-social img {
-    width: 22px;
-    height: 22px;
-  }
-}
-/* ===================================================== */
-/* FIX: Footer auf Mobile kompakt (final override)        */
-/* Ganz unten lassen!                                     */
-/* ===================================================== */
-@media (max-width: 640px) {
-  body[data-app="amd-transfer"] .amd-footer,
-  .amd-footer {
-    margin-top: 18px !important;
-    padding: 14px 12px 16px !important;
-  }
-
-  body[data-app="amd-transfer"] .footer-grid,
-  .footer-grid {
-    grid-template-columns: 1fr 1fr !important; /* 2 Spalten statt 1 => weniger Höhe */
-    gap: 10px !important;
-    text-align: left !important;
-    max-width: 980px !important;
-  }
-
-  /* Center (Social) soll volle Breite bekommen, aber kompakt */
-  .footer-column--center {
-    grid-column: 1 / -1 !important;
-    text-align: center !important;
-    order: 3 !important;
-  }
-  .footer-column--left { order: 1 !important; }
-  .footer-column--right { order: 2 !important; text-align: right !important; }
-
-  .footer-title {
-    font-size: 12px !important;
-    margin: 0 0 6px 0 !important;
-  }
-
-  .footer-links li {
-    margin-bottom: 6px !important;
-  }
-
-  .footer-links a {
-    font-size: 12px !important;
-    line-height: 1.25 !important;
-  }
-
-  .footer-social {
-    gap: 8px !important;
-  }
-
-  .footer-social img {
-    width: 20px !important;
-    height: 20px !important;
-  }
-
-  /* RTL sauber */
-  .amd-footer[dir="rtl"] .footer-column--left { text-align: right !important; }
-  .amd-footer[dir="rtl"] .footer-column--right { text-align: left !important; }
-}
-/* FIX: Mobile CTA (Tour anfragen) exakt mittig mit gleichen Rändern */
-@media (max-width: 640px){
-  body[data-app="amd-transfer"] .amd-whatsapp-cta{
-    left: 12px !important;
-    right: 12px !important;
-    bottom: 14px !important;
-    width: auto !important;
-    margin: 0 !important;
-  }
-}
-/* ===================================================== */
-/* FINAL: Mobile Footer kompakt + symmetrisch (override)  */
-/* (ganz unten lassen!)                                  */
+/* FINAL: Mobile Footer + CTA sauber (einmalig)           */
 /* ===================================================== */
 @media (max-width: 640px){
 
-  /* Footer weniger hoch */
+  /* Footer kompakt */
   body[data-app="amd-transfer"] .amd-footer,
   .amd-footer{
     margin-top: 18px !important;
     padding: 16px 14px 22px !important;
   }
 
-  /* 2 Spalten: links Services / rechts Legal */
+  /* Mobile: 2 Spalten (links Services / rechts Legal), Social unten */
   body[data-app="amd-transfer"] .footer-grid,
   .footer-grid{
-    max-width: 980px !important;
-    margin: 0 auto !important;
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 14px 16px !important;  /* row/col gap */
-    align-items: start !important;
+    gap: 14px 16px !important;
     text-align: left !important;
+    max-width: 980px !important;
+    margin: 0 auto !important;
+    align-items: start !important;
   }
 
-  /* Reihenfolge + Ausrichtung */
   .footer-column--left{
     justify-self: start !important;
     text-align: left !important;
-    order: 1 !important;
   }
 
   .footer-column--right{
     justify-self: end !important;
     text-align: right !important;
-    order: 2 !important;
   }
 
-  /* Social unten über beide Spalten */
   .footer-column--center{
     grid-column: 1 / -1 !important;
     justify-self: center !important;
     text-align: center !important;
-    order: 3 !important;
     margin-top: 4px !important;
   }
 
-  /* Typo kompakter */
   .footer-title{
     font-size: 13px !important;
     margin: 0 0 8px 0 !important;
   }
 
-  .footer-links li{
-    margin-bottom: 8px !important;
-  }
+  .footer-links li{ margin-bottom: 8px !important; }
 
   .footer-links a{
     font-size: 13px !important;
     line-height: 1.25 !important;
   }
 
-  .footer-social{
-    gap: 10px !important;
-  }
+  .footer-social{ gap: 10px !important; }
 
   .footer-social img{
     width: 22px !important;
     height: 22px !important;
   }
 
-  /* FIX: roter Button unten symmetrisch */
+  /* CTA unten symmetrisch */
   body[data-app="amd-transfer"] .amd-whatsapp-cta{
     left: 14px !important;
     right: 14px !important;
@@ -736,7 +560,7 @@ body[data-app="amd-transfer"] .footer-social img{
     margin: 0 !important;
   }
 
-  /* RTL sauber (falls arabisch) */
+  /* RTL Support (nur Footer, ohne ganze Seite zu zwingen) */
   .amd-footer[dir="rtl"] .footer-column--left{
     text-align: right !important;
     justify-self: end !important;
