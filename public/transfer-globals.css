@@ -592,3 +592,58 @@ body[data-app="amd-transfer"] .footer-social img{
     height: 22px;
   }
 }
+/* ===================================================== */
+/* FIX: Footer auf Mobile kompakt (final override)        */
+/* Ganz unten lassen!                                     */
+/* ===================================================== */
+@media (max-width: 640px) {
+  body[data-app="amd-transfer"] .amd-footer,
+  .amd-footer {
+    margin-top: 18px !important;
+    padding: 14px 12px 16px !important;
+  }
+
+  body[data-app="amd-transfer"] .footer-grid,
+  .footer-grid {
+    grid-template-columns: 1fr 1fr !important; /* 2 Spalten statt 1 => weniger Höhe */
+    gap: 10px !important;
+    text-align: left !important;
+    max-width: 980px !important;
+  }
+
+  /* Center (Social) soll volle Breite bekommen, aber kompakt */
+  .footer-column--center {
+    grid-column: 1 / -1 !important;
+    text-align: center !important;
+    order: 3 !important;
+  }
+  .footer-column--left { order: 1 !important; }
+  .footer-column--right { order: 2 !important; text-align: right !important; }
+
+  .footer-title {
+    font-size: 12px !important;
+    margin: 0 0 6px 0 !important;
+  }
+
+  .footer-links li {
+    margin-bottom: 6px !important;
+  }
+
+  .footer-links a {
+    font-size: 12px !important;
+    line-height: 1.25 !important;
+  }
+
+  .footer-social {
+    gap: 8px !important;
+  }
+
+  .footer-social img {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  /* RTL sauber */
+  .amd-footer[dir="rtl"] .footer-column--left { text-align: right !important; }
+  .amd-footer[dir="rtl"] .footer-column--right { text-align: left !important; }
+}
