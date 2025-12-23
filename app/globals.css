@@ -513,28 +513,11 @@ body[data-app="amd-transfer"] .amd-footer .footer-social img{
   }
 }
 
-/* CTA Button unten: wirklich mittig + gleiche Ränder */
+
+  
+/* CTA Button unten: wirklich mittig + gleiche Ränder (sauber) */
 @media (max-width: 640px){
   body[data-app="amd-transfer"] .amd-whatsapp-cta{
-    @media (max-width: 640px){
-
-  /* Footer braucht unten Platz, weil CTA fixed ist */
-  body[data-app="amd-transfer"] .amd-footer{
-    padding-bottom: 110px !important; /* genug Platz für Follow+Icons + CTA */
-  }
-
-  /* Social-Zeile soll wirklich sichtbar bleiben */
-  body[data-app="amd-transfer"] .footer-column--center{
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-  }
-
-  /* Die Seite soll nicht vom fixed CTA „verdeckt“ werden */
-  body[data-app="amd-transfer"] main{
-    padding-bottom: 120px !important;
-  }
-}
-
     position: fixed;
     left: 50% !important;
     transform: translateX(-50%) !important;
@@ -546,10 +529,21 @@ body[data-app="amd-transfer"] .amd-footer .footer-social img{
     z-index: 60;
   }
 
+  /* Platz schaffen, damit CTA den Footer nicht verdeckt */
   body[data-app="amd-transfer"] main{
-    padding-bottom: 86px;
+    padding-bottom: 140px !important;
+  }
+
+  body[data-app="amd-transfer"] .amd-footer{
+    padding-bottom: 130px !important;
+  }
+
+  body[data-app="amd-transfer"] .amd-footer .footer-column--center{
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
   }
 }
+
 /* ===================================================== */
 /* FINAL OVERRIDE – Footer mobile wirklich kompakt        */
 /* ===================================================== */
@@ -599,4 +593,7 @@ body[data-app="amd-transfer"] .amd-footer .footer-social img{
     width: 22px !important;
     height: 22px !important;
   }
+}
+body[data-app="amd-transfer"] .amd-footer .footer-column--center{
+  min-height: 70px !important; /* damit Follow+Icons wirklich Platz bekommen */
 }
