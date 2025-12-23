@@ -222,7 +222,7 @@ voucherTourOnlyNote: "nur Tour",
         "Diese Website dient der Information und Buchung privater Transfers/Touren. Preise können je nach Route und Verfügbarkeit variieren.",
     },
     footer: {
-  colLeftTitle: "Services",
+
   colCenterTitle: "Folgen Sie uns auf:",
 
   links: {
@@ -452,7 +452,7 @@ voucherTourOnlyNote: "tour only",
       legalNote:
         "This website provides information and bookings for private transfers/tours. Prices may vary by route and availability.",
     },footer: {
-  colLeftTitle: "Services",
+
   colCenterTitle: "Follow us on:",
 
   links: {
