@@ -565,12 +565,23 @@ export default function ContactStep({
             {displayVoucherDiscount > 0 && (
               <div className="flex justify-between">
                 <span style={{ color: TEXT }}>{L.voucherLabel}:</span>
-                <span className="font-semibold" style={{ color: ACCENT }}>
-                  -${displayVoucherDiscount.toFixed(2)}{" "}
-                  <span className="text-xs" style={{ color: "rgba(17,24,39,.55)" }}>
-                    ({L?.voucherTourOnlyNote || "nur Tour"})
-                  </span>
-                </span>
+              <span
+  className="font-semibold"
+  style={{
+    color: ACCENT,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-end",
+    lineHeight: 1.15,
+  }}
+>
+  <span>-${displayVoucherDiscount.toFixed(2)}</span>
+
+  <span className="text-xs" style={{ color: "rgba(17,24,39,55)", marginTop: 2 }}>
+    ({L?.voucherTourOnlyNote || "nur Tour"})
+  </span>
+</span>
+
               </div>
             )}
 
