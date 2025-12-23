@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* ===================================================== */
-/* Root defaults (Fallback außerhalb des AMD-Scopes)       */
+/* Root defaults (Fallback außerhalb des AMD-Scopes)      */
 /* ===================================================== */
 :root {
   --background: #ffffff;
@@ -24,7 +24,7 @@ body {
 }
 
 /* ===================================================== */
-/* Global Fixes                                            */
+/* Global Fixes                                           */
 /* ===================================================== */
 
 /* iOS / Safari: Tap-Highlight aus + weniger Render-Flackern (nur Transfer-App) */
@@ -54,8 +54,8 @@ a[href^="tel:"],
 }
 
 /* ===================================================== */
-/* AMD Transfer Theme (scoped) — nur Optik, keine Logik    */
-/* Aktiv über: <body data-app="amd-transfer">              */
+/* AMD Transfer Theme (scoped) — nur Optik, keine Logik   */
+/* Aktiv über: <body data-app="amd-transfer">             */
 /* ===================================================== */
 body[data-app="amd-transfer"] {
   /* Brand */
@@ -105,7 +105,7 @@ body[data-app="amd-transfer"] {
 }
 
 /* ===================================================== */
-/* Components                                              */
+/* Components                                             */
 /* ===================================================== */
 @layer components {
   /* Buttons */
@@ -142,8 +142,7 @@ body[data-app="amd-transfer"] {
 }
 
 /* ===================================================== */
-/* Optional: Language Switcher Styling (wenn Wrapper existiert) */
-/* Setze im Component einen Wrapper: className="lang-switch"    */
+/* Optional: Language Switcher Styling                    */
 /* ===================================================== */
 body[data-app="amd-transfer"] .lang-switch {
   background: rgba(255, 255, 255, 0.86);
@@ -164,77 +163,89 @@ body[data-app="amd-transfer"] .lang-switch .active {
   color: #fff !important;
   box-shadow: 0 10px 25px rgba(2, 6, 23, 0.10);
 }
-@layer components{
-  body[data-app="amd-transfer"] .amd-flag-switcher{
-    display:inline-flex;
-    gap:.45rem;
-    padding:.35rem;
-    border-radius:999px;
-    background:rgba(255,255,255,.92);
-    border:1px solid rgba(17,24,39,.10);
-    box-shadow:0 10px 26px rgba(2,6,23,.08);
-    align-items:center;
+
+/* Flag Switcher (Pills) */
+@layer components {
+  body[data-app="amd-transfer"] .amd-flag-switcher {
+    display: inline-flex;
+    gap: 0.45rem;
+    padding: 0.35rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(17, 24, 39, 0.10);
+    box-shadow: 0 10px 26px rgba(2, 6, 23, 0.08);
+    align-items: center;
   }
-  body[data-app="amd-transfer"] .amd-flag-pill{
-    display:inline-flex;
-    align-items:center;
-    gap:.5rem;
-    padding:.55rem .9rem;
-    border-radius:999px;
-    font-weight:800;
-    font-size:12px;
-    letter-spacing:.08em;
-    color:var(--amd-primary,#002147);
-    background:transparent;
-    border:1px solid transparent;
-    line-height:1;
+
+  body[data-app="amd-transfer"] .amd-flag-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.9rem;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--amd-primary, #002147);
+    background: transparent;
+    border: 1px solid transparent;
+    line-height: 1;
   }
-  body[data-app="amd-transfer"] .amd-flag-pill:hover{ background:rgba(0,33,71,.06); }
-  body[data-app="amd-transfer"] .amd-flag-pill[aria-pressed="true"]{
-    background:#fff;
-    border-color:rgba(192,151,67,.55);
-    box-shadow:0 8px 18px rgba(2,6,23,.10);
+
+  body[data-app="amd-transfer"] .amd-flag-pill:hover {
+    background: rgba(0, 33, 71, 0.06);
   }
-  body[data-app="amd-transfer"] .amd-flag-icon{
-    width:22px;height:22px;border-radius:999px;object-fit:cover;
-    box-shadow:0 0 0 1px rgba(15,23,42,.10);
+
+  body[data-app="amd-transfer"] .amd-flag-pill[aria-pressed="true"] {
+    background: #fff;
+    border-color: rgba(192, 151, 67, 0.55);
+    box-shadow: 0 8px 18px rgba(2, 6, 23, 0.10);
+  }
+
+  body[data-app="amd-transfer"] .amd-flag-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    object-fit: cover;
+    box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.10);
   }
 }
+
 /* Transfer-App: Primärbutton bleibt rot – kein Gold Hover */
-.btn-primary{
+.btn-primary {
   background-color: var(--amd-primary, #c1272d) !important;
   color: #fff !important;
   border-color: transparent !important;
 }
 
-/* Hover/Focus/Active ebenfalls rot (optional: etwas dunkler) */
 .btn-primary:hover,
 .btn-primary:focus,
-.btn-primary:focus-visible{
+.btn-primary:focus-visible {
   background-color: #a91f24 !important; /* dunkleres Rot */
   color: #fff !important;
   filter: none !important;
 }
 
-.btn-primary:active{
+.btn-primary:active {
   background-color: #8f1a1f !important;
 }
+
 /* ===================================================== */
 /* AMD Transfer – Header Mobile Fix                       */
 /* ===================================================== */
-@media (max-width: 520px){
-  body[data-app="amd-transfer"] .amd-topbar{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    flex-wrap:wrap;
-    padding-left:12px;
-    padding-right:12px;
+@media (max-width: 520px) {
+  body[data-app="amd-transfer"] .amd-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-left: 12px;
+    padding-right: 12px;
   }
 
   /* Logo darf schrumpfen statt Layout sprengen */
-  body[data-app="amd-transfer"] .amd-topbar .amd-logo{
+  body[data-app="amd-transfer"] .amd-topbar .amd-logo {
     flex: 1 1 auto;
     min-width: 140px;
     max-width: 55%;
@@ -242,34 +253,36 @@ body[data-app="amd-transfer"] .lang-switch .active {
 
   /* Flag-Switcher soll nicht drücken */
   body[data-app="amd-transfer"] .amd-topbar .amd-flag-switcher,
-  body[data-app="amd-transfer"] .amd-topbar .lang-switch{
+  body[data-app="amd-transfer"] .amd-topbar .lang-switch {
     flex: 1 1 auto;
     min-width: 0;
-    justify-content:center;
+    justify-content: center;
   }
 
   /* Tour-Button: nie über den Rand */
-  body[data-app="amd-transfer"] .amd-topbar .amd-tour-btn{
+  body[data-app="amd-transfer"] .amd-topbar .amd-tour-btn {
     flex: 0 0 auto;
     max-width: 100%;
     white-space: nowrap;
-    margin-left:auto;
+    margin-left: auto;
   }
 }
+
 /* Counter Pills: iPhone Tap darf NICHT “springen” */
 body[data-app="amd-transfer"] .counter-pill:focus {
   outline: none;
-  box-shadow: inset 0 0 0 1px rgba(17,24,39,.14);
+  box-shadow: inset 0 0 0 1px rgba(17, 24, 39, 0.14);
 }
 
 /* Ring nur bei Tastatur (Tab) */
 body[data-app="amd-transfer"] .counter-pill:focus-visible {
   box-shadow:
-    inset 0 0 0 1px rgba(31,111,58,.22),
-    0 0 0 4px rgba(31,111,58,.10);
+    inset 0 0 0 1px rgba(31, 111, 58, 0.22),
+    0 0 0 4px rgba(31, 111, 58, 0.10);
 }
+
 /* iOS Safari: korrektes Clipping in Cards (verhindert „Plus läuft raus“) */
-body[data-app="amd-transfer"] .amd-card-clip{
+body[data-app="amd-transfer"] .amd-card-clip {
   position: relative;
   overflow: hidden;
 
@@ -277,392 +290,11 @@ body[data-app="amd-transfer"] .amd-card-clip{
   -webkit-mask-image: -webkit-radial-gradient(white, black);
   transform: translateZ(0);
 }
-@media (max-width: 640px){
-  .amd-whatsapp-cta{
+
+/* CTA-Positionierung (nur Mobile) + Platz unten für CTA */
+@media (max-width: 640px) {
+  body[data-app="amd-transfer"] .amd-whatsapp-cta {
     position: fixed;
-    left: 14px;
-    right: 14px;
-    bottom: 14px;
-    justify-content: center;
-    z-index: 60;
-  }
-  main{
-    padding-bottom: 86px;
-  }
-}
-/* ===================================================== */
-/* AMD Transfer – Footer (App + Legal)                    */
-/* ===================================================== */
-
-body[data-app="amd-transfer"] .amd-footer,
-.amd-footer{
-  background:#0b1220;
-  color:rgba(255,255,255,.92);
-  border-top:1px solid rgba(255,255,255,.08);
-  margin-top:3rem;
-  padding:2.5rem 1rem;
-}
-
-body[data-app="amd-transfer"] .footer-grid,
-.footer-grid{
-  max-width:1100px;
-  margin:0 auto;
-  display:grid;
-  grid-template-columns:repeat(3, minmax(0,1fr));
-  gap:2rem;
-  align-items:start; /* sorgt für saubere Symmetrie oben */
-}
-
-@media (max-width: 768px){
-  body[data-app="amd-transfer"] .footer-grid,
-  .footer-grid{
-    grid-template-columns:1fr;
-    text-align:center;
-  }
-}
-
-body[data-app="amd-transfer"] .footer-title,
-.footer-title{
-  font-weight:700;
-  margin:0 0 .75rem 0;
-  color:rgba(255,255,255,.92);
-}
-
-body[data-app="amd-transfer"] .footer-links,
-.footer-links{
-  list-style:none;
-  padding:0;
-  margin:0;
-}
-
-body[data-app="amd-transfer"] .footer-links li,
-.footer-links li{
-  margin-bottom:.55rem;
-}
-
-body[data-app="amd-transfer"] .footer-links a,
-.footer-links a{
-  color:rgba(255,255,255,.84);
-  text-decoration:none;
-  font-weight:500;
-}
-
-body[data-app="amd-transfer"] .footer-links a:hover,
-.footer-links a:hover{
-  color:var(--amd-gold, #c09743);
-}
-
-body[data-app="amd-transfer"] .footer-social,
-.footer-social{
-  display:flex;
-  gap:.75rem;
-  justify-content:center;
-}
-
-body[data-app="amd-transfer"] .footer-social img,
-.footer-social img{
-  width:28px;
-  height:28px;
-  opacity:.9;
-}
-
-body[data-app="amd-transfer"] .footer-social img:hover,
-.footer-social img:hover{
-  opacity:1;
-}
-
-/* Center-Spalte wirklich zentrieren */
-.footer-column--center{ text-align:center; }
-
-/* RTL: linke/rechte Spalten sauber rechtsbündig */
-.amd-footer[dir="rtl"] .footer-column:not(.footer-column--center){
-  text-align:right;
-}
-.amd-footer[dir="ltr"] .footer-column:not(.footer-column--center){
-  text-align:left;
-}
-/* Footer Typo etwas kleiner + kompakter */
-.amd-footer .footer-links a{
-  font-size: 14px;
-  line-height: 1.35;
-}
-.amd-footer .footer-title{
-  font-size: 15px;
-}
-
-/* Spalten symmetrischer verteilen: links / center / rechts */
-.amd-footer .footer-grid{
-  justify-items: stretch;
-}
-
-/* Rechte Spalte an den rechten Rand schieben */
-.amd-footer .footer-column--right{
-  justify-self: end;
-  text-align: right;
-}
-
-/* Linke Spalte an den linken Rand */
-.amd-footer .footer-column--left{
-  justify-self: start;
-  text-align: left;
-}
-
-/* Center bleibt mittig */
-.amd-footer .footer-column--center{
-  justify-self: center;
-  text-align: center;
-}
-
-/* ===================================================== */
-/* AMD Transfer – Footer + Mobile CTA FIX (App)           */
-/* ===================================================== */
-
-/* Footer normal (Desktop / generell) */
-body[data-app="amd-transfer"] .amd-footer{
-  background:#0b1220;
-  color:rgba(255,255,255,.92);
-  border-top:1px solid rgba(255,255,255,.08);
-  margin-top: 2.25rem;
-  padding: 1.8rem 1rem;
-}
-
-body[data-app="amd-transfer"] .amd-footer .footer-grid{
-  max-width:1100px;
-  margin:0 auto;
-  display:grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.6rem;
-  align-items:start;
-}
-
-/* Typo etwas kompakter */
-body[data-app="amd-transfer"] .amd-footer .footer-title{
-  font-weight:700;
-  margin:0 0 .6rem 0;
-  color:rgba(255,255,255,.92);
-  font-size: 14px;
-}
-
-body[data-app="amd-transfer"] .amd-footer .footer-links{
-  list-style:none;
-  padding:0;
-  margin:0;
-}
-body[data-app="amd-transfer"] .amd-footer .footer-links li{
-  margin-bottom:.45rem;
-}
-body[data-app="amd-transfer"] .amd-footer .footer-links a{
-  color:rgba(255,255,255,.84);
-  text-decoration:none;
-  font-weight:500;
-  font-size: 13px;
-  line-height: 1.25;
-}
-body[data-app="amd-transfer"] .amd-footer .footer-links a:hover{
-  color: var(--amd-gold, #c09743);
-}
-
-body[data-app="amd-transfer"] .amd-footer .footer-social{
-  display:flex;
-  gap:.6rem;
-  justify-content:center;
-}
-body[data-app="amd-transfer"] .amd-footer .footer-social img{
-  width:22px;
-  height:22px;
-  opacity:.95;
-}
-
-/* Mobile: symmetrisch + deutlich weniger Höhe */
-@media (max-width: 640px){
-  body[data-app="amd-transfer"] .amd-footer{
-    margin-top: 16px;
-    padding: 14px 12px 18px;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-grid{
-    grid-template-columns: 1fr 1fr;   /* links/rechts nebeneinander */
-    gap: 12px 14px;
-    text-align: left;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-column--left{
-    justify-self: start;
-    text-align: left;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-column--right{
-    justify-self: end;
-    text-align: right;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-column--center{
-    grid-column: 1 / -1;             /* Social unten über volle Breite */
-    text-align: center;
-    margin-top: 2px;
-  }
-
-  /* RTL nur im Footer (nicht die ganze Seite kaputt machen) */
-  body[data-app="amd-transfer"] .amd-footer[dir="rtl"] .footer-column--left{
-    text-align: right;
-    justify-self: end;
-  }
-  body[data-app="amd-transfer"] .amd-footer[dir="rtl"] .footer-column--right{
-    text-align: left;
-    justify-self: start;
-  }
-}
-
-
-  
-/* CTA Button unten: wirklich mittig + gleiche Ränder (sauber) */
-@media (max-width: 640px){
-  body[data-app="amd-transfer"] .amd-whatsapp-cta{
-    position: fixed;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    width: calc(100% - 28px) !important;  /* 14px links/rechts */
-    max-width: 640px !important;
-    bottom: 14px !important;
-    margin: 0 !important;
-    box-sizing: border-box !important;
-    z-index: 60;
-  }
-
-  /* Platz schaffen, damit CTA den Footer nicht verdeckt */
-  body[data-app="amd-transfer"] main{
-    padding-bottom: 140px !important;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer{
-    padding-bottom: 130px !important;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-column--center{
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-  }
-}
-
-/* ===================================================== */
-/* FINAL OVERRIDE – Footer mobile wirklich kompakt        */
-/* ===================================================== */
-@media (max-width: 640px){
-
-  body[data-app="amd-transfer"] .amd-footer .footer-grid{
-    display:grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    grid-template-areas:
-      "left right"
-      "center center" !important;
-    gap: 10px 14px !important;
-    align-items:start !important;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-column--left{
-    grid-area: left !important;
-    text-align: left !important;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-column--right{
-    grid-area: right !important;
-    text-align: right !important;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-column--center{
-    grid-area: center !important;
-    text-align: center !important;
-    margin-top: 4px !important;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-title{
-    font-size: 13px !important;
-    margin: 0 0 6px 0 !important;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-links li{
-    margin-bottom: 6px !important;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-links a{
-    font-size: 13px !important;
-    line-height: 1.25 !important;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-social img{
-    width: 22px !important;
-    height: 22px !important;
-  }
-}
-body[data-app="amd-transfer"] .amd-footer .footer-column--center{
-  min-height: 70px !important; /* damit Follow+Icons wirklich Platz bekommen */
-}
-/* ===== FINAL (last): Mobile Footer kompakt + Social sichtbar + CTA Platz ===== */
-@media (max-width: 640px){
-
-  /* Seite braucht unten Platz für fixed CTA (nicht Footer künstlich aufblasen) */
-  body[data-app="amd-transfer"] main{
-    padding-bottom: 110px !important;
-  }
-
-  /* Footer kompakt halten */
-  body[data-app="amd-transfer"] .amd-footer{
-    margin-top: 14px !important;
-    padding: 14px 12px 14px !important;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-grid{
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    grid-template-areas:
-      "left right"
-      "center center" !important;
-    gap: 10px 14px !important;
-    align-items: start !important;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-column--left{
-    grid-area: left !important;
-    text-align: left !important;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-column--right{
-    grid-area: right !important;
-    text-align: right !important;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-column--center{
-    grid-area: center !important;
-    text-align: center !important;
-    margin-top: 6px !important;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-title{
-    font-size: 13px !important;
-    margin: 0 0 6px 0 !important;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-links li{
-    margin-bottom: 6px !important;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-links a{
-    font-size: 13px !important;
-    line-height: 1.25 !important;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-social{
-    gap: 10px !important;
-  }
-
-  body[data-app="amd-transfer"] .amd-footer .footer-social img{
-    width: 22px !important;
-    height: 22px !important;
-  }
-
-  /* CTA: exakt mittig + gleiche Ränder */
-  body[data-app="amd-transfer"] .amd-whatsapp-cta{
-    position: fixed !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     width: calc(100% - 28px) !important; /* 14px links/rechts */
@@ -671,5 +303,198 @@ body[data-app="amd-transfer"] .amd-footer .footer-column--center{
     margin: 0 !important;
     z-index: 60 !important;
     box-sizing: border-box !important;
+    justify-content: center;
+  }
+
+  body[data-app="amd-transfer"] main {
+    padding-bottom: 110px !important; /* Platz für fixed CTA */
+  }
+}
+
+/* ===================================================== */
+/* AMD Transfer – Footer (App + Legal)                    */
+/* EINMAL sauber definiert (keine doppelten Blöcke)       */
+/* ===================================================== */
+
+body[data-app="amd-transfer"] .amd-footer,
+.amd-footer {
+  background: #0b1220;
+  color: rgba(255, 255, 255, 0.92);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 2.25rem;
+  padding: 1.8rem 1rem;
+}
+
+/* Grid Desktop */
+body[data-app="amd-transfer"] .footer-grid,
+.footer-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.6rem;
+  align-items: start;
+}
+
+/* Tablet runter: einspaltig (Legal-Seiten ok) */
+@media (max-width: 768px) {
+  body[data-app="amd-transfer"] .footer-grid,
+  .footer-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+
+/* Typo */
+body[data-app="amd-transfer"] .footer-title,
+.footer-title {
+  font-weight: 700;
+  margin: 0 0 0.6rem 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 14px;
+}
+
+body[data-app="amd-transfer"] .footer-links,
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+body[data-app="amd-transfer"] .footer-links li,
+.footer-links li {
+  margin-bottom: 0.45rem;
+}
+
+body[data-app="amd-transfer"] .footer-links a,
+.footer-links a {
+  color: rgba(255, 255, 255, 0.84);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+body[data-app="amd-transfer"] .footer-links a:hover,
+.footer-links a:hover {
+  color: var(--amd-gold, #c09743);
+}
+
+/* Social */
+body[data-app="amd-transfer"] .footer-social,
+.footer-social {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+}
+
+body[data-app="amd-transfer"] .footer-social img,
+.footer-social img {
+  width: 22px;
+  height: 22px;
+  opacity: 0.95;
+}
+
+body[data-app="amd-transfer"] .footer-social img:hover,
+.footer-social img:hover {
+  opacity: 1;
+}
+
+/* Spalten-Alignment Desktop */
+.footer-column--center {
+  text-align: center;
+}
+
+.amd-footer[dir="rtl"] .footer-column:not(.footer-column--center) {
+  text-align: right;
+}
+.amd-footer[dir="ltr"] .footer-column:not(.footer-column--center) {
+  text-align: left;
+}
+
+.amd-footer .footer-grid {
+  justify-items: stretch;
+}
+
+.amd-footer .footer-column--right {
+  justify-self: end;
+  text-align: right;
+}
+
+.amd-footer .footer-column--left {
+  justify-self: start;
+  text-align: left;
+}
+
+.amd-footer .footer-column--center {
+  justify-self: center;
+  text-align: center;
+}
+
+/* ===================================================== */
+/* Footer Mobile: kompakt (App)                            */
+/* ===================================================== */
+@media (max-width: 640px) {
+  body[data-app="amd-transfer"] .amd-footer {
+    margin-top: 14px !important;
+    padding: 14px 12px 14px !important;
+  }
+
+  body[data-app="amd-transfer"] .amd-footer .footer-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-areas:
+      "left right"
+      "center center" !important;
+    gap: 10px 14px !important;
+    align-items: start !important;
+    text-align: left;
+  }
+
+  body[data-app="amd-transfer"] .amd-footer .footer-column--left {
+    grid-area: left !important;
+    text-align: left !important;
+  }
+
+  body[data-app="amd-transfer"] .amd-footer .footer-column--right {
+    grid-area: right !important;
+    text-align: right !important;
+  }
+
+  body[data-app="amd-transfer"] .amd-footer .footer-column--center {
+    grid-area: center !important;
+    text-align: center !important;
+    margin-top: 6px !important;
+  }
+
+  body[data-app="amd-transfer"] .amd-footer .footer-title {
+    font-size: 13px !important;
+    margin: 0 0 6px 0 !important;
+  }
+
+  body[data-app="amd-transfer"] .amd-footer .footer-links li {
+    margin-bottom: 6px !important;
+  }
+
+  body[data-app="amd-transfer"] .amd-footer .footer-links a {
+    font-size: 13px !important;
+    line-height: 1.25 !important;
+  }
+
+  body[data-app="amd-transfer"] .amd-footer .footer-social {
+    gap: 10px !important;
+  }
+
+  body[data-app="amd-transfer"] .amd-footer .footer-social img {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  /* RTL nur im Footer (nicht die ganze Seite) */
+  body[data-app="amd-transfer"] .amd-footer[dir="rtl"] .footer-column--left {
+    text-align: right !important;
+  }
+  body[data-app="amd-transfer"] .amd-footer[dir="rtl"] .footer-column--right {
+    text-align: left !important;
   }
 }
