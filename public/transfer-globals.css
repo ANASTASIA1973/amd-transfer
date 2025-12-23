@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-body{ outline: 8px solid magenta !important; }
 
 
 /* ===================================================== */
@@ -570,5 +569,81 @@ html, body {
   .amd-footer[dir="rtl"] .footer-column--right{
     text-align: left !important;
     justify-self: start !important;
+  }
+}
+/* ===== FINAL (last): Mobile Footer kompakt + Social sichtbar + CTA Platz ===== */
+@media (max-width: 640px){
+
+  /* Seite braucht unten Platz für fixed CTA (nicht Footer künstlich aufblasen) */
+  body[data-app="amd-transfer"] main{
+    padding-bottom: 110px !important;
+  }
+
+  /* Footer kompakt halten */
+  body[data-app="amd-transfer"] .amd-footer{
+    margin-top: 14px !important;
+    padding: 14px 12px 14px !important;
+  }
+
+  body[data-app="amd-transfer"] .amd-footer .footer-grid{
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-areas:
+      "left right"
+      "center center" !important;
+    gap: 10px 14px !important;
+    align-items: start !important;
+  }
+
+  body[data-app="amd-transfer"] .amd-footer .footer-column--left{
+    grid-area: left !important;
+    text-align: left !important;
+  }
+
+  body[data-app="amd-transfer"] .amd-footer .footer-column--right{
+    grid-area: right !important;
+    text-align: right !important;
+  }
+
+  body[data-app="amd-transfer"] .amd-footer .footer-column--center{
+    grid-area: center !important;
+    text-align: center !important;
+    margin-top: 6px !important;
+  }
+
+  body[data-app="amd-transfer"] .amd-footer .footer-title{
+    font-size: 13px !important;
+    margin: 0 0 6px 0 !important;
+  }
+
+  body[data-app="amd-transfer"] .amd-footer .footer-links li{
+    margin-bottom: 6px !important;
+  }
+
+  body[data-app="amd-transfer"] .amd-footer .footer-links a{
+    font-size: 13px !important;
+    line-height: 1.25 !important;
+  }
+
+  body[data-app="amd-transfer"] .amd-footer .footer-social{
+    gap: 10px !important;
+  }
+
+  body[data-app="amd-transfer"] .amd-footer .footer-social img{
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  /* CTA: exakt mittig + gleiche Ränder */
+  body[data-app="amd-transfer"] .amd-whatsapp-cta{
+    position: fixed !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: calc(100% - 28px) !important; /* 14px links/rechts */
+    max-width: 640px !important;
+    bottom: 14px !important;
+    margin: 0 !important;
+    z-index: 60 !important;
+    box-sizing: border-box !important;
   }
 }
