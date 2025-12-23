@@ -647,3 +647,102 @@ body[data-app="amd-transfer"] .footer-social img{
   .amd-footer[dir="rtl"] .footer-column--left { text-align: right !important; }
   .amd-footer[dir="rtl"] .footer-column--right { text-align: left !important; }
 }
+/* FIX: Mobile CTA (Tour anfragen) exakt mittig mit gleichen Rändern */
+@media (max-width: 640px){
+  body[data-app="amd-transfer"] .amd-whatsapp-cta{
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 14px !important;
+    width: auto !important;
+    margin: 0 !important;
+  }
+}
+/* ===================================================== */
+/* FINAL: Mobile Footer kompakt + symmetrisch (override)  */
+/* (ganz unten lassen!)                                  */
+/* ===================================================== */
+@media (max-width: 640px){
+
+  /* Footer weniger hoch */
+  body[data-app="amd-transfer"] .amd-footer,
+  .amd-footer{
+    margin-top: 18px !important;
+    padding: 16px 14px 22px !important;
+  }
+
+  /* 2 Spalten: links Services / rechts Legal */
+  body[data-app="amd-transfer"] .footer-grid,
+  .footer-grid{
+    max-width: 980px !important;
+    margin: 0 auto !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 14px 16px !important;  /* row/col gap */
+    align-items: start !important;
+    text-align: left !important;
+  }
+
+  /* Reihenfolge + Ausrichtung */
+  .footer-column--left{
+    justify-self: start !important;
+    text-align: left !important;
+    order: 1 !important;
+  }
+
+  .footer-column--right{
+    justify-self: end !important;
+    text-align: right !important;
+    order: 2 !important;
+  }
+
+  /* Social unten über beide Spalten */
+  .footer-column--center{
+    grid-column: 1 / -1 !important;
+    justify-self: center !important;
+    text-align: center !important;
+    order: 3 !important;
+    margin-top: 4px !important;
+  }
+
+  /* Typo kompakter */
+  .footer-title{
+    font-size: 13px !important;
+    margin: 0 0 8px 0 !important;
+  }
+
+  .footer-links li{
+    margin-bottom: 8px !important;
+  }
+
+  .footer-links a{
+    font-size: 13px !important;
+    line-height: 1.25 !important;
+  }
+
+  .footer-social{
+    gap: 10px !important;
+  }
+
+  .footer-social img{
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  /* FIX: roter Button unten symmetrisch */
+  body[data-app="amd-transfer"] .amd-whatsapp-cta{
+    left: 14px !important;
+    right: 14px !important;
+    width: auto !important;
+    margin: 0 !important;
+  }
+
+  /* RTL sauber (falls arabisch) */
+  .amd-footer[dir="rtl"] .footer-column--left{
+    text-align: right !important;
+    justify-self: end !important;
+  }
+  .amd-footer[dir="rtl"] .footer-column--right{
+    text-align: left !important;
+    justify-self: start !important;
+  }
+}
