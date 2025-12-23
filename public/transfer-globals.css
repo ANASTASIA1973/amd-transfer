@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+body{ outline: 8px solid magenta !important; }
+
 
 /* ===================================================== */
 /* Root defaults (Fallback außerhalb des AMD-Scopes)       */
