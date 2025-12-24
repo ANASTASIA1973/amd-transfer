@@ -682,3 +682,13 @@ body[data-app="amd-transfer"] .footer-social img:hover,
   body[data-app="amd-transfer"] .footer-social img,
   .footer-social img{ width: 22px !important; height: 22px !important; }
 }
+/* Hide "Tour anfragen" button in topbar */
+body[data-app="amd-transfer"] .amd-tour-btn {
+  display: none !important;
+}
+/* Mobile: "Tour anfragen" überall ausblenden (auch wenn er unten fixiert ist) */
+@media (max-width: 640px) {
+  body[data-app="amd-transfer"] .amd-tour-btn {
+    display: none !important;
+  }
+}

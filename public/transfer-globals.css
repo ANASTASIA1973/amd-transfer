@@ -669,3 +669,9 @@ body[data-app="amd-transfer"] .amd-card-clip {
     display: none !important;
   }
 }
+/* Mobile: "Tour anfragen" überall ausblenden (auch wenn er unten fixiert ist) */
+@media (max-width: 640px) {
+  body[data-app="amd-transfer"] .amd-tour-btn {
+    display: none !important;
+  }
+}
