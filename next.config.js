@@ -5,8 +5,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  // Schaltet das moderne Static-Export-Feature ein
-  output: 'export',
+  // Kein Static Export (Middleware/Netlify kompatibel)
 };
 
 module.exports = nextConfig;
