@@ -663,3 +663,9 @@ body[data-app="amd-transfer"] .amd-card-clip {
   body[data-app="amd-transfer"] .footer-social img,
   .footer-social img{ width: 22px !important; height: 22px !important; }
 }
+/* Mobile: "Tour anfragen" oben ausblenden */
+@media (max-width: 640px) {
+  body[data-app="amd-transfer"] .amd-topbar .amd-tour-btn {
+    display: none !important;
+  }
+}
