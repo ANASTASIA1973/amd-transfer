@@ -692,3 +692,14 @@ body[data-app="amd-transfer"] .amd-tour-btn {
     display: none !important;
   }
 }
+/* Mobile: unteren fixed CTA ("Tour anfragen") ausblenden */
+@media (max-width: 640px) {
+  body[data-app="amd-transfer"] .amd-whatsapp-cta {
+    display: none !important;
+  }
+
+  /* weil CTA weg ist: kein extra Platz unten */
+  body[data-app="amd-transfer"] main {
+    padding-bottom: 0 !important;
+  }
+}
