@@ -120,6 +120,8 @@ backToMainLabel: "Zurück zur Hauptseite",
     invalidEmail: "Bitte eine gültige E-Mail eingeben.",
 invalidPhone: "Bitte eine gültige Telefonnummer eingeben.",
 voucherTourOnlyNote: "nur Tour",
+voucherTourOnlyHelper: "Gutschein-Rabatt gilt nur für die Fahrt (ohne Extras).",
+
 
 
     /* Partnerfeld */
@@ -355,6 +357,8 @@ backToMainLabel: "Back to main site",
     invalidEmail: "Please enter a valid email address.",
 invalidPhone: "Please enter a valid phone number.",
 voucherTourOnlyNote: "tour only",
+voucherTourOnlyHelper: "Voucher discount applies to the ride only (excluding extras).",
+
 
 
     /* Partner field */
@@ -585,6 +589,8 @@ backToMainLabel: "العودة إلى الصفحة الرئيسية",
     invalidEmail: "يرجى إدخال بريد إلكتروني صحيح.",
 invalidPhone: "يرجى إدخال رقم هاتف صحيح.",
 voucherTourOnlyNote: "للتour فقط",
+voucherTourOnlyHelper: "خصم القسيمة ينطبق على الرحلة فقط (بدون الإضافات).",
+
 
 
     /* حقل الشريك */

@@ -225,7 +225,8 @@ export default function PassengerStep({
 
 
         {/* Navigation */}
-        <div className="mt-2 flex flex-col sm:flex-row sm:justify-end gap-3">
+      <div className="mt-2 amd-step-actions">
+
           <button type="button" onClick={onBack} className="btn btn-secondary">
             {L.backBtn}
           </button>

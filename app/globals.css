@@ -139,7 +139,28 @@ body[data-app="amd-transfer"] {
   .extras-img-wrapper img {
     @apply h-full w-auto object-contain;
   }
+    /* ===============================
+     Step Buttons – Mobile einheitlich
+     Mobile: untereinander + volle Breite
+     Desktop: nebeneinander
+     =============================== */
+  .amd-step-actions {
+    @apply flex flex-col gap-3 items-stretch;
+  }
+
+  .amd-step-actions > * {
+    @apply w-full;
+  }
+
 }
+ @media (min-width: 640px) {
+    .amd-step-actions {
+      @apply flex-row;
+    }
+    .amd-step-actions > * {
+      width: auto;
+    }
+  }
 
 /* ===================================================== */
 /* Optional: Language Switcher Styling                    */

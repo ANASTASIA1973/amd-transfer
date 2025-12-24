@@ -281,24 +281,44 @@ export default function RouteStep({
       window.google.maps.event.clearInstanceListeners(destAC);
     };
     }, [isReturn, map, directionsRenderer, setReturnOrig, setReturnDest, setReturnDistance, setReturnDuration]);
+const toLocalDateTimeValue = (d) => {
+  const x = new Date(d);
+  x.setSeconds(0, 0);
 
+  // auf 10-Minuten runden, korrekt über Stundenwechsel
+  const m = x.getMinutes();
+  const rounded = Math.round(m / 10) * 10;
+  x.setMinutes(rounded);
+
+  const yyyy = x.getFullYear();
+  const mm = String(x.getMonth() + 1).padStart(2, "0");
+  const dd = String(x.getDate()).padStart(2, "0");
+  const hh = String(x.getHours()).padStart(2, "0");
+  const min = String(x.getMinutes()).padStart(2, "0");
+
+  return `${yyyy}-${mm}-${dd}T${hh}:${min}`;
+};
 
   const dt = dateTime ? new Date(dateTime) : new Date();
   const rdt = returnDateTime ? new Date(returnDateTime) : new Date();
+  useEffect(() => {
+  if (!dateTime) {
+    setDateTime(toLocalDateTimeValue(new Date()));
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
-  const onChangeDateTime = (d) => {
-    const isoDate = d.toISOString().slice(0, 10);
-    const hh = String(d.getHours()).padStart(2, "0");
-    const mm = String(Math.round(d.getMinutes() / 10) * 10).padStart(2, "0");
-    setDateTime(`${isoDate}T${hh}:${mm}`);
-  };
+useEffect(() => {
+  if (isReturn && !returnDateTime) {
+    setReturnDateTime(toLocalDateTimeValue(new Date()));
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [isReturn]);
 
-  const onChangeReturnDateTime = (d) => {
-    const isoDate = d.toISOString().slice(0, 10);
-    const hh = String(d.getHours()).padStart(2, "0");
-    const mm = String(Math.round(d.getMinutes() / 10) * 10).padStart(2, "0");
-    setReturnDateTime(`${isoDate}T${hh}:${mm}`);
-  };
+const onChangeDateTime = (d) => setDateTime(toLocalDateTimeValue(d));
+
+const onChangeReturnDateTime = (d) => setReturnDateTime(toLocalDateTimeValue(d));
+
 
   return (
     <div className="bg-white rounded-3xl border border-gray-200 shadow-lg p-5 md:p-8 mb-12">
@@ -475,9 +495,11 @@ export default function RouteStep({
       )}
 
       {/* Buttons */}
-      <div className="mt-8 flex flex-col md:flex-row md:justify-end gap-3">
+      <div className="mt-8 amd-step-actions">
+
         {typeof onBack === "function" && (
-          <button onClick={onBack} className="btn btn-secondary md:mr-2">
+        <button onClick={onBack} className="btn btn-secondary">
+
             {L.backBtn}
           </button>
         )}

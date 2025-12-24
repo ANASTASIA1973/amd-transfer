@@ -280,11 +280,12 @@ export default function ExtrasStep({ extrasCounts, setExtrasCounts, onNext, onBa
         </div>
 
         {/* Navigation */}
-        <div className="flex justify-between w-full gap-4">
-          <button onClick={onBack} className="btn btn-secondary min-w-[120px]" type="button">
+        <div className="amd-step-actions">
+
+          <button onClick={onBack} className="btn btn-secondary" type="button">
             {L.backBtn}
           </button>
-          <button onClick={onNext} className="btn btn-primary min-w-[120px]" type="button">
+          <button onClick={onNext} className="btn btn-primary" type="button">
             {L.nextBtn}
           </button>
         </div>

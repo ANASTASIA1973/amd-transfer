@@ -282,7 +282,8 @@ export default function VehicleSelection({
       </div>
 
       {/* Bottom Navigation */}
-      <div className="mt-8 flex flex-col md:flex-row md:justify-between gap-3">
+    <div className="mt-8 amd-step-actions">
+
         <button onClick={onBack} className="btn btn-secondary">
           {L.backBtn}
         </button>

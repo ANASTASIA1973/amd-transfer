@@ -186,31 +186,36 @@ export default function ContactStep({
   }, []);
 
   /* ---------- Extras ---------- */
-  function renderSeatExtras(seatDetails) {
-    const list = Array.isArray(seatDetails) ? seatDetails : [];
-    if (!list.length) return [];
+function renderSeatExtras(seatDetails) {
+  const list = Array.isArray(seatDetails) ? seatDetails : [];
+  if (!list.length) return [];
 
-    return list
-      .map(({ key, count, unit }) => ({ key, count, unit }))
-      .filter(({ count }) => Number(count) > 0)
-      .sort((a, b) => (a.unit || 0) - (b.unit || 0))
-      .map(({ key, count, unit }) => {
-        const c = Number(count) || 0;
-        const u = Number(unit) || 0;
-        return `${L[seatLabelMap[key]]} x${c}: $${(c * u).toFixed(2)}`;
-      });
-  }
+  return list
+    .map(({ key, count, unit }) => ({ key, count, unit }))
+    .filter(({ count }) => Number(count) > 0)
+    .sort((a, b) => (a.unit || 0) - (b.unit || 0))
+    .map(({ key, count, unit }) => {
+      const qty = Number(count) || 0;
+      const u = Number(unit) || 0;
+      const label = L[seatLabelMap[key]] || key;
+      const total = qty * u;
+      return { label, qty, total };
+    });
+}
 
   function renderOtherExtras(details) {
-    const list = Array.isArray(details) ? details : [];
-    return list
-      .filter(({ count }) => Number(count) > 0)
-      .map(({ key, count }) => {
-        const c = Number(count) || 0;
-        const price = Number(priceMap[key] || 0);
-        return `${L[key]} x${c}: $${(price * c).toFixed(2)}`;
-      });
-  }
+  const list = Array.isArray(details) ? details : [];
+  return list
+    .filter(({ count }) => Number(count) > 0)
+    .map(({ key, count }) => {
+      const qty = Number(count) || 0;
+      const label = L[key] || key;
+      const price = Number(priceMap[key] || 0);
+      const total = qty * price;
+      return { label, qty, total };
+    });
+}
+
 
   function calcExtrasTotal(seatDetails, otherDetails) {
     const seatList = Array.isArray(seatDetails) ? seatDetails : [];
@@ -330,8 +335,9 @@ export default function ContactStep({
 
     if (seatList.length || otherList.length) {
       lines.push("", (L.extrasStepTitle || "Extras") + ":");
-      seatList.forEach((x) => lines.push("- " + x));
-      otherList.forEach((x) => lines.push("- " + x));
+     seatList.forEach((x) => lines.push(`- ${x.label} x${x.qty}: $${Number(x.total).toFixed(2)}`));
+otherList.forEach((x) => lines.push(`- ${x.label} x${x.qty}: $${Number(x.total).toFixed(2)}`));
+
       lines.push(`${L.extrasTotalLabel}: $${extrasTotal.toFixed(2)}`);
     }
 
@@ -527,18 +533,56 @@ export default function ContactStep({
           );
         })()}
 
-        {/* Extras */}
-        {(renderSeatExtras(seatExtrasDetails).length > 0 || renderOtherExtras(otherExtrasDetails).length > 0) && (
-          <Section icon={<GiftIcon className="w-5 h-5" />} title={L.extrasStepTitle} tone="green">
-            <ul className="ml-5 space-y-1" style={{ color: "rgba(17,24,39,.86)", listStyleType: "disc" }}>
-              {renderSeatExtras(seatExtrasDetails).map((x, i) => <li key={"seat" + i}>{x}</li>)}
-              {renderOtherExtras(otherExtrasDetails).map((x, i) => <li key={"extra" + i}>{x}</li>)}
-            </ul>
-            <div className="font-extrabold mt-3" style={{ color: HEADING }}>
-              {L.extrasTotalLabel}: ${extrasTotal.toFixed(2)}
-            </div>
-          </Section>
-        )}
+  {/* Extras */}
+{(renderSeatExtras(seatExtrasDetails).length > 0 ||
+  renderOtherExtras(otherExtrasDetails).length > 0) && (
+  <Section
+    icon={<GiftIcon className="w-5 h-5" />}
+    title={L.extrasStepTitle || "Weitere Extras"}
+    tone="green"
+  >
+    <ul className="mt-1 space-y-2" style={{ color: "rgba(17,24,39,.86)" }}>
+      {[
+        ...renderSeatExtras(seatExtrasDetails),
+        ...renderOtherExtras(otherExtrasDetails),
+      ].map((it, i) => (
+        <li key={i} className="flex items-center justify-between gap-3">
+          <div className="min-w-0 flex items-center gap-2">
+            <span
+              className="truncate font-semibold"
+              style={{ color: "rgba(11,31,58,.95)" }}
+            >
+              {it.label}
+            </span>
+
+            <span
+              className="shrink-0 w-6 h-6 rounded-full text-xs font-extrabold inline-flex items-center justify-center"
+              style={{
+                border: "1px solid rgba(17,24,39,.14)",
+                background: "rgba(17,24,39,.04)",
+                color: "rgba(17,24,39,.70)",
+              }}
+            >
+              {it.qty}
+            </span>
+          </div>
+
+          <span
+            className="shrink-0 tabular-nums font-semibold"
+            style={{ color: "rgba(11,31,58,.95)" }}
+          >
+            ${Number(it.total || 0).toFixed(2)}
+          </span>
+        </li>
+      ))}
+    </ul>
+
+    <div className="font-extrabold mt-3" style={{ color: HEADING }}>
+      {L.extrasTotalLabel || "Extras gesamt"}: ${extrasTotal.toFixed(2)}
+    </div>
+  </Section>
+)}
+
 
         {/* Preisübersicht */}
         <Section icon={<CreditCardIcon className="w-5 h-5" />} title={L.priceOverviewTitle || "Preisübersicht"} tone="warm">
@@ -576,10 +620,6 @@ export default function ContactStep({
   }}
 >
   <span>-${displayVoucherDiscount.toFixed(2)}</span>
-
-  <span className="text-xs" style={{ color: "rgba(17,24,39,55)", marginTop: 2 }}>
-    ({L?.voucherTourOnlyNote || "nur Tour"})
-  </span>
 </span>
 
               </div>
@@ -621,7 +661,15 @@ export default function ContactStep({
             boxShadow: "0 10px 22px rgba(15,23,42,.04)",
           }}
         />
+         {voucherIsActive && (
+  <div className="mt-0 text-xs" style={{ color: "rgba(17,24,39,.55)" }}>
+    {L.voucherTourOnlyHelper || "Gutschein-Rabatt gilt nur für die Fahrt (ohne Extras)."}
+  </div>
+)}
       </div>
+
+
+
 
       {/* Kontaktdaten (so wie deine Datei -> iPhone klickt sauber) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

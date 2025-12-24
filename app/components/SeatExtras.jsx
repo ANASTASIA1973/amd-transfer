@@ -242,14 +242,15 @@ export default function SeatExtras({ counts, setCounts, onNext, onBack }) {
           </div>
         </div>
 
-        <div className="mt-7 flex justify-between gap-4">
-          <button onClick={onBack} className="btn btn-secondary" type="button">
-            {L.backBtn}
-          </button>
-          <button onClick={onNext} className="btn btn-primary" type="button">
-            {L.nextBtn}
-          </button>
-        </div>
+       <div className="mt-7 amd-step-actions">
+  <button onClick={onBack} className="btn btn-secondary" type="button">
+    {L.backBtn}
+  </button>
+  <button onClick={onNext} className="btn btn-primary" type="button">
+    {L.nextBtn}
+  </button>
+</div>
+
       </div>
     </div>
   );
