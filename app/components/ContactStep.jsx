@@ -85,7 +85,7 @@ const BANK = {
   bic: "BYBALBBX",
 };
 
-const FIXED_VOUCHER_CODE = "AMD2026";
+const FIXED_VOUCHER_CODE = "AMD10%";
 
 /* Referral-Code lesen (mobil/desktop tauglich) */
 function getReferralCode() {
@@ -119,6 +119,12 @@ const isValidPhone = (val) => {
 };
 
 const round2 = (n) => Math.round((Number(n || 0) + Number.EPSILON) * 100) / 100;
+const roundDownToHalf = (n) => {
+  const x = Number(n);
+  if (!Number.isFinite(x)) return 0;
+  return Math.floor(x * 2) / 2;
+};
+
 
 export default function ContactStep({
   orig,
@@ -241,25 +247,21 @@ function renderSeatExtras(seatDetails) {
     [seatExtrasDetails, otherExtrasDetails]
   );
 
-  /* ---------- ✅ Rabatt nur auf Tour (ohne Extras) ---------- */
-  const tourBase = useMemo(() => {
-    const base =
-      Number(ridePrice || 0) +
-      Number(vehicleSurcharge || 0) -
-      (isReturn ? Math.abs(Number(returnDiscount || 0)) : 0);
-    return round2(Math.max(0, base));
-  }, [ridePrice, vehicleSurcharge, isReturn, returnDiscount]);
-
   const voucherIsActive = String(voucher || "").trim().toUpperCase() === FIXED_VOUCHER_CODE;
 
-  // 10% nur auf tourBase (ohne Extras)
-  const tourOnlyVoucherDiscount = useMemo(() => {
-    if (!voucherIsActive) return 0;
-    return round2(tourBase * 0.10);
-  }, [voucherIsActive, tourBase]);
+// ✅ Anzeige immer aus zentraler Berechnung (page.jsx)
+const displayVoucherDiscount = voucherIsActive ? Number(voucherDiscount || 0) : 0;
 
-  // Anzeige: wenn Prop „voucherDiscount“ abweicht, zeig trotzdem tour-only (damit UI stimmt)
-  const displayVoucherDiscount = voucherIsActive ? tourOnlyVoucherDiscount : 0;
+
+// ✅ Zwischensummen für klare Anzeige (Rabatt gilt nur für Fahrt)
+const tripSubtotal = round2(
+  Number(ridePrice || 0) +
+    Number(vehicleSurcharge || 0) -
+    (isReturn ? Math.abs(Number(returnDiscount || 0)) : 0)
+);
+
+const tripAfterVoucher = round2(tripSubtotal - Number(displayVoucherDiscount || 0));
+
 
   /* ---------- Validation ---------- */
   const emailOk = isValidEmail(email);
@@ -346,7 +348,8 @@ otherList.forEach((x) => lines.push(`- ${x.label} x${x.qty}: $${Number(x.total).
     }
 
     if (displayVoucherDiscount > 0) {
-      lines.push(`${L.voucherLabel}: -$${displayVoucherDiscount.toFixed(2)} (${L?.voucherTourOnlyNote || "nur Tour"})`);
+      lines.push(`${L.voucherLabel}: -$${displayVoucherDiscount.toFixed(2)}`);
+
     }
 
     lines.push(`${L.totalLabel}: $${totalPrice}`);
@@ -546,34 +549,32 @@ otherList.forEach((x) => lines.push(`- ${x.label} x${x.qty}: $${Number(x.total).
         ...renderSeatExtras(seatExtrasDetails),
         ...renderOtherExtras(otherExtrasDetails),
       ].map((it, i) => (
-        <li key={i} className="flex items-center justify-between gap-3">
-          <div className="min-w-0 flex items-center gap-2">
-            <span
-              className="truncate font-semibold"
-              style={{ color: "rgba(11,31,58,.95)" }}
-            >
-              {it.label}
-            </span>
+     <li key={i} className="flex items-center justify-between gap-3">
+  {/* links: Menge */}
+  <span
+    className="shrink-0 w-7 text-center text-xs font-extrabold"
+    style={{ color: "rgba(17,24,39,70)" }}
+  >
+    {it.qty}
+  </span>
 
-            <span
-              className="shrink-0 w-6 h-6 rounded-full text-xs font-extrabold inline-flex items-center justify-center"
-              style={{
-                border: "1px solid rgba(17,24,39,.14)",
-                background: "rgba(17,24,39,.04)",
-                color: "rgba(17,24,39,.70)",
-              }}
-            >
-              {it.qty}
-            </span>
-          </div>
+  {/* mitte: Name */}
+  <span
+    className="min-w-0 flex-1 truncate font-semibold"
+    style={{ color: "rgba(11,31,58,95)" }}
+  >
+    {it.label}
+  </span>
 
-          <span
-            className="shrink-0 tabular-nums font-semibold"
-            style={{ color: "rgba(11,31,58,.95)" }}
-          >
-            ${Number(it.total || 0).toFixed(2)}
-          </span>
-        </li>
+  {/* rechts: Preis */}
+  <span
+    className="shrink-0 tabular-nums font-semibold"
+    style={{ color: "rgba(11,31,58,95)" }}
+  >
+    ${Number(it.total || 0).toFixed(2)}
+  </span>
+</li>
+
       ))}
     </ul>
 
@@ -605,25 +606,34 @@ otherList.forEach((x) => lines.push(`- ${x.label} x${x.qty}: $${Number(x.total).
                 </span>
               </div>
             )}
+{/* ✅ Zwischensumme Fahrt (ohne Extras) */}
+<div className="flex justify-between">
+  <span style={{ color: TEXT }}>
+    {L.tripSubtotalLabel || "Zwischensumme Fahrt"}:
+  </span>
+  <span className="font-semibold">${Number(tripSubtotal || 0).toFixed(2)}</span>
+</div>
 
-            {displayVoucherDiscount > 0 && (
-              <div className="flex justify-between">
-                <span style={{ color: TEXT }}>{L.voucherLabel}:</span>
-              <span
-  className="font-semibold"
-  style={{
-    color: ACCENT,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-end",
-    lineHeight: 1.15,
-  }}
->
-  <span>-${displayVoucherDiscount.toFixed(2)}</span>
-</span>
+{/* ✅ Gutschein (nur Fahrt) */}
+{displayVoucherDiscount > 0 && (
+  <div className="flex justify-between">
+    <span style={{ color: TEXT }}>{L.voucherLabel}:</span>
 
-              </div>
-            )}
+    <span className="font-semibold tabular-nums" style={{ color: ACCENT }}>
+      -${Number(displayVoucherDiscount || 0).toFixed(2)}
+    </span>
+  </div>
+)}
+
+
+{/* ✅ Fahrt nach Rabatt (ohne Extras) */}
+<div className="flex justify-between">
+  <span style={{ color: TEXT }}>
+    {L.tripAfterVoucherLabel || "Fahrt nach Rabatt"}:
+  </span>
+  <span className="font-semibold">${Number(tripAfterVoucher || 0).toFixed(2)}</span>
+</div>
+
 
             <div className="flex justify-between">
               <span style={{ color: TEXT }}>{L.extrasTotalLabel}:</span>
@@ -663,7 +673,7 @@ otherList.forEach((x) => lines.push(`- ${x.label} x${x.qty}: $${Number(x.total).
         />
          {voucherIsActive && (
   <div className="mt-0 text-xs" style={{ color: "rgba(17,24,39,.55)" }}>
-    {L.voucherTourOnlyHelper || "Gutschein-Rabatt gilt nur für die Fahrt (ohne Extras)."}
+    {L.voucherTourOnlyHelper || "Rabatt gilt nur für die Fahrt."}
   </div>
 )}
       </div>

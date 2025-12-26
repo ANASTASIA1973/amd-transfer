@@ -131,7 +131,7 @@ const goToStep = (n) => {
     pralinen: 0,
     vodka: 0,
   });
-const [voucher, setVoucher] = React.useState("AMD2026");
+const [voucher, setVoucher] = React.useState("AMD10%");
 
 
   // Pricing
@@ -180,12 +180,13 @@ function roundDownToHalf(n) {
   return Math.floor(x * 2) / 2;
 }
 
-  const isVoucherValid = voucher.trim().toUpperCase() === "AMD2026";
+  const isVoucherValid = voucher.trim().toUpperCase() === "AMD10%";
 
 // Gutschein gilt NUR für die Fahrt (inkl. Fahrzeug-Aufschlag & Rückfahrtrabatt),
 // NICHT für Kindersitze/Extras.
 const voucherBase = Math.max(0, (ridePrice || 0) + (vehicleSurcharge || 0) + (returnDiscount || 0));
-const voucherDiscount = isVoucherValid ? Math.floor(voucherBase * 0.1 * 100) / 100 : 0;
+const voucherDiscount = isVoucherValid ? roundDownToHalf(voucherBase * 0.1) : 0;
+
 
 const totalAfterVoucher = totalBeforeVoucher - voucherDiscount;
 const totalPrice = roundDownToHalf(totalAfterVoucher);

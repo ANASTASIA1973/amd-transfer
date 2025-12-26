@@ -105,8 +105,8 @@ backToMainLabel: "Zurück zur Hauptseite",
 
     /* Übersicht & Buchen */
     checkoutTitle: "Übersicht & Buchen",
-    voucherLabel: "Gutscheincode (10 %)",
-    voucherPlaceholder: "AMD2026",
+    voucherLabel: "Gutscheincode",
+    voucherPlaceholder: "AMD10%",
     minimumFareLabel: "Zwischensumme vor Gutschein",
     ridePriceLabel: "Fahrtpreis",
     vehicleSurchargeLabel: "Aufschlag",
@@ -119,8 +119,10 @@ backToMainLabel: "Zurück zur Hauptseite",
     phoneLabel: "Telefon",
     invalidEmail: "Bitte eine gültige E-Mail eingeben.",
 invalidPhone: "Bitte eine gültige Telefonnummer eingeben.",
-voucherTourOnlyNote: "nur Tour",
-voucherTourOnlyHelper: "Gutschein-Rabatt gilt nur für die Fahrt (ohne Extras).",
+
+voucherTourOnlyHelper: "Rabatt gilt nur für die Fahrt.",
+tripSubtotalLabel: "Zwischensumme Fahrt",
+tripAfterVoucherLabel: "Fahrt nach Rabatt",
 
 
 
@@ -342,8 +344,8 @@ backToMainLabel: "Back to main site",
 
     /* Summary & Book */
     checkoutTitle: "Summary & Book",
-    voucherLabel: "Voucher code (10 %)",
-    voucherPlaceholder: "AMD2026",
+    voucherLabel: "Voucher code",
+    voucherPlaceholder: "AMD10%",
     minimumFareLabel: "Subtotal before voucher",
     ridePriceLabel: "Ride price",
     vehicleSurchargeLabel: "Surcharge",
@@ -356,8 +358,10 @@ backToMainLabel: "Back to main site",
     phoneLabel: "Phone",
     invalidEmail: "Please enter a valid email address.",
 invalidPhone: "Please enter a valid phone number.",
-voucherTourOnlyNote: "tour only",
-voucherTourOnlyHelper: "Voucher discount applies to the ride only (excluding extras).",
+
+voucherTourOnlyHelper: "Discount applies to the ride only.",
+tripSubtotalLabel: "Ride subtotal",
+tripAfterVoucherLabel: "Ride after discount",
 
 
 
@@ -574,8 +578,8 @@ backToMainLabel: "العودة إلى الصفحة الرئيسية",
 
     /* الملخص والحجز */
     checkoutTitle: "ملخص وحجز",
-    voucherLabel: "قسيمة (10 %):",
-    voucherPlaceholder: "AMD2026",
+    voucherLabel: "رمز القسيمة",
+    voucherPlaceholder: "AMD10%",
     minimumFareLabel: "الإجمالي قبل القسيمة",
     ridePriceLabel: "سعر الرحلة",
     vehicleSurchargeLabel: "رسوم إضافية",
@@ -588,9 +592,12 @@ backToMainLabel: "العودة إلى الصفحة الرئيسية",
     phoneLabel: "رقم الهاتف",
     invalidEmail: "يرجى إدخال بريد إلكتروني صحيح.",
 invalidPhone: "يرجى إدخال رقم هاتف صحيح.",
-voucherTourOnlyNote: "للتour فقط",
-voucherTourOnlyHelper: "خصم القسيمة ينطبق على الرحلة فقط (بدون الإضافات).",
 
+voucherTourOnlyHelper: "ينطبق الخصم على الرحلة فقط دون الإضافات",
+
+tripSubtotalLabel: "المجموع الفرعي للرحلة",
+
+tripAfterVoucherLabel: "الرحلة بعد الخصم",
 
 
     /* حقل الشريك */
