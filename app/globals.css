@@ -733,3 +733,29 @@ body[data-app="amd-transfer"] .amd-tour-btn {
     justify-self: center !important;
   }
 }
+/* =========================================
+   MAIN Footer – AR Mobile wirklich symmetrisch
+   (überschreibt die RTL-Flip-Regeln weiter oben)
+   ========================================= */
+@media (max-width: 820px){
+
+  /* beide Spalten gleich behandeln */
+  .amd-footer[dir="rtl"] .footer-column--left,
+  .amd-footer[dir="rtl"] .footer-column--right{
+    text-align: right !important;
+    justify-self: stretch !important;
+  }
+
+  /* Links/Title erben das sauber (keine Sonder-Ausrichtung) */
+  .amd-footer[dir="rtl"] .footer-title,
+  .amd-footer[dir="rtl"] .footer-links,
+  .amd-footer[dir="rtl"] .footer-links li,
+  .amd-footer[dir="rtl"] .footer-links a{
+    text-align: inherit !important;
+  }
+
+  /* LTR-Wörter (z.B. “AMD Tarifcheck”) bleiben sauber, aber rechts ausgerichtet */
+  .amd-footer[dir="rtl"] .footer-links a{
+    unicode-bidi: isolate;
+  }
+}
