@@ -708,19 +708,15 @@ body[data-app="amd-transfer"] .amd-tour-btn {
   line-height: 1;
   -webkit-text-size-adjust: 100%;
 }
-/* =========================================
-   Main site footer: AR (RTL) mobile symmetry
-   ========================================= */
 @media (max-width: 820px){
-  /* wenn dein Footer dir="rtl" setzt */
-  .amd-footer[dir="rtl"] .footer-grid{
+  [dir="rtl"] .amd-footer .footer-grid{
     grid-template-areas:
       "right left"
       "center center" !important;
   }
 
-  .amd-footer[dir="rtl"] .footer-column--left,
-  .amd-footer[dir="rtl"] .footer-column--right{
+  [dir="rtl"] .amd-footer .footer-column--left,
+  [dir="rtl"] .amd-footer .footer-column--right{
     text-align: right !important;
     justify-self: stretch !important;
   }
