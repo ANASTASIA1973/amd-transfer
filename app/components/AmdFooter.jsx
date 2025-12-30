@@ -38,11 +38,18 @@ const legal = {
   };
 
   return (
-    <footer className="amd-footer" dir={isAr ? "rtl" : "ltr"}>
+   <footer
+  className="amd-footer"
+  dir={locale === "ar" ? "rtl" : "ltr"}
+>
+
       <div className="footer-grid">
         {/* Left column */}
         <div className="footer-column footer-column--left">
-          {F.colLeftTitle ? <p className="footer-title">{F.colLeftTitle}</p> : null}
+         <p className="footer-title">
+  {F.colLeftTitle || (isAr ? "الخدمات" : locale === "en" ? "Services" : "Services")}
+</p>
+
 
           <ul className="footer-links">
             <li>
@@ -117,7 +124,10 @@ const legal = {
 
         {/* Right column */}
         <div className="footer-column footer-column--right">
-          {F.colRightTitle ? <p className="footer-title">{F.colRightTitle}</p> : null}
+          <p className="footer-title">
+  {F.colRightTitle || (isAr ? "روابط" : locale === "en" ? "Info" : "Infos")}
+</p>
+
 
        <ul className="footer-links">
   <li><a href={legal.faq}>{FL.faq || "Lebanon FAQ"}</a></li>
