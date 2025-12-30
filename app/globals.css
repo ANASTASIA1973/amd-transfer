@@ -759,3 +759,34 @@ body[data-app="amd-transfer"] .amd-tour-btn {
     unicode-bidi: isolate;
   }
 }
+/* =========================================
+   MAIN SITE Footer – AR Mobile wirklich symmetrisch
+   Gilt NUR für React Footer (AmdFooter.jsx)
+   ========================================= */
+@media (max-width: 820px){
+
+  /* Grid spiegeln */
+  .amd-footer[dir="rtl"] .footer-grid{
+    grid-template-areas:
+      "right left"
+      "center center";
+  }
+
+  /* Beide Link-Spalten identisch behandeln */
+  .amd-footer[dir="rtl"] .footer-column--left,
+  .amd-footer[dir="rtl"] .footer-column--right{
+    justify-self: stretch;
+    text-align: right;
+  }
+
+  /* Center bleibt Center */
+  .amd-footer[dir="rtl"] .footer-column--center{
+    justify-self: center;
+    text-align: center;
+  }
+
+  /* LTR-Wörter sauber halten (AMD, URLs etc.) */
+  .amd-footer[dir="rtl"] .footer-links a{
+    unicode-bidi: isolate;
+  }
+}
