@@ -708,16 +708,28 @@ body[data-app="amd-transfer"] .amd-tour-btn {
   line-height: 1;
   -webkit-text-size-adjust: 100%;
 }
+/* =========================================
+   MAIN SITE Footer: AR (rtl) Mobile symmetrisch
+   ========================================= */
 @media (max-width: 820px){
-  [dir="rtl"] .amd-footer .footer-grid{
+
+  /* Spalten in RTL spiegeln */
+  .amd-footer[dir="rtl"] .footer-grid{
     grid-template-areas:
       "right left"
       "center center" !important;
   }
 
-  [dir="rtl"] .amd-footer .footer-column--left,
-  [dir="rtl"] .amd-footer .footer-column--right{
+  /* beide Link-Spalten gleich ausrichten */
+  .amd-footer[dir="rtl"] .footer-column--left,
+  .amd-footer[dir="rtl"] .footer-column--right{
     text-align: right !important;
     justify-self: stretch !important;
+  }
+
+  /* Center bleibt center */
+  .amd-footer[dir="rtl"] .footer-column--center{
+    text-align: center !important;
+    justify-self: center !important;
   }
 }
