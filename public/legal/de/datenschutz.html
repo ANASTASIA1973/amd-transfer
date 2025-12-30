@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <title>AMD German Center – Datenschutzerklärung</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Datenschutzerklärung von AMD German Center – Informationen zur Verarbeitung personenbezogener Daten." />
+
+  <!-- Transfer-App Styles (stabil, keine relativen Pfade) -->
+  <link rel="stylesheet" href="/transfer-globals.css" />
+
+  <style>
+    /* Backbar wie Referenz */
+    .legal-backbar{
+      width: min(980px, 100% - 2rem);
+      margin: .9rem auto 0;
+    }
+    .back-glass{
+      display:inline-flex;
+      align-items:center;
+      gap:.55rem;
+      padding:.62rem 1.05rem;
+      border-radius:999px;
+      border:1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 12px 26px rgba(2,6,23,.10);
+      color: var(--amd-heading,#0b1b33);
+      text-decoration:none;
+      font-weight:800;
+      line-height:1;
+      white-space:nowrap;
+      max-width:100%;
+    }
+    .back-glass:hover{
+      background: rgba(255,255,255,.92);
+      border-color: rgba(17,24,39,.16);
+    }
+
+    /* Page Wrapper */
+    .privacy-page-wrapper{
+      min-height: 100vh;
+      display:flex;
+      flex-direction:column;
+      background: var(--amd-bg, #f5f5f7);
+    }
+
+    .privacy-main{
+      flex: 1;
+      padding: 2.2rem 1rem 3.2rem;
+    }
+
+    .privacy-container{
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .privacy-heading{
+      margin: 1.4rem 0 1.1rem;
+    }
+    .privacy-heading h1{
+      margin:0;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--amd-heading, #0b1b33);
+    }
+    .privacy-heading p{
+      margin:.45rem 0 0;
+      color: rgba(15,23,42,.70);
+      line-height: 1.55;
+    }
+
+    /* Card */
+    .privacy-card{
+      background: var(--amd-card-bg, #ffffff);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--amd-radius-lg, 18px);
+      box-shadow: 0 16px 44px rgba(15,23,42,.10);
+      overflow: hidden;
+    }
+
+    .privacy-card-head{
+      padding: 1.1rem 1.25rem;
+      border-bottom: 1px solid rgba(17,24,39,.08);
+      background: linear-gradient(180deg, rgba(17,24,39,.02), rgba(17,24,39,0));
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .privacy-card-head p{
+      margin:0;
+      color: var(--amd-text-muted, #6b7280);
+      font-size: .95rem;
+      line-height: 1.45;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      padding:.25rem .6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(17,24,39,.03);
+      color: var(--amd-text-muted, #6b7280);
+      font-size: .82rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .privacy-content{
+      padding: 1.2rem 1.25rem 1.25rem;
+    }
+
+    .privacy-content h2{
+      margin: 0 0 .35rem;
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--amd-heading, #111827);
+    }
+    .privacy-sub{
+      margin: 0 0 1rem;
+      color: rgba(15,23,42,.65);
+      font-size: .92rem;
+    }
+
+    .privacy-content h3{
+      margin: 1.35rem 0 .45rem;
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--amd-heading, #111827);
+    }
+
+    .privacy-content p{
+      margin: .55rem 0;
+      color: rgba(17,24,39,.86);
+      line-height: 1.85;
+      font-size: .95rem;
+    }
+
+    .privacy-content ul{
+      margin: .35rem 0 .85rem;
+      padding-left: 1.1rem;
+      color: rgba(17,24,39,.86);
+    }
+    .privacy-content li{
+      margin: .28rem 0;
+      line-height: 1.8;
+    }
+
+    .legal-note{
+      margin-top: 1.1rem;
+      font-size: .95rem;
+      color: rgba(17,24,39,.70);
+      padding: .85rem 1rem;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(17,24,39,.03);
+    }
+
+    .privacy-content a{
+      color: var(--amd-primary, #c1272d);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .privacy-content a:hover{ text-decoration: underline; }
+
+    @media (max-width: 640px){
+      .privacy-card-head{ padding: 1rem 1rem; }
+      .privacy-content{ padding: 1rem 1rem 1rem; }
+      .privacy-heading h1{ font-size: 1.75rem; }
+    }
+  </style>
+</head>
+
+<body class="amd-page" data-app="amd-transfer">
+  <div class="privacy-page-wrapper">
+
+    <!-- TOPBAR -->
+    <header class="legal-topbar">
+      <div class="legal-topbar-inner">
+
+        <div class="legal-brand">
+          <a href="/" aria-label="AMD German Center">
+            <img src="/logo.png" alt="AMD German Center Logo">
+          </a>
+        </div>
+
+        <nav class="legal-lang" aria-label="Sprache wählen">
+          <a class="legal-pill is-active" href="/legal/de/datenschutz.html" aria-current="page">
+            <img src="/images/flag-de.svg" alt="">
+            DE
+          </a>
+          <a class="legal-pill" href="/legal/en/datenschutz.html">
+            <img src="/images/flag-us.svg" alt="">
+            EN
+          </a>
+          <a class="legal-pill" href="/legal/ar/datenschutz.html">
+            <img src="/images/flag-lb.svg" alt="">
+            AR
+          </a>
+        </nav>
+
+      </div>
+    </header>
+
+    <!-- BACKBAR -->
+    <div class="legal-backbar">
+      <a class="back-glass" href="/">← Zurück zur Transfer-App</a>
+    </div>
+
+    <!-- MAIN -->
+    <main class="privacy-main">
+      <div class="privacy-container">
+
+        <div class="privacy-heading">
+          <h1>Datenschutzerklärung</h1>
+          <p>Informationen zur Verarbeitung personenbezogener Daten</p>
+        </div>
+
+        <div class="privacy-card">
+          <div class="privacy-card-head">
+            <p>Datenschutz &amp; Transparenz</p>
+            <span class="badge">Privacy</span>
+          </div>
+
+          <div class="privacy-content">
+
+            <h2>1. Verantwortliche Stellen</h2>
+            <p class="privacy-sub">Stand: Dezember 2025</p>
+
+            <h3>AMD German Center</h3>
+            <p>
+              Tourism &amp; Services<br/>
+              1601 Tyre – Libanon<br/>
+              E-Mail: <a href="mailto:info@amd-germancenter.com">info@amd-germancenter.com</a><br/>
+              Telefon: <a href="tel:+96181622668">+961 81 622 668</a>
+            </p>
+
+            <h3>Gemeinsam beteiligt an Marketing- und Werbezwecken</h3>
+            <p>
+              AMD Tarifcheck e.K.<br/>
+              Helmut-Neynaber-Str. 2<br/>
+              27612 Loxstedt – Deutschland
+            </p>
+
+            <h3>2. Anwendbares Datenschutzrecht</h3>
+            <p>Die Verarbeitung personenbezogener Daten erfolgt gemäß:</p>
+            <ul>
+              <li>Libanesisches Gesetz Nr. 81/2018 über elektronische Transaktionen und personenbezogene Daten</li>
+              <li>DSGVO, soweit personenbezogene Daten von Personen aus der EU verarbeitet werden</li>
+            </ul>
+
+            <h3>3. EU-Vertreter (Art. 27 DSGVO)</h3>
+            <p>
+              Für EU-Kunden ist EU-Vertreter: AMD Tarifcheck e.K., Helmut-Neynaber-Str. 2, 27612 Loxstedt.
+            </p>
+
+            <h3>4. Erhebung personenbezogener Daten</h3>
+            <p>Wir erheben Daten, wenn Sie:</p>
+            <ul>
+              <li>unsere Website besuchen</li>
+              <li>Touren, Transfers, Autovermietung oder Pauschalreisen buchen</li>
+              <li>Reise- oder Krankenversicherungen über einen Link abschließen</li>
+              <li>an Gewinnspielen teilnehmen</li>
+              <li>Kontaktformulare nutzen</li>
+            </ul>
+
+            <p><strong>Verarbeitete Datenarten:</strong></p>
+            <ul>
+              <li>Name, Vorname</li>
+              <li>Geburtsdatum, Nationalität</li>
+              <li>Reisepass / Ausweisdaten</li>
+              <li>Adresse, E-Mail, Telefonnummer</li>
+              <li>Reise-, Buchungs-, Autovermietungsdaten</li>
+              <li>Zahlungs- und Rechnungsinformationen</li>
+              <li>IP-Adresse, Browser- und Zugriffsdaten</li>
+            </ul>
+
+            <h3>5. Zwecke der Datenverarbeitung</h3>
+            <ul>
+              <li>Organisation, Buchung und Durchführung von Touren, Transfers, Autovermietung, Pauschalreisen</li>
+              <li>Kundenkommunikation</li>
+              <li>Vertragsabwicklung und Rechnungsstellung</li>
+              <li>Durchführung von Gewinnspielen</li>
+              <li>Marketing, Angebote, Sonderaktionen</li>
+              <li>Bereitstellung und Sicherheit der Website</li>
+            </ul>
+
+            <div class="legal-note">
+              Hinweis: Für Versicherungen sind wir nur Vermittler. Ihre Daten werden direkt über den jeweiligen Versicherer verarbeitet;
+              wir speichern keine sensiblen Versicherungsdaten.
+            </div>
+
+            <h3>6. Rechtsgrundlagen der Verarbeitung</h3>
+            <ul>
+              <li>Einwilligung (Art. 6 Abs. 1 lit. a DSGVO)</li>
+              <li>Vertrag / vorvertragliche Maßnahmen (Art. 6 Abs. 1 lit. b DSGVO)</li>
+              <li>Gesetzliche Verpflichtungen (Art. 6 Abs. 1 lit. c DSGVO)</li>
+              <li>Berechtigtes Interesse (Art. 6 Abs. 1 lit. f DSGVO, z. B. Sicherheit der Website)</li>
+            </ul>
+
+            <h3>7. Marketing, Angebote &amp; Gewinnspiele</h3>
+            <p>
+              Sofern Sie ausdrücklich einwilligen, nutzen wir Ihre Daten (Name, E-Mail, Telefonnummer, Interessensangaben)
+              zur Kontaktaufnahme über Reiseangebote und Sonderaktionen, Versicherungsangebote sowie Gewinnspiele und Verlosungen.
+              Daten können zwischen AMD German Center (Libanon) und AMD Tarifcheck e.K. (Deutschland) ausgetauscht werden.
+            </p>
+            <p><strong>Widerruf:</strong> jederzeit per E-Mail an <a href="mailto:info@amd-germancenter.com">info@amd-germancenter.com</a></p>
+
+            <h3>8. Datenübermittlung ins Ausland</h3>
+            <p>
+              Da AMD German Center im Libanon (Drittland) sitzt, erfolgt ggf. Datenübermittlung in ein Drittland,
+              unter Einhaltung geeigneter Sicherheitsmaßnahmen.
+            </p>
+
+            <h3>9. Cookies &amp; Website-Technologien</h3>
+            <ul>
+              <li>Notwendige Cookies für Funktionalität und Sicherheit</li>
+              <li>Marketing- und Analyse-Cookies nur nach Einwilligung</li>
+            </ul>
+
+            <h3>10. Datensicherheit</h3>
+            <p>Technische und organisatorische Maßnahmen schützen vor unbefugtem Zugriff, Verlust oder Missbrauch.</p>
+
+            <h3>11. Speicherdauer</h3>
+            <p>
+              Daten werden nur solange gespeichert, wie es für die Zwecke erforderlich ist oder gesetzliche Aufbewahrungsfristen bestehen.
+            </p>
+
+            <h3>12. Rechte der Betroffenen</h3>
+            <ul>
+              <li>Auskunft</li>
+              <li>Berichtigung</li>
+              <li>Löschung</li>
+              <li>Einschränkung der Verarbeitung</li>
+              <li>Widerspruch</li>
+              <li>Widerruf der Einwilligung</li>
+              <li>Beschwerde bei Datenschutzbehörden</li>
+            </ul>
+
+            <h3>13. Änderungen</h3>
+            <p>Wir behalten uns vor, die Datenschutzerklärung anzupassen.</p>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- FOOTER (wie Referenz) -->
+    <footer class="amd-footer">
+      <div class="footer-grid">
+
+        <div class="footer-column footer-column--left">
+          <ul class="footer-links">
+            <li><a href="https://amdtransfer.netlify.app/" target="_blank" rel="noopener">Airport Transfer</a></li>
+            <li><a href="https://www.amd-germancenter.com/de/car-rental.html" target="_blank" rel="noopener">Mietwagen</a></li>
+            <li><a href="https://www.amd-germancenter.com/de/package-tours.html" target="_blank" rel="noopener">Pauschalreisen</a></li>
+            <li><a href="https://amdtourbooking.netlify.app/" target="_blank" rel="noopener">Tagestouren</a></li>
+            <li><a href="https://amd-tarifcheck.de/" target="_blank" rel="noopener">AMD Tarifcheck</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column footer-column--center">
+          <p class="footer-title">Folgen Sie uns auf:</p>
+          <div class="footer-social">
+            <a href="https://wa.me/96181622668" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <img src="/images/icon-whatsapp.svg" alt="WhatsApp" />
+            </a>
+            <a href="https://www.instagram.com/amd.german.center/" target="_blank" rel="noopener" aria-label="Instagram">
+              <img src="/images/icon-instagram.svg" alt="Instagram" />
+            </a>
+            <a href="https://www.facebook.com/p/AMD-German-Center-61575238540217/" target="_blank" rel="noopener" aria-label="Facebook">
+              <img src="/images/icon-facebook.svg" alt="Facebook" />
+            </a>
+            <a href="https://www.tiktok.com/@amdgermancenter" target="_blank" rel="noopener" aria-label="TikTok">
+              <img src="/images/icon-tiktok.svg" alt="TikTok" />
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-column footer-column--right">
+          <ul class="footer-links">
+            <li><a href="/legal/de/faq.html">FAQ Libanon</a></li>
+            <li><a href="/legal/de/about.html">Über uns</a></li>
+            <li><a href="/legal/de/imprint.html">Impressum</a></li>
+            <li><a href="/legal/de/datenschutz.html">Datenschutz</a></li>
+            <li><a href="/legal/de/agbs.html">AGB</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>

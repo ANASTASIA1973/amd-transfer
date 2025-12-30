@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>AMD German Center – الشروط والأحكام</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="الشروط والأحكام العامة لـ AMD German Center." />
+
+  <!-- Transfer-App Styles (stabil, keine relativen Pfade) -->
+  <link rel="stylesheet" href="/transfer-globals.css" />
+
+  <style>
+    /* Zahlen/Email/URL sauber in RTL */
+    .ltr{
+      direction:ltr;
+      unicode-bidi:bidi-override;
+      display:inline-block;
+    }
+
+    /* Backbar wie Referenz */
+    .legal-backbar{
+      width: min(980px, 100% - 2rem);
+      margin: .9rem auto 0;
+    }
+    .back-glass{
+      display:inline-flex;
+      align-items:center;
+      gap:.55rem;
+      padding:.62rem 1.05rem;
+      border-radius:999px;
+      border:1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 12px 26px rgba(2,6,23,.10);
+      color: var(--amd-heading,#0b1b33);
+      text-decoration:none;
+      font-weight:800;
+      line-height:1;
+      white-space:nowrap;
+    }
+    .back-glass:hover{
+      background: rgba(255,255,255,.92);
+      border-color: rgba(17,24,39,.16);
+    }
+
+    /* Page Wrapper */
+    .terms-page-wrapper{
+      min-height: 100vh;
+      display:flex;
+      flex-direction:column;
+      background: var(--amd-bg, #f5f5f7);
+    }
+
+    .terms-main{
+      flex: 1;
+      padding: 2.2rem 1rem 3.2rem;
+    }
+
+    .terms-container{
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .terms-heading{
+      margin: 1.4rem 0 1.1rem;
+      direction: rtl;
+      text-align: right;
+    }
+    .terms-heading h1{
+      margin:0;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--amd-heading, #0b1b33);
+    }
+    .terms-heading p{
+      margin:.45rem 0 0;
+      color: rgba(15,23,42,.70);
+      line-height: 1.55;
+    }
+
+    /* Card */
+    .terms-card{
+      background: var(--amd-card-bg, #ffffff);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--amd-radius-lg, 18px);
+      box-shadow: 0 16px 44px rgba(15,23,42,.10);
+      overflow: hidden;
+      direction: rtl;
+      text-align: right;
+    }
+
+    .terms-card-head{
+      padding: 1.1rem 1.25rem;
+      border-bottom: 1px solid rgba(17,24,39,.08);
+      background: linear-gradient(180deg, rgba(17,24,39,.02), rgba(17,24,39,0));
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .terms-card-head p{
+      margin:0;
+      color: var(--amd-text-muted, #6b7280);
+      font-size: .95rem;
+      line-height: 1.45;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      padding:.25rem .6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(17,24,39,.03);
+      color: var(--amd-text-muted, #6b7280);
+      font-size: .82rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .terms-content{
+      padding: 1.2rem 1.25rem 1.25rem;
+    }
+
+    .terms-title{
+      margin: 0 0 .35rem;
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--amd-heading, #111827);
+    }
+    .terms-sub{
+      margin: 0 0 1rem;
+      color: rgba(15,23,42,.65);
+      font-size: .92rem;
+    }
+
+    .terms-content h3{
+      margin: 1.35rem 0 .45rem;
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--amd-heading, #111827);
+    }
+
+    .terms-content p{
+      margin: .55rem 0;
+      color: rgba(17,24,39,.86);
+      line-height: 1.85;
+      font-size: .95rem;
+    }
+
+    .terms-content ul{
+      margin: .35rem 0 .85rem;
+      padding-right: 1.1rem;
+      color: rgba(17,24,39,.86);
+    }
+    .terms-content li{
+      margin: .28rem 0;
+      line-height: 1.8;
+    }
+
+    .terms-divider{
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(17,24,39,.10), transparent);
+      margin: 1.2rem 0;
+    }
+
+    @media (max-width: 640px){
+      .terms-card-head{ padding: 1rem 1rem; }
+      .terms-content{ padding: 1rem 1rem 1rem; }
+      .terms-heading h1{ font-size: 1.75rem; }
+    }
+  </style>
+</head>
+
+<body class="amd-page" data-app="amd-transfer">
+  <div class="terms-page-wrapper">
+
+    <!-- TOPBAR -->
+    <header class="legal-topbar">
+      <div class="legal-topbar-inner">
+
+        <div class="legal-brand">
+          <a href="/" aria-label="AMD German Center">
+            <img src="/logo.png" alt="AMD German Center Logo">
+          </a>
+        </div>
+
+        <nav class="legal-lang" aria-label="اختيار اللغة">
+          <a class="legal-pill" href="/legal/de/agbs.html">
+            <img src="/images/flag-de.svg" alt="">
+            DE
+          </a>
+          <a class="legal-pill" href="/legal/en/agbs.html">
+            <img src="/images/flag-us.svg" alt="">
+            EN
+          </a>
+          <a class="legal-pill is-active" href="/legal/ar/agbs.html" aria-current="page">
+            <img src="/images/flag-lb.svg" alt="">
+            AR
+          </a>
+        </nav>
+
+      </div>
+    </header>
+
+    <!-- BACKBAR -->
+    <div class="legal-backbar">
+      <a class="back-glass" href="/">→ العودة إلى تطبيق النقل</a>
+    </div>
+
+    <!-- MAIN -->
+    <main class="terms-main">
+      <div class="terms-container">
+
+        <div class="terms-heading">
+          <h1>الشروط والأحكام</h1>
+          <p>الشروط والأحكام العامة لـ AMD German Center</p>
+        </div>
+
+        <div class="terms-card">
+          <div class="terms-card-head">
+            <p>الشروط والأحكام العامة</p>
+            <span class="badge">AGB</span>
+          </div>
+
+          <div class="terms-content">
+            <h2 class="terms-title">الشروط والأحكام العامة</h2>
+            <p class="terms-sub">آخر تحديث: ديسمبر <span class="ltr">2025</span></p>
+
+            <h3>1. نطاق التطبيق</h3>
+            <p>تنطبق هذه الشروط والأحكام على جميع خدمات AMD German Center، بما في ذلك:</p>
+            <ul>
+              <li>الجولات اليومية، تأجير السيارات، النقل من وإلى المطار، الرحلات والباقات السياحية (كمقدم خدمة)</li>
+              <li>الوساطة في تأمين السفر والتأمين الصحي عبر روابط إلكترونية</li>
+              <li>يمكن للعملاء من جميع أنحاء العالم الحجز أو إرسال استفسارات أو طلب عروض</li>
+            </ul>
+
+            <h3>2. إبرام العقد</h3>
+            <ul>
+              <li><strong>الخدمات المقدَّمة مباشرة:</strong> يتم إبرام العقد عند تأكيد الحجز</li>
+              <li><strong>التأمين:</strong> يتم إبرام العقد مباشرة بين العميل وشركة التأمين، وAMD German Center يوفّر رابط الوساطة فقط</li>
+            </ul>
+
+            <h3>3. الأسعار والدفع</h3>
+            <ul>
+              <li>جميع الأسعار شاملة الضرائب وبالعملة المحددة</li>
+              <li>الدفع عبر التحويل البنكي أو <span class="ltr">WHISH</span> أو نقدًا</li>
+              <li>يجب إتمام الدفع قبل بدء تقديم الخدمة أو الرحلة</li>
+            </ul>
+
+            <h3>4. الإلغاء والانسحاب واسترداد المبالغ</h3>
+            <p><strong>4.1 كمقدم خدمة (الجولات، النقل، تأجير السيارات، الباقات)</strong></p>
+            <ul>
+              <li>إلغاء العميل: يخضع لشروط الإلغاء الخاصة بالخدمة المحجوزة</li>
+              <li>قد يتم خصم رسوم إدارية من قبل AMD German Center</li>
+              <li>في حال الإلغاء من قبل AMD German Center، يتم رد المبالغ فقط بحدود ما تم دفعه فعليًا لمقدمي الخدمات الخارجيين</li>
+            </ul>
+
+            <p><strong>4.2 وساطة التأمين</strong></p>
+            <ul>
+              <li>تخضع عمليات الاسترداد حصريًا لشروط شركة التأمين</li>
+              <li>لا تتحمل AMD German Center أي مسؤولية عن أقساط أو خدمات شركات التأمين</li>
+            </ul>
+
+            <h3>5. المسؤولية</h3>
+            <ul>
+              <li>تتحمل AMD German Center المسؤولية في حالات القصد أو الإهمال الجسيم فقط</li>
+              <li>لا مسؤولية عن مقدمي الخدمات الخارجيين (فنادق، شركات طيران، تأمين، تأجير سيارات)</li>
+              <li>لا مسؤولية عن الأضرار الناتجة عن القوة القاهرة أو الإضرابات أو الكوارث الطبيعية أو الأحداث السياسية</li>
+            </ul>
+
+            <h3>6. التزامات العميل</h3>
+            <ul>
+              <li>يجب على العميل تقديم بيانات صحيحة وكاملة</li>
+              <li>التحقق من الوثائق، التأشيرات والتأمين يقع على عاتق العميل</li>
+              <li>لا تتحمل AMD German Center مسؤولية الأضرار الناتجة عن معلومات غير صحيحة</li>
+            </ul>
+
+            <h3>7. حماية البيانات</h3>
+            <p>تتم معالجة البيانات وفق سياسة الخصوصية المنشورة على هذا الموقع.</p>
+
+            <h3>8. القانون الواجب التطبيق والاختصاص القضائي</h3>
+            <ul>
+              <li>يخضع العقد للقانون اللبناني</li>
+              <li>الاختصاص القضائي: صيدا – لبنان</li>
+            </ul>
+
+            <h3>9. شرط بطلان جزئي</h3>
+            <p>في حال بطلان أي بند، تبقى بقية البنود سارية المفعول.</p>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- FOOTER (wie Referenz-Struktur) -->
+    <footer class="amd-footer">
+      <div class="footer-grid">
+
+        <div class="footer-column footer-column--left">
+          <ul class="footer-links">
+            <li><a href="https://amdtransfer.netlify.app/" target="_blank" rel="noopener">Airport Transfer</a></li>
+            <li><a href="https://www.amd-germancenter.com/ar/car-rental.html" target="_blank" rel="noopener">تأجير سيارات</a></li>
+            <li><a href="https://www.amd-germancenter.com/ar/package-tours.html" target="_blank" rel="noopener">رحلات وباقات</a></li>
+            <li><a href="https://amdtourbooking.netlify.app/" target="_blank" rel="noopener">جولات يومية</a></li>
+            <li><a href="https://amd-tarifcheck.de/" target="_blank" rel="noopener">AMD Tarifcheck</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column footer-column--center" dir="rtl">
+          <p class="footer-title">تابعونا على:</p>
+          <div class="footer-social">
+            <a href="https://wa.me/96181622668" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <img src="/images/icon-whatsapp.svg" alt="WhatsApp" />
+            </a>
+            <a href="https://www.instagram.com/amd.german.center/" target="_blank" rel="noopener" aria-label="Instagram">
+              <img src="/images/icon-instagram.svg" alt="Instagram" />
+            </a>
+            <a href="https://www.facebook.com/p/AMD-German-Center-61575238540217/" target="_blank" rel="noopener" aria-label="Facebook">
+              <img src="/images/icon-facebook.svg" alt="Facebook" />
+            </a>
+            <a href="https://www.tiktok.com/@amdgermancenter" target="_blank" rel="noopener" aria-label="TikTok">
+              <img src="/images/icon-tiktok.svg" alt="TikTok" />
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-column footer-column--right" dir="rtl">
+          <ul class="footer-links">
+            <li><a href="/legal/ar/faq.html">الأسئلة الشائعة</a></li>
+            <li><a href="/legal/ar/about.html">من نحن</a></li>
+            <li><a href="/legal/ar/imprint.html">البيانات القانونية</a></li>
+            <li><a href="/legal/ar/datenschutz.html">سياسة الخصوصية</a></li>
+            <li><a href="/legal/ar/agbs.html">الشروط والأحكام</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>

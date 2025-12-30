@@ -1,5 +1,406 @@
-<!doctype html><html><head><meta charset="utf-8">
-<script>
-localStorage.setItem("amd_locale","ar");
-location.replace("/legal/de/faq.html");
-</script></head><body></body></html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>AMD German Center – الأسئلة الشائعة عن السفر إلى لبنان</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+        content="الأسئلة الشائعة عن السفر إلى لبنان – متطلبات الدخول، الأمان، الصحة، التأمين، وتجهيزات السفر." />
+
+  <!-- Transfer-App Styles (stabil, keine relativen Pfade) -->
+  <link rel="stylesheet" href="/transfer-globals.css" />
+
+  <style>
+    /* ===== Backbar exakt wie Referenz ===== */
+    .legal-backbar{
+      width: min(980px, 100% - 2rem);
+      margin: .9rem auto 0;
+    }
+    .back-glass{
+      display:inline-flex;
+      align-items:center;
+      gap:.55rem;
+      padding:.62rem 1.05rem;
+      border-radius:999px;
+      border:1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 12px 26px rgba(2,6,23,.10);
+      color: var(--amd-heading,#0b1b33);
+      text-decoration:none;
+      font-weight:800;
+      line-height:1;
+      white-space:nowrap;
+    }
+    .back-glass:hover{
+      background: rgba(255,255,255,.92);
+      border-color: rgba(17,24,39,.16);
+    }
+
+    /* ===== Page Wrapper (wie Referenz) ===== */
+    .faq-page-wrapper{
+      min-height: 100vh;
+      display:flex;
+      flex-direction:column;
+      background: var(--amd-bg, #f5f5f7);
+    }
+
+    .faq-main{
+      flex: 1;
+      padding: 2.2rem 1rem 3.2rem;
+    }
+
+    .faq-container{
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .faq-heading{
+      margin: 1.4rem 0 1.1rem;
+    }
+    .faq-heading h1{
+      margin:0;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--amd-heading, #0b1b33);
+    }
+    .faq-heading p{
+      margin:.45rem 0 0;
+      color: rgba(15,23,42,.70);
+    }
+
+    /* ===== Card (wie Referenz-Stil) ===== */
+    .faq-card{
+      background: var(--amd-card-bg, #ffffff);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--amd-radius-lg, 18px);
+      box-shadow: 0 16px 44px rgba(15,23,42,.10);
+      overflow: hidden;
+    }
+
+    .faq-card-head{
+      padding: 1.1rem 1.25rem;
+      border-bottom: 1px solid rgba(17,24,39,.08);
+      background: linear-gradient(180deg, rgba(17,24,39,.02), rgba(17,24,39,0));
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .faq-card-head p{
+      margin:0;
+      color: var(--amd-text-muted, #6b7280);
+      font-size: .95rem;
+      line-height: 1.45;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      padding:.25rem .6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(17,24,39,.03);
+      color: var(--amd-text-muted, #6b7280);
+      font-size: .82rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .faq-content{
+      padding: 1.2rem 1.25rem 1.25rem;
+    }
+
+    /* ===== Accordion (wie DE FAQ in Transfer-App) ===== */
+    .faq-acc details{
+      border-top: 1px solid rgba(17,24,39,.08);
+      padding: .95rem 0;
+    }
+    .faq-acc details:first-child{ border-top: none; }
+
+    .faq-acc summary{
+      cursor: pointer;
+      list-style: none;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--amd-heading, #111827);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .faq-acc summary::-webkit-details-marker{ display: none; }
+
+    .faq-acc summary::after{
+      content: "+";
+      font-size: 1.35rem;
+      font-weight: 300;
+      color: rgba(15,23,42,.55);
+      flex: 0 0 auto;
+    }
+    .faq-acc details[open] summary::after{ content: "–"; }
+
+    .faq-answer{
+      margin-top: .6rem;
+      color: #374151;
+      line-height: 1.7;
+      font-size: .95rem;
+      overflow-wrap: anywhere; /* iPhone safe */
+    }
+
+    /* RTL: Listen-Einzug korrekt */
+    .faq-answer ul{ margin: .55rem 0 .55rem 1.2rem; }
+    html[dir="rtl"] .faq-answer ul{ margin-right: 1.2rem; margin-left: 0; }
+    .faq-answer li{ margin-bottom: .35rem; }
+
+    /* Button in Answers: iPhone-safe */
+    .faq-answer .btn{
+      max-width: 100%;
+      white-space: normal;
+      text-align: center;
+    }
+
+    @media (max-width: 640px){
+      .faq-card-head{ padding: 1rem 1rem; }
+      .faq-content{ padding: 1rem 1rem 1rem; }
+    }
+  </style>
+</head>
+
+<body class="amd-page" data-app="amd-transfer">
+  <div class="faq-page-wrapper">
+
+    <!-- HEADER (exakt wie Referenz: nur Topbar) -->
+    <header class="legal-topbar">
+      <div class="legal-topbar-inner">
+
+        <div class="legal-brand">
+          <a href="/" aria-label="AMD German Center">
+            <img src="/logo.png" alt="AMD German Center Logo">
+          </a>
+        </div>
+
+        <nav class="legal-lang" aria-label="اختيار اللغة">
+          <a class="legal-pill" href="/legal/de/faq.html">
+            <img src="/images/flag-de.svg" alt="">
+            DE
+          </a>
+          <a class="legal-pill" href="/legal/en/faq.html">
+            <img src="/images/flag-us.svg" alt="">
+            EN
+          </a>
+          <a class="legal-pill is-active" href="/legal/ar/faq.html" aria-current="page">
+            <img src="/images/flag-lb.svg" alt="">
+            AR
+          </a>
+        </nav>
+
+      </div>
+    </header>
+
+    <!-- Backbar (exakt wie Referenz) -->
+    <div class="legal-backbar">
+      <a class="back-glass" href="/">→ العودة إلى تطبيق النقل</a>
+    </div>
+
+    <!-- MAIN -->
+    <main class="faq-main">
+      <div class="faq-container">
+
+        <div class="faq-heading">
+          <h1>الأسئلة الشائعة</h1>
+          <p>معلومات مهمة عن متطلبات الدخول، الأمان، الصحة وتجهيزات السفر</p>
+        </div>
+
+        <div class="faq-card">
+          <div class="faq-card-head">
+            <p>الأسئلة الشائعة عن السفر إلى لبنان</p>
+            <span class="badge">FAQ</span>
+          </div>
+
+          <div class="faq-content">
+            <div class="faq-acc">
+
+              <details>
+                <summary>هل أحتاج إلى تأشيرة دخول إلى لبنان؟</summary>
+                <div class="faq-answer">
+                  <p>
+                    نعم، معظم المسافرين يحتاجون إلى تأشيرة. في كثير من الحالات يمكن الحصول عليها
+                    مجانًا عند الوصول إلى مطار بيروت. ننصح دائمًا بالتحقق من التعليمات الرسمية قبل السفر،
+                    لأن الشروط قد تتغيّر.
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>ما هي متطلبات الدخول إلى لبنان؟</summary>
+                <div class="faq-answer">
+                  <p>بالإضافة إلى التأشيرة، قد تكون هناك متطلبات أخرى، مثل:</p>
+                  <ul>
+                    <li>جواز سفر ساري المفعول (عادةً لمدة ٦ أشهر على الأقل)</li>
+                    <li>إثبات حجز السكن أو تذكرة عودة</li>
+                  </ul>
+                  <p>يُرجى أيضًا حمل <strong>تأكيد الرحلة</strong> الصادر عنّا مطبوعًا معك.</p>
+                </div>
+              </details>
+
+              <details>
+                <summary>هل أحتاج إلى استشارة طبية أو لقاحات قبل السفر؟</summary>
+                <div class="faq-answer">
+                  <p>
+                    يُفضّل مراجعة اللقاحات الأساسية قبل السفر (مثل التهاب الكبد A وB، والتيفوئيد، والكزاز).
+                    ننصح باستشارة طبيبك أو عيادة متخصصة في طب السفر للحصول على نصيحة شخصية تناسب حالتك.
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>كيف هي الأوضاع الأمنية في لبنان؟</summary>
+                <div class="faq-answer">
+                  <p>
+                    لبنان بلد متنوع وقد تختلف الأوضاع الأمنية من منطقة إلى أخرى. برامجنا تقتصر على المناطق
+                    المفتوحة حاليًا للسياحة والتي تُقيّم بأنها مناسبة وآمنة للزيارة.
+                  </p>
+                  <p>
+                    سلامة ضيوفنا هي الأولوية الأولى. نبقى على تواصل مستمر مع شركائنا المحليين
+                    ونقوم بتعديل خط السير عند الحاجة.
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>ما هي العملة المستخدمة في لبنان؟</summary>
+                <div class="faq-answer">
+                  <p>
+                    العملة الرسمية هي <strong>الليرة اللبنانية (LBP)</strong>. كما يُستخدم الدولار الأمريكي
+                    على نطاق واسع في العديد من الأماكن.
+                  </p>
+                  <p>يُستحسن حمل بعض النقود، لأن الدفع بالبطاقة غير متوفر في كل مكان.</p>
+                </div>
+              </details>
+
+              <details>
+                <summary>هل توجد عادات ثقافية أو دينية يجب احترامها؟</summary>
+                <div class="faq-answer">
+                  <p>
+                    نعم، يُرجى احترام العادات المحلية والأماكن الدينية. يُفضّل ارتداء ملابس محتشمة،
+                    خصوصًا عند زيارة المساجد والكنائس. وعند الشك، استأذن قبل تصوير الأشخاص أو الأماكن المقدسة.
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>ماذا يجب أن أراعي بخصوص الصحة والسلامة؟</summary>
+                <div class="faq-answer">
+                  <p>
+                    ننصح بشرب المياه المعبأة فقط، والانتباه إلى نظافة الطعام، وتجنّب المواقف الخطرة.
+                    اتبع إرشادات السلطات المحلية ومرشد الرحلة.
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>ما هي اللغات المتداولة في لبنان؟</summary>
+                <div class="faq-answer">
+                  <p>
+                    اللغة الرسمية هي <strong>العربية</strong>. كما تُستخدم <strong>الإنجليزية والفرنسية</strong>
+                    بشكل واسع في المناطق السياحية.
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>هل يُنصح بالحصول على تأمين سفر؟</summary>
+                <div class="faq-answer">
+                  <p>
+                    نعم، نوصي بشدة بالحصول على تأمين سفر يشمل على الأقل الرعاية الطبية،
+                    وإلغاء/قطع الرحلة، وضياع الأمتعة.
+                  </p>
+                  <p>يمكنك مقارنة خيارات تأمين السفر وإتمام الشراء عبر الإنترنت، مثلًا من هنا:</p>
+                  <p>
+                    <a
+                      href="https://reisevergleich.covomo.de/reise?products=1&travel_persons=1&destination_region=1&r=eyJhZmZpbGlhdGVfaWQiOiI0OTE0OTAyNzUzIiwgInJlZiI6IjAwN1ZVTSJ9&theme=embedded"
+                      target="_blank"
+                      rel="noopener"
+                      class="btn btn-primary"
+                    >
+                      مقارنة وشراء تأمين السفر عبر الإنترنت
+                    </a>
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>ماذا يجب أن أحمل معي في حقيبتي؟</summary>
+                <div class="faq-answer">
+                  <p>قائمة مختصرة بالأشياء المهمة:</p>
+                  <ul>
+                    <li>جواز سفر (وتأشيرة إذا لزم الأمر)</li>
+                    <li>مستندات السفر وتأكيد الرحلة</li>
+                    <li>الأدوية الشخصية وبعض مستلزمات الإسعافات الأولية</li>
+                    <li>واقي شمس، قبعة، ونظارات شمسية</li>
+                    <li>ملابس وأحذية مريحة للمدينة والرحلات</li>
+                    <li>حقيبة صغيرة لليوم الواحد</li>
+                    <li>محول كهرباء (عند الحاجة)</li>
+                    <li>وقبل كل شيء: مزاج جيد ورغبة في الاستمتاع</li>
+                  </ul>
+                </div>
+              </details>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- FOOTER (wie Referenz-Struktur, kompatibel zur Transfer-App) -->
+    <footer class="amd-footer">
+      <div class="footer-grid">
+
+        <div class="footer-column footer-column--left">
+          <ul class="footer-links">
+            <li><a href="https://amdtransfer.netlify.app/" target="_blank" rel="noopener">Airport Transfer</a></li>
+            <li><a href="https://www.amd-germancenter.com/ar/car-rental.html" target="_blank" rel="noopener">تأجير سيارات</a></li>
+            <li><a href="https://www.amd-germancenter.com/ar/package-tours.html" target="_blank" rel="noopener">رحلات وباقات</a></li>
+            <li><a href="https://amdtourbooking.netlify.app/" target="_blank" rel="noopener">جولات يومية</a></li>
+            <li><a href="https://amd-tarifcheck.de/" target="_blank" rel="noopener">AMD Tarifcheck</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column footer-column--center" dir="rtl">
+          <p class="footer-title">تابعونا على:</p>
+          <div class="footer-social">
+            <a href="https://wa.me/96181622668" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <img src="/images/icon-whatsapp.svg" alt="WhatsApp" />
+            </a>
+            <a href="https://www.instagram.com/amd.german.center/" target="_blank" rel="noopener" aria-label="Instagram">
+              <img src="/images/icon-instagram.svg" alt="Instagram" />
+            </a>
+            <a href="https://www.facebook.com/p/AMD-German-Center-61575238540217/" target="_blank" rel="noopener" aria-label="Facebook">
+              <img src="/images/icon-facebook.svg" alt="Facebook" />
+            </a>
+            <a href="https://www.tiktok.com/@amdgermancenter" target="_blank" rel="noopener" aria-label="TikTok">
+              <img src="/images/icon-tiktok.svg" alt="TikTok" />
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-column footer-column--right" dir="rtl">
+          <ul class="footer-links">
+            <li><a href="/legal/ar/faq.html">الأسئلة الشائعة</a></li>
+            <li><a href="/legal/ar/about.html">من نحن</a></li>
+            <li><a href="/legal/ar/imprint.html">البيانات القانونية</a></li>
+            <li><a href="/legal/ar/datenschutz.html">سياسة الخصوصية</a></li>
+            <li><a href="/legal/ar/agbs.html">الشروط والأحكام</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>

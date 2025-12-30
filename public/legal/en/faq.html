@@ -1,5 +1,465 @@
-<!doctype html><html><head><meta charset="utf-8">
-<script>
-localStorage.setItem("amd_locale","en");
-location.replace("/legal/de/faq.html");
-</script></head><body></body></html>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AMD German Center – Lebanon Travel FAQ</title>
+
+  <meta name="description"
+        content="Frequently asked questions about travelling to Lebanon – entry requirements, safety, health, insurance and packing." />
+
+  <!-- Transfer-App Styles -->
+  <link rel="stylesheet" href="/transfer-globals.css" />
+
+  <style>
+    /* ===== Legal Header (wie Hauptseite) ===== */
+    .legal-topbar{
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: rgba(246,247,250,.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(17,24,39,.08);
+    }
+
+    .legal-topbar-inner{
+      width: min(1100px, 100% - 1.6rem);
+      margin: 0 auto;
+      padding: 12px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .legal-brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 0;
+    }
+    .legal-brand img{
+      height: 44px;
+      width: auto;
+      display:block;
+    }
+
+    .back-glass{
+      display:inline-flex;
+      align-items:center;
+      gap:.55rem;
+      padding:.62rem 1.05rem;
+      border-radius:999px;
+      border:1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 12px 26px rgba(2,6,23,.10);
+      color: var(--amd-heading,#0b1b33);
+      text-decoration:none;
+      font-weight:800;
+      line-height:1;
+      white-space:nowrap;
+      max-width: 100%;
+    }
+    .back-glass:hover{
+      background: rgba(255,255,255,.92);
+      border-color: rgba(17,24,39,.16);
+    }
+
+    .legal-lang{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.70);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 10px 22px rgba(2,6,23,.06);
+    }
+
+    .legal-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      text-decoration:none;
+      border: 1px solid transparent;
+      font-weight: 800;
+      color: var(--amd-heading,#0b1b33);
+      line-height: 1;
+      white-space:nowrap;
+    }
+
+    .legal-pill img{
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      object-fit: cover;
+      display:block;
+    }
+
+    .legal-pill.is-active{
+      border-color: rgba(193,39,45,.55);
+      box-shadow: 0 10px 18px rgba(193,39,45,.12);
+    }
+
+    @media (max-width: 720px){
+      .legal-topbar-inner{ width: calc(100% - 1.2rem); }
+      .legal-brand img{ height: 40px; }
+      .back-glass{ padding:.58rem .95rem; }
+      .legal-pill{ padding: 7px 10px; gap:7px; }
+      .legal-pill img{ width: 20px; height: 20px; }
+    }
+
+    /* ===== FAQ Layout (iPhone-safe) ===== */
+    .faq-page{
+      min-height: 100vh;
+      display:flex;
+      flex-direction: column;
+      background: var(--amd-bg, #f5f5f7);
+    }
+
+    .faq-main{
+      flex: 1;
+      padding: 1.6rem 1rem 3rem;
+    }
+
+    .faq-container{
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .faq-heading{
+      margin: 1.2rem 0 1.1rem;
+    }
+    .faq-heading h1{
+      margin:0;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--amd-heading, #111827);
+    }
+    .faq-heading p{
+      margin:.45rem 0 0;
+      color: rgba(15,23,42,.70);
+      line-height: 1.5;
+    }
+
+    .faq-card{
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: 18px;
+      box-shadow: 0 16px 44px rgba(15,23,42,.10);
+      overflow: hidden;
+    }
+
+    .faq-card-head{
+      padding: 1.05rem 1.15rem;
+      border-bottom: 1px solid rgba(17,24,39,.08);
+      background: linear-gradient(180deg, rgba(17,24,39,.02), rgba(17,24,39,0));
+    }
+
+    .faq-card-head h2{
+      margin:0;
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--amd-heading, #111827);
+    }
+    .faq-card-head p{
+      margin:.35rem 0 0;
+      color: rgba(15,23,42,.70);
+      font-size: .95rem;
+      line-height: 1.45;
+    }
+
+    .faq-body{
+      padding: 1.05rem 1.15rem;
+    }
+
+    /* Accordion */
+    .faq-acc details{
+      border-top: 1px solid rgba(17,24,39,.08);
+      padding: .95rem 0;
+    }
+    .faq-acc details:first-child{ border-top: none; }
+
+    .faq-acc summary{
+      cursor: pointer;
+      list-style: none;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--amd-heading, #111827);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .faq-acc summary::-webkit-details-marker{ display: none; }
+
+    .faq-acc summary::after{
+      content: "+";
+      font-size: 1.35rem;
+      font-weight: 300;
+      color: rgba(15,23,42,.55);
+      flex: 0 0 auto;
+    }
+    .faq-acc details[open] summary::after{ content: "–"; }
+
+    .faq-answer{
+      margin-top: .6rem;
+      color: #374151;
+      line-height: 1.7;
+      font-size: .95rem;
+      overflow-wrap: anywhere; /* iPhone: lange Links safe */
+    }
+    .faq-answer ul{ margin: .55rem 0 .55rem 1.2rem; }
+    .faq-answer li{ margin-bottom: .35rem; }
+
+    /* Button iPhone-safe */
+    .faq-answer .btn{
+      max-width: 100%;
+      white-space: normal;
+      text-align: center;
+    }
+
+    @media (max-width: 700px){
+      .faq-main{ padding: 1.3rem .85rem 2.6rem; }
+      .faq-card-head{ padding: 1rem 1rem; }
+      .faq-body{ padding: 1rem 1rem; }
+      .faq-heading h1{ font-size: 1.75rem; }
+    }
+  </style>
+</head>
+
+<body class="amd-page" data-app="amd-transfer">
+  <div class="faq-page">
+
+    <!-- HEADER -->
+    <header class="legal-topbar">
+      <div class="legal-topbar-inner">
+
+        <div class="legal-brand">
+          <a href="/" aria-label="AMD German Center">
+            <img src="/logo.png" alt="AMD German Center Logo">
+          </a>
+
+        </div>
+
+        <nav class="legal-lang" aria-label="Language">
+          <a class="legal-pill" href="/legal/de/faq.html">
+            <img src="/images/flag-de.svg" alt="">
+            DE
+          </a>
+          <a class="legal-pill is-active" href="/legal/en/faq.html" aria-current="page">
+            <img src="/images/flag-us.svg" alt="">
+            EN
+          </a>
+          <a class="legal-pill" href="/legal/ar/faq.html">
+            <img src="/images/flag-lb.svg" alt="">
+            AR
+          </a>
+        </nav>
+
+      </div>
+    </header>
+<div class="legal-subrow">
+  <a class="back-glass" href="/">← Back to the transfer app</a>
+</div>
+
+    <!-- MAIN -->
+    <main class="faq-main">
+      <div class="faq-container">
+
+        <div class="faq-heading">
+          <h1>FAQ – Travelling to Lebanon</h1>
+          <p>Important information on entry requirements, safety, health and packing</p>
+        </div>
+
+        <div class="faq-card">
+          <div class="faq-card-head">
+            <h2>Frequently Asked Questions</h2>
+            <p>Lebanon travel – entry, safety, health, insurance &amp; packing</p>
+          </div>
+
+          <div class="faq-body">
+            <div class="faq-acc">
+
+              <details>
+                <summary>Do I need a visa for Lebanon?</summary>
+                <div class="faq-answer">
+                  <p>
+                    Yes, most travellers need a visa. In many cases, it is issued free of charge upon arrival at Beirut Airport.
+                    Please check official sources before travelling, as regulations may change.
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>What are the entry requirements?</summary>
+                <div class="faq-answer">
+                  <p>In addition to the visa, further documents may be required, for example:</p>
+                  <ul>
+                    <li>a valid passport (usually at least 6 months validity)</li>
+                    <li>proof of accommodation or a return flight</li>
+                  </ul>
+                  <p>
+                    Please also carry a printed copy of our official <strong>travel confirmation</strong>.
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>Do I need vaccination advice?</summary>
+                <div class="faq-answer">
+                  <p>
+                    It is recommended to review standard travel vaccinations before your trip
+                    (e.g. Hepatitis A and B, typhoid, tetanus). Please consult your doctor or a travel medicine specialist
+                    for individual medical advice.
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>How safe is Lebanon for travellers?</summary>
+                <div class="faq-answer">
+                  <p>
+                    Lebanon is a diverse country and the security situation may vary regionally.
+                    Our programmes focus only on areas that are currently open and considered safe for tourism.
+                  </p>
+                  <p>
+                    Your safety is our top priority. We stay in close contact with local partners and adjust routes if necessary.
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>Which currency is used?</summary>
+                <div class="faq-answer">
+                  <p>
+                    The official currency is the <strong>Lebanese Pound (LBP)</strong>. US Dollars are also commonly accepted.
+                  </p>
+                  <p>
+                    We recommend carrying some cash, as card payments are not always available.
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>Are there cultural or religious customs I should respect?</summary>
+                <div class="faq-answer">
+                  <p>
+                    Yes. Please respect local customs and religious sites. Dress modestly, especially when visiting mosques and churches.
+                    If in doubt, ask before taking photos of people or religious places.
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>What should I consider regarding health and safety?</summary>
+                <div class="faq-answer">
+                  <p>
+                    Drink bottled water only, pay attention to food hygiene and avoid risky situations.
+                    Follow the advice of local authorities and your guide.
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>Which languages are spoken in Lebanon?</summary>
+                <div class="faq-answer">
+                  <p>
+                    The official language is <strong>Arabic</strong>. In many tourist areas,
+                    <strong>English and French</strong> are also widely spoken and understood.
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>Do I need travel insurance?</summary>
+                <div class="faq-answer">
+                  <p>
+                    We strongly recommend comprehensive travel insurance that covers at least medical treatment,
+                    trip cancellation/interruption and loss of luggage.
+                  </p>
+                  <p>You can compare and book travel insurance online, for example here:</p>
+                  <p>
+                    <a
+                      href="https://reisevergleich.covomo.de/reise?products=1&travel_persons=1&destination_region=1&r=eyJhZmZpbGlhdGVfaWQiOiI0OTE0OTAyNzUzIiwgInJlZiI6IjAwN1ZVTSJ9&theme=embedded"
+                      target="_blank"
+                      rel="noopener"
+                      class="btn btn-primary"
+                    >
+                      Compare &amp; book travel insurance online
+                    </a>
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>What should I definitely pack?</summary>
+                <div class="faq-answer">
+                  <p>A short packing checklist for Lebanon:</p>
+                  <ul>
+                    <li>passport (and visa if required)</li>
+                    <li>travel documents and travel confirmation</li>
+                    <li>personal medication and a small first aid kit</li>
+                    <li>sunscreen, hat, sunglasses</li>
+                    <li>comfortable clothing and walking shoes</li>
+                    <li>small daypack</li>
+                    <li>power adapter (if needed)</li>
+                    <li>and most importantly: a positive mood</li>
+                  </ul>
+                </div>
+              </details>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="amd-footer">
+      <div class="footer-grid">
+
+        <div class="footer-column">
+          <ul class="footer-links">
+            <li><a href="https://amdtransfer.netlify.app/" target="_blank" rel="noopener">Airport Transfer</a></li>
+            <li><a href="https://amdtourbooking.netlify.app/" target="_blank" rel="noopener">Day Tours</a></li>
+            <li><a href="https://www.amd-germancenter.com/en/car-rental.html" target="_blank" rel="noopener">Car Rental</a></li>
+            <li><a href="https://www.amd-germancenter.com/en/package-tours.html" target="_blank" rel="noopener">Package Tours</a></li>
+            <li><a href="https://amd-tarifcheck.de/" target="_blank" rel="noopener">AMD Tarifcheck</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column footer-column--center">
+          <p class="footer-title">Follow us on:</p>
+          <div class="footer-social">
+            <a href="https://wa.me/96181622668" target="_blank" rel="noopener"><img src="/images/icon-whatsapp.svg" alt="WhatsApp" /></a>
+            <a href="https://www.instagram.com/amd.german.center/" target="_blank" rel="noopener"><img src="/images/icon-instagram.svg" alt="Instagram" /></a>
+            <a href="https://www.facebook.com/p/AMD-German-Center-61575238540217/" target="_blank" rel="noopener"><img src="/images/icon-facebook.svg" alt="Facebook" /></a>
+            <a href="https://www.tiktok.com/@amdgermancenter" target="_blank" rel="noopener"><img src="/images/icon-tiktok.svg" alt="TikTok" /></a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <ul class="footer-links">
+            <li><a href="/legal/en/faq.html">FAQ Lebanon</a></li>
+            <li><a href="/legal/en/about.html">About Us</a></li>
+            <li><a href="/legal/en/imprint.html">Imprint</a></li>
+            <li><a href="/legal/en/datenschutz.html">Privacy Policy</a></li>
+            <li><a href="/legal/en/agbs.html">Terms &amp; Conditions</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>

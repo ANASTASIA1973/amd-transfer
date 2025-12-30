@@ -37,43 +37,49 @@ function CounterRow({ icon, label, value, onMinus, onPlus, minusDisabled }) {
 
       {/* Counter */}
       <div className="flex items-center gap-3">
-        {/* Minus */}
-        <button
-          type="button"
-          onClick={onMinus}
-          disabled={minusDisabled}
-          className={[
-           "w-11 h-11 rounded-full ios-fix counter-pill",
-            "inline-flex items-center justify-center text-xl",
-            "transition focus:outline-none",
-            minusDisabled ? "opacity-40 cursor-not-allowed" : "hover:shadow-sm",
-          ].join(" ")}
-          style={{
-            background: "#fff",
-            color: "rgba(11,31,58,.95)",
-            boxShadow: minusDisabled
-              ? "inset 0 0 0 1px var(--amd-border,#e5e7eb)"
-              : "inset 0 0 0 1px rgba(17,24,39,.14)",
-            WebkitTapHighlightColor: "transparent",
-            transform: "translateZ(0)",
-            backfaceVisibility: "hidden",
-            WebkitBackfaceVisibility: "hidden",
-          }}
-          onFocus={(e) => {
-            if (minusDisabled) return;
-            e.currentTarget.style.boxShadow =
-              `inset 0 0 0 1px ${GREEN_BORDER}, 0 0 0 4px ${GREEN_SOFT}`;
+     {/* Minus */}
+<button
+  type="button"
+  onClick={onMinus}
+  disabled={minusDisabled}
+  className={[
+    "w-11 h-11 rounded-full ios-fix counter-pill",
+    "inline-flex items-center justify-center",
+    "transition focus:outline-none",
+    minusDisabled ? "opacity-40 cursor-not-allowed" : "hover:shadow-sm",
+  ].join(" ")}
+  style={{
+    background: "#fff",
+    color: "rgba(11,31,58,.95)",
+    boxShadow: minusDisabled
+      ? "inset 0 0 0 1px var(--amd-border,#e5e7eb)"
+      : "inset 0 0 0 1px rgba(17,24,39,.14)",
+    WebkitTapHighlightColor: "transparent",
 
-          }}
-          onBlur={(e) => {
-            e.currentTarget.style.boxShadow = minusDisabled
-              ? "inset 0 0 0 1px var(--amd-border,#e5e7eb)"
-              : "inset 0 0 0 1px rgba(17,24,39,.14)";
-          }}
-          aria-label="minus"
-        >
-          −
-        </button>
+    /* iOS FIX – identisch zum Plus */
+    overflow: "hidden",
+    lineHeight: "1",
+    fontSize: 20,
+
+    transform: "translateZ(0)",
+    backfaceVisibility: "hidden",
+    WebkitBackfaceVisibility: "hidden",
+  }}
+  aria-label="minus"
+>
+  <span
+    style={{
+      display: "block",
+      lineHeight: "1",
+      fontSize: 18,
+      fontWeight: 700,
+      transform: "translateY(-0.5px)",
+    }}
+  >
+    −
+  </span>
+</button>
+
 
         {/* Value */}
         <div
@@ -84,31 +90,40 @@ function CounterRow({ icon, label, value, onMinus, onPlus, minusDisabled }) {
         </div>
 
         {/* Plus */}
-        <button
-          type="button"
-          onClick={onPlus}
-          className="w-11 h-11 rounded-full ios-fix counter-pill inline-flex items-center justify-center text-xl transition hover:shadow-sm focus:outline-none"
-          style={{
-            background: "#fff",
-            color: "rgba(11,31,58,.95)",
-            boxShadow: "inset 0 0 0 1px rgba(17,24,39,.14)",
-            WebkitTapHighlightColor: "transparent",
-            transform: "translateZ(0)",
-            backfaceVisibility: "hidden",
-            WebkitBackfaceVisibility: "hidden",
-          }}
-          onFocus={(e) => {
-            e.currentTarget.style.boxShadow =
-              `inset 0 0 0 1px ${GREEN_BORDER}, 0 0 0 4px ${GREEN_SOFT}`;
-          }}
-          onBlur={(e) => {
-            e.currentTarget.style.boxShadow =
-              "inset 0 0 0 1px rgba(17,24,39,.14)";
-          }}
-          aria-label="plus"
-        >
-          +
-        </button>
+    <button
+  type="button"
+  onClick={onPlus}
+  className="w-11 h-11 rounded-full ios-fix counter-pill inline-flex items-center justify-center transition hover:shadow-sm focus:outline-none"
+  style={{
+    background: "#fff",
+    color: "rgba(11,31,58,.95)",
+    boxShadow: "inset 0 0 0 1px rgba(17,24,39,.14)",
+    WebkitTapHighlightColor: "transparent",
+
+    /* iOS FIX */
+    overflow: "hidden",
+    lineHeight: "1",
+    fontSize: 20,
+
+    transform: "translateZ(0)",
+    backfaceVisibility: "hidden",
+    WebkitBackfaceVisibility: "hidden",
+  }}
+>
+  <span
+  style={{
+    display: "block",
+    lineHeight: "1",
+    fontSize: 18,
+    fontWeight: 700,
+    transform: "translateY(-0.5px)",
+  }}
+>
+  +
+</span>
+
+</button>
+
       </div>
     </div>
   );

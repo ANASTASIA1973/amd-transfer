@@ -1,5 +1,476 @@
-<!doctype html><html><head><meta charset="utf-8">
-<script>
-localStorage.setItem("amd_locale","ar");
-location.replace("/legal/de/about.html");
-</script></head><body></body></html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AMD German Center – من نحن</title>
+
+  <!-- Transfer-App Styles -->
+  <link rel="stylesheet" href="/transfer-globals.css" />
+
+  <style>
+    /* ===== Legal Header Layout (wie Hauptseite) ===== */
+    .legal-topbar{
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: rgba(246,247,250,.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(17,24,39,.08);
+    }
+
+    .legal-topbar-inner{
+      width: min(1100px, 100% - 1.6rem);
+      margin: 0 auto;
+      padding: 12px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .legal-brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 0;
+    }
+    .legal-brand img{
+      height: 44px;
+      width: auto;
+      display:block;
+    }
+
+    /* Back button (glassy) */
+    .back-glass{
+      display:inline-flex;
+      align-items:center;
+      gap:.55rem;
+      padding:.62rem 1.05rem;
+      border-radius:999px;
+      border:1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 12px 26px rgba(2,6,23,.10);
+      color: var(--amd-heading,#0b1b33);
+      text-decoration:none;
+      font-weight:800;
+      line-height:1;
+      white-space:nowrap;
+    }
+    .back-glass:hover{
+      background: rgba(255,255,255,.92);
+      border-color: rgba(17,24,39,.16);
+    }
+
+    /* Pills */
+    .legal-lang{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.70);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 10px 22px rgba(2,6,23,.06);
+    }
+
+    .legal-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      text-decoration:none;
+      border: 1px solid transparent;
+      font-weight: 800;
+      color: var(--amd-heading,#0b1b33);
+      line-height: 1;
+      white-space:nowrap;
+    }
+
+    .legal-pill img{
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      object-fit: cover;
+      display:block;
+    }
+
+    .legal-pill.is-active{
+      border-color: rgba(193,39,45,.55);
+      box-shadow: 0 10px 18px rgba(193,39,45,.12);
+    }
+
+    /* ===== Page Layout ===== */
+    .about-page-wrapper{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      background: var(--amd-bg,#f5f5f7);
+    }
+
+    .about-main{
+      flex:1;
+      padding: 1.6rem 1rem 3rem;
+    }
+
+    .about-container{
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .about-heading{
+      margin: 1.2rem 0 1.1rem;
+      text-align: right;
+    }
+    .about-heading h1{
+      margin:0;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--amd-heading,#111827);
+    }
+    .about-heading p{
+      margin:.45rem 0 0;
+      color: rgba(15,23,42,.70);
+      line-height: 1.5;
+    }
+
+    /* Card wrapper wie bei DE/EN */
+    .about-card{
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: 18px;
+      box-shadow: 0 16px 44px rgba(15,23,42,.10);
+      overflow:hidden;
+    }
+    .about-card-head{
+      padding: 1.05rem 1.15rem;
+      border-bottom: 1px solid rgba(17,24,39,.08);
+      background: linear-gradient(180deg, rgba(17,24,39,.02), rgba(17,24,39,0));
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .about-card-head p{
+      margin:0;
+      color: rgba(15,23,42,.70);
+      font-size:.95rem;
+      line-height:1.45;
+      text-align: right;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      padding:.25rem .6rem;
+      border-radius:999px;
+      border:1px solid rgba(17,24,39,.10);
+      background: rgba(17,24,39,.03);
+      color: rgba(15,23,42,.70);
+      font-size:.82rem;
+      font-weight:800;
+      white-space:nowrap;
+    }
+    .about-content{ padding: 1.15rem; }
+
+    .team-section{
+      display:flex;
+      flex-direction:column;
+      gap: 1.2rem;
+    }
+    .team-card{
+      position:relative;
+      display:flex;
+      align-items:flex-start;
+      gap: 1.15rem;
+      padding: 1.05rem;
+      background:#fff;
+      border-radius: 18px;
+      border: 1px solid rgba(17,24,39,.08);
+      box-shadow: 0 10px 28px rgba(15,23,42,.06);
+      overflow:hidden;
+    }
+    .team-card::before{
+      content:"";
+      position:absolute;
+      inset:0 0 auto 0;
+      height:3px;
+      background: linear-gradient(90deg, var(--amd-accent,#176f4b), rgba(193,39,45,0));
+      opacity:.9;
+    }
+
+    .team-photo{
+      width:150px;
+      height:150px;
+      border-radius:16px;
+      object-fit:cover;
+      object-position:center;
+      border: 3px solid var(--amd-primary,#c1272d);
+      box-shadow: 0 14px 30px rgba(15,23,42,.10);
+      flex: 0 0 auto;
+      display:block;
+      background: rgba(255,255,255,.6);
+    }
+
+    .team-info{
+      flex:1;
+      min-width:0;
+      width:100%;
+      text-align:right;
+    }
+
+    .team-info h3{
+      margin:0;
+      font-size:1.25rem;
+      font-weight:900;
+      color: var(--amd-heading,#111827);
+      letter-spacing:.2px;
+    }
+
+    .team-role{
+      margin:.15rem 0 .75rem 0;
+      color: var(--amd-accent,#1b6f5a);
+      font-weight:700;
+      line-height: 1.45;
+    }
+
+    .team-bio-block p{
+      margin:0;
+      line-height:1.65;
+      color: var(--amd-text,#111827);
+      font-size:0.97rem;
+    }
+    .team-bio-block p + p{ margin-top:.55rem; }
+
+    @media (max-width: 720px){
+      .legal-topbar-inner{ width: calc(100% - 1.2rem); }
+      .legal-brand img{ height: 40px; }
+      .back-glass{ padding:.58rem .95rem; }
+      .legal-pill{ padding: 7px 10px; gap:7px; }
+      .legal-pill img{ width: 20px; height: 20px; }
+    }
+
+    @media (max-width:700px){
+      .team-card{ flex-direction:column; text-align:center; align-items:center; }
+      .team-info{ text-align:center; }
+      .team-photo{ width:170px; height:170px; margin:0 auto; }
+      .about-heading{ text-align:center; }
+      .about-card-head p{ text-align:center; }
+    }
+  </style>
+</head>
+
+<body class="amd-page" data-app="amd-transfer">
+  <div class="about-page-wrapper">
+
+    <!-- HEADER -->
+    <header class="legal-topbar">
+      <div class="legal-topbar-inner">
+
+        <div class="legal-brand">
+          <a href="/" aria-label="AMD German Center">
+            <img src="/logo.png" alt="AMD German Center Logo">
+          </a>
+
+        </div>
+
+        <!-- Pills rechts wie Hauptseite -->
+        <nav class="legal-lang" aria-label="اللغة">
+          <a class="legal-pill" href="/legal/de/about.html">
+            <img src="/images/flag-de.svg" alt="">
+            DE
+          </a>
+          <a class="legal-pill" href="/legal/en/about.html">
+            <img src="/images/flag-us.svg" alt="">
+            EN
+          </a>
+          <a class="legal-pill is-active" href="/legal/ar/about.html" aria-current="page">
+            <img src="/images/flag-lb.svg" alt="">
+            AR
+          </a>
+        </nav>
+
+      </div>
+    </header>
+<div class="legal-subrow" dir="rtl">
+  <a class="back-glass" href="/">العودة إلى تطبيق النقل →</a>
+</div>
+
+    <!-- MAIN -->
+    <main class="about-main">
+      <div class="about-container">
+
+        <div class="about-heading">
+          <h1>من نحن</h1>
+          <p>AMD German Center – دعم شخصي، موثوق، ومتعدد اللغات.</p>
+        </div>
+
+        <div class="about-card">
+          <div class="about-card-head">
+            <p>الفريق وجهات التواصل</p>
+            <span class="badge">About</span>
+          </div>
+
+          <div class="about-content">
+            <section class="team-section">
+
+              <!-- Ali -->
+              <article class="team-card">
+                <img
+                  src="/images/ali-ahmad.jpg"
+                  alt="Ali Mohsen Ahmad – Owner / CEO AMD German Center"
+                  class="team-photo"
+                />
+                <div class="team-info">
+                  <h3>Ali Mohsen Ahmad</h3>
+                  <p class="team-role">
+                    المالك / المدير التنفيذي<br />
+                    AMD German Center
+                  </p>
+
+                  <div class="team-bio-block">
+                    <p>
+                      وُلِدتُ ونشأتُ في شمال ألمانيا، حيث يُعدّ الترحيب الودود «موين موين»
+                      جزءًا من الحياة اليومية، ولديّ مسيرة مهنية تمتد لأكثر من 20 عامًا في
+                      مجالات السياحة والتأمين والقطاع المالي. منذ طفولتي كان والدي يشجّعني
+                      على احترام الجذور والعودة إلى الوطن الأم لبنان، حيث أعيش اليوم.
+                    </p>
+                    <p>
+                      هنا في جنوب لبنان أجمع بين خلفيتي الألمانية وخبرتي المهنية من جهة،
+                      وبين روح الحياة والضيافة والثقافة اللبنانية من جهة أخرى. هذا الجسر
+                      الثقافي ينعكس على حياتي اليومية وعلى عملي معًا.
+                    </p>
+                    <p>
+                      هدفي هو تقديم خدمات حصرية ومصمَّمة خصيصًا لتلبية أعلى التوقّعات. وبمساعدة
+                      فريقي وشبكة قوية من الشركاء في كلٍّ من ألمانيا ولبنان، أضمن أن تكون رحلتكم
+                      أو إقامتكم تجربة لا تُنسى – سواء عبر جولات يومية خاصة، أو برامج سفر فردية،
+                      أو خدمات نقل مريحة من وإلى المطار.
+                    </p>
+                    <p>
+                      يمكنكم الاعتماد على خبرتي الطويلة وعلى التوازن بين الدقّة الألمانية
+                      وحرارة الضيافة اللبنانية. دعونا نحقّق رغباتكم معًا ونقدّم لكم تجربة
+                      مخصّصة لن تُنسى بسهولة.
+                    </p>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Francis -->
+              <article class="team-card">
+                <img
+                  src="/images/francis-lange.jpg"
+                  alt="Francis Lange – Sales Director"
+                  class="team-photo"
+                />
+                <div class="team-info">
+                  <h3>Francis Lange</h3>
+                  <p class="team-role">
+                    مدير المبيعات<br />
+                    السياحة والتسويق
+                  </p>
+
+                  <div class="team-bio-block">
+                    <p>
+                      وُلدتُ في برلين، وأمتلك خبرة واسعة في مجال المبيعات منذ عام 2010، لا سيما في
+                      قطاعَي السياحة والتسويق. وبشغفٍ لتطوير مفاهيم بيع مبتكرة وفهمٍ واضح لاحتياجات
+                      العملاء، شاركتُ في تنفيذ العديد من المشاريع وساهمتُ في تحقيق نموّ مستدام للشركات.
+                    </p>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Mohammad -->
+              <article class="team-card">
+                <img
+                  src="/images/Mohammad-ali-al-hagh_square_v4_headmore.jpg"
+                  alt="Mohammad Ali Al Hagh – Tour Management"
+                  class="team-photo"
+                />
+                <div class="team-info">
+                  <h3>Mohammad Ali Al Hagh</h3>
+                  <p class="team-role">إدارة وتنظيم الجولات</p>
+
+                  <div class="team-bio-block">
+                    <p>
+                      وُلدتُ في جنوب لبنان وما زلت أعيش فيه حتى اليوم. أعمل منذ أكثر من عشر سنوات
+                      في مجال تنظيم الرحلات اليومية وجولات المشي المرافَقة، وأمتلك معرفة دقيقة
+                      بمناطق الجنوب والشمال على حدّ سواء.
+                    </p>
+                    <p>
+                      أركّز على تجارب فردية مُصمَّمة بعناية، يكون فيها عامل السلامة، والثقافة
+                      المحلية، والارتباط بالطبيعة في صميم التجربة. في AMD، تأتي سلامة الضيوف
+                      والالتزام بالموثوقية على النهج الألماني في المقام الأول.
+                    </p>
+                    <p>
+                      أرافق جميع الجولات شخصيًا وأقودها بشكل مهني، مع مراعاة احتياجات الضيوف
+                      وتوقّعاتهم وقدراتهم الجسدية. تتميّز عروضنا بالمرونة والمسؤولية والاستدامة،
+                      وتهدف إلى تقديم تجارب أصيلة ولا تُنسى.
+                    </p>
+                  </div>
+                </div>
+              </article>
+
+            </section>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- FOOTER (wie Hauptseite / Transfer-Setup) -->
+    <footer class="amd-footer">
+      <div class="footer-grid">
+
+        <!-- Left -->
+        <div class="footer-column">
+          <ul class="footer-links">
+            <li><a href="https://amdtransfer.netlify.app/" target="_blank" rel="noopener">نقل من/إلى المطار</a></li>
+            <li><a href="https://www.amd-germancenter.com/ar/car-rental.html" target="_blank" rel="noopener">تأجير السيارات</a></li>
+            <li><a href="https://www.amd-germancenter.com/ar/package-tours.html" target="_blank" rel="noopener">الباقات</a></li>
+            <li><a href="https://amdtourbooking.netlify.app/" target="_blank" rel="noopener">الجولات اليومية</a></li>
+            <li><a href="https://amd-tarifcheck.de/" target="_blank" rel="noopener">AMD Tarifcheck</a></li>
+          </ul>
+        </div>
+
+        <!-- Center -->
+        <div class="footer-column footer-column--center" dir="rtl">
+          <p class="footer-title">تابعونا على:</p>
+          <div class="footer-social">
+            <a href="https://wa.me/96181622668" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <img src="/images/icon-whatsapp.svg" alt="WhatsApp" />
+            </a>
+            <a href="https://www.instagram.com/amd.german.center/" target="_blank" rel="noopener" aria-label="Instagram">
+              <img src="/images/icon-instagram.svg" alt="Instagram" />
+            </a>
+            <a href="https://www.facebook.com/p/AMD-German-Center-61575238540217/" target="_blank" rel="noopener" aria-label="Facebook">
+              <img src="/images/icon-facebook.svg" alt="Facebook" />
+            </a>
+            <a href="https://www.tiktok.com/@amdgermancenter" target="_blank" rel="noopener" aria-label="TikTok">
+              <img src="/images/icon-tiktok.svg" alt="TikTok" />
+            </a>
+          </div>
+        </div>
+
+        <!-- Right -->
+        <div class="footer-column" dir="rtl">
+          <ul class="footer-links">
+            <li><a href="/legal/ar/faq.html">الأسئلة الشائعة</a></li>
+            <li><a href="/legal/ar/about.html">من نحن</a></li>
+            <li><a href="/legal/ar/imprint.html">البيانات القانونية</a></li>
+            <li><a href="/legal/ar/datenschutz.html">سياسة الخصوصية</a></li>
+            <li><a href="/legal/ar/agbs.html">الشروط والأحكام</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>

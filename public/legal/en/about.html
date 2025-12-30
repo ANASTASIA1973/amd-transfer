@@ -1,5 +1,369 @@
-<!doctype html><html><head><meta charset="utf-8">
-<script>
-localStorage.setItem("amd_locale","en");
-location.replace("/legal/de/about.html");
-</script></head><body></body></html>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <title>AMD German Center – About Us</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Transfer app styling (global, stable paths) -->
+  <link rel="stylesheet" href="/transfer-globals.css" />
+
+  <style>
+    .legal-backbar{
+  width: min(980px, 100% - 2rem);
+  margin: .9rem auto 0;
+}
+.back-glass{
+  display:inline-flex;
+  align-items:center;
+  gap:.55rem;
+  padding:.62rem 1.05rem;
+  border-radius:999px;
+  border:1px solid rgba(17,24,39,.10);
+  background: rgba(255,255,255,.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 12px 26px rgba(2,6,23,.10);
+  color: var(--amd-heading,#0b1b33);
+  text-decoration:none;
+  font-weight:800;
+  line-height:1;
+  white-space:nowrap;
+}
+.back-glass:hover{
+  background: rgba(255,255,255,.92);
+  border-color: rgba(17,24,39,.16);
+}
+
+    .about-page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--amd-bg, #f5f5f7);
+    }
+
+    .about-main {
+      flex: 1;
+      padding: 2rem 1rem 3rem;
+    }
+
+    .about-container {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+  .about-heading{
+  margin: 1.4rem 0 1.1rem;
+}
+.about-heading h1{
+  margin:0;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--amd-heading, #0b1b33);
+}
+.about-heading p{
+  margin:.45rem 0 0;
+  color: rgba(15,23,42,.70);
+}
+
+    .team-section {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .team-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      background: var(--amd-card-bg, #ffffff);
+      border-radius: var(--amd-radius-lg, 18px);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      overflow: hidden;
+      height: auto !important;
+      align-items: flex-start !important;
+      border: 1px solid rgba(17, 24, 39, .08);
+    }
+
+    .team-info {
+      flex: 1;
+      min-width: 0;
+      width: 100%;
+    }
+
+    .team-photo{
+      width: 150px;
+      height: 150px;
+      border-radius: 14px;
+      object-fit: cover;
+      object-position: center;
+      border: 3px solid var(--amd-primary, #c1272d);
+      flex-shrink: 0;
+      display: block;
+      background: rgba(255,255,255,.6);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.10);
+    }
+
+    .team-info h3 {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--amd-heading, #111827);
+      flex: 1;
+      min-width: 0;
+    }
+
+    .team-role {
+      margin: 0.15rem 0 0.8rem 0;
+      color: var(--amd-accent, #1b6f5a);
+      font-weight: 600;
+    }
+
+    .team-bio-block {
+      margin-bottom: 0.9rem;
+    }
+
+    .team-bio-block p {
+      margin: 0;
+      line-height: 1.45;
+      color: var(--amd-text, #111827);
+      font-size: 0.97rem;
+    }
+
+    @media (max-width: 700px) {
+      .team-photo{
+        display: block;
+        margin: 0 auto;
+      }
+
+      .team-info{
+        width: 100%;
+      }
+
+      .team-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        overflow: hidden;
+        align-items: flex-start;
+      }
+
+      .team-photo {
+        width: 170px;
+        height: 170px;
+      }
+    }
+  </style>
+</head>
+
+<body class="amd-page" data-app="amd-transfer">
+  <div class="about-page-wrapper">
+
+<header class="legal-topbar">
+  <div class="legal-topbar-inner">
+
+    <div class="legal-brand">
+      <a href="/" aria-label="AMD German Center">
+        <img src="/logo.png" alt="AMD German Center Logo">
+      </a>
+    </div>
+
+    <nav class="legal-lang" aria-label="Language">
+      <a class="legal-pill" href="/legal/de/about.html">
+        <img src="/images/flag-de.svg" alt="">
+        DE
+      </a>
+      <a class="legal-pill is-active" href="/legal/en/about.html" aria-current="page">
+        <img src="/images/flag-us.svg" alt="">
+        EN
+      </a>
+      <a class="legal-pill" href="/legal/ar/about.html">
+        <img src="/images/flag-lb.svg" alt="">
+        AR
+      </a>
+    </nav>
+
+  </div>
+</header>
+
+
+<div class="legal-backbar">
+  <a class="back-glass" href="/">← Back to Transfer</a>
+</div>
+
+   
+
+    <!-- MAIN -->
+    <main class="about-main">
+      <div class="about-container">
+        <div class="about-heading">
+          <h1>About Us</h1>
+          <p>AMD German Center – personal, reliable, multilingual.</p>
+        </div>
+
+        <section class="team-section">
+
+          <!-- ALI MOHSEN AHMAD – Owner / CEO -->
+          <article class="team-card">
+            <img
+              src="/images/ali-ahmad.jpg"
+              alt="Ali Mohsen Ahmad – Owner / CEO AMD German Center"
+              class="team-photo"
+            />
+
+            <div class="team-info">
+              <h3>Ali Mohsen Ahmad</h3>
+              <p class="team-role">
+                Owner / CEO<br />
+                AMD German Center
+              </p>
+
+              <div class="team-bio-block">
+                <p>
+                  I was born and raised in northern Germany, where the friendly greeting “Moin Moin” is part of everyday life,
+                  and I look back on a 20-year career in tourism, insurance and financial services. Following my father’s advice
+                  to honour our roots, I eventually returned to the homeland of Lebanon, where I live today.
+                </p>
+              </div>
+
+              <div class="team-bio-block">
+                <p>
+                  Here in the south of Lebanon, I combine my German background and professional experience with the joy of life,
+                  hospitality and culture of this unique country. This cultural bridge shapes both my daily life and my work.
+                </p>
+              </div>
+
+              <div class="team-bio-block">
+                <p>
+                  My goal is to offer you tailor-made, exclusive services that meet the highest expectations. Together with my team
+                  and a close network in both Germany and Lebanon, I make sure that your trip or stay becomes unforgettable –
+                  whether through private day tours, customised travel packages or comfortable airport transfers.
+                </p>
+              </div>
+
+              <div class="team-bio-block">
+                <p>
+                  You can rely on my many years of experience and the balance between German precision and the warm hospitality of Lebanon.
+                  Let us realise your wishes and create a bespoke experience you will not forget.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- FRANCIS LANGE – Head of Sales -->
+          <article class="team-card">
+            <img
+              src="/images/francis-lange.jpg"
+              alt="Francis Lange – Head of Sales"
+              class="team-photo"
+            />
+
+            <div class="team-info">
+              <h3>Francis Lange</h3>
+              <p class="team-role">
+                Head of Sales<br />
+                Tourism &amp; Marketing
+              </p>
+
+              <div class="team-bio-block">
+                <p>
+                  Born in Berlin, I have been working in sales since 2010, with a strong focus on tourism and marketing.
+                  With a passion for innovative sales concepts and a clear understanding of customer needs, I have supported
+                  numerous projects and contributed to sustainable business growth.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- MOHAMMAD ALI AL HAGH – Tours Management -->
+          <article class="team-card">
+            <img
+              src="/images/Mohammad-ali-al-hagh_square_v4_headmore.jpg"
+              alt="Mohammad Ali Al Hagh – Tours Management"
+              class="team-photo"
+            />
+
+            <div class="team-info">
+              <h3>Mohammad Ali Al Hagh</h3>
+              <p class="team-role">Tours Management</p>
+
+              <div class="team-bio-block">
+                <p>
+                  I was born in the south of Lebanon, where I still live today. For more than ten years, I have been working in the field
+                  of day tours and guided hiking tours, with in-depth knowledge of both the southern and northern regions of the country.
+                </p>
+              </div>
+
+              <div class="team-bio-block">
+                <p>
+                  My focus is on individually tailored experiences that place safety, local culture and a close connection to nature at the centre.
+                  At AMD, the safety of our guests and German reliability are top priorities.
+                </p>
+              </div>
+
+              <div class="team-bio-block">
+                <p>
+                  All tours are personally guided by me and professionally organised. Each experience is adapted to the needs, expectations and physical limits
+                  of our guests. Our tours are flexible, responsibly designed and aim to provide authentic and memorable experiences.
+                </p>
+              </div>
+            </div>
+          </article>
+
+        </section>
+      </div>
+    </main>
+
+    <!-- FOOTER (same structure as main footer, but correct legal links for this app) -->
+    <footer class="amd-footer">
+      <div class="footer-grid">
+
+        <!-- Left column: Services -->
+        <div class="footer-column footer-column--left">
+          <ul class="footer-links">
+            <li><a href="https://amdtransfer.netlify.app/" target="_blank" rel="noopener">Airport Transfer</a></li>
+            <li><a href="https://www.amd-germancenter.com/en/car-rental.html" target="_blank" rel="noopener">Car Rental</a></li>
+            <li><a href="https://www.amd-germancenter.com/en/package-tours.html" target="_blank" rel="noopener">Package Tours</a></li>
+            <li><a href="https://amdtourbooking.netlify.app/" target="_blank" rel="noopener">Day Tours</a></li>
+            <li><a href="https://amd-tarifcheck.de/" target="_blank" rel="noopener">AMD Tarifcheck</a></li>
+          </ul>
+        </div>
+
+        <!-- Center: Social Media -->
+        <div class="footer-column footer-column--center">
+          <p class="footer-title">Follow us on:</p>
+          <div class="footer-social">
+            <a href="https://wa.me/96181622668" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <img src="/images/icon-whatsapp.svg" alt="WhatsApp" />
+            </a>
+            <a href="https://www.instagram.com/amd.german.center/" target="_blank" rel="noopener" aria-label="Instagram">
+              <img src="/images/icon-instagram.svg" alt="Instagram" />
+            </a>
+            <a href="https://www.facebook.com/p/AMD-German-Center-61575238540217/" target="_blank" rel="noopener" aria-label="Facebook">
+              <img src="/images/icon-facebook.svg" alt="Facebook" />
+            </a>
+            <a href="https://www.tiktok.com/@amdgermancenter" target="_blank" rel="noopener" aria-label="TikTok">
+              <img src="/images/icon-tiktok.svg" alt="TikTok" />
+            </a>
+          </div>
+        </div>
+
+        <!-- Right column: Legal -->
+        <div class="footer-column footer-column--right">
+          <ul class="footer-links">
+            <li><a href="/legal/en/faq.html">FAQ Lebanon</a></li>
+            <li><a href="/legal/en/about.html">About Us</a></li>
+            <li><a href="/legal/en/imprint.html">Imprint</a></li>
+            <li><a href="/legal/en/datenschutz.html">Privacy Policy</a></li>
+            <li><a href="/legal/en/agbs.html">Terms &amp; Conditions</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>

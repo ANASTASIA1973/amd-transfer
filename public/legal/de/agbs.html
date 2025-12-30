@@ -2,16 +2,15 @@
 <html lang="de" dir="ltr">
 <head>
   <meta charset="UTF-8" />
-  <title>AMD German Center – Impressum</title>
+  <title>AMD German Center – AGB</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description"
-        content="Impressum des AMD German Center – Tourism & Services in Tyre, Libanon." />
+  <meta name="description" content="Allgemeine Geschäftsbedingungen (AGB) von AMD German Center." />
 
   <!-- Transfer-App Styles (stabil, keine relativen Pfade) -->
   <link rel="stylesheet" href="/transfer-globals.css" />
 
   <style>
-    /* ===== Backbar exakt wie Referenz ===== */
+    /* Backbar wie Referenz */
     .legal-backbar{
       width: min(980px, 100% - 2rem);
       margin: .9rem auto 0;
@@ -38,40 +37,41 @@
       border-color: rgba(17,24,39,.16);
     }
 
-    /* ===== Page Wrapper (wie Referenz) ===== */
-    .imprint-page-wrapper{
+    /* Page Wrapper */
+    .terms-page-wrapper{
       min-height: 100vh;
       display:flex;
       flex-direction:column;
       background: var(--amd-bg, #f5f5f7);
     }
 
-    .imprint-main{
+    .terms-main{
       flex: 1;
       padding: 2.2rem 1rem 3.2rem;
     }
 
-    .imprint-container{
+    .terms-container{
       max-width: 980px;
       margin: 0 auto;
     }
 
-    .imprint-heading{
+    .terms-heading{
       margin: 1.4rem 0 1.1rem;
     }
-    .imprint-heading h1{
+    .terms-heading h1{
       margin:0;
       font-size: 2rem;
       font-weight: 900;
       color: var(--amd-heading, #0b1b33);
     }
-    .imprint-heading p{
+    .terms-heading p{
       margin:.45rem 0 0;
       color: rgba(15,23,42,.70);
+      line-height: 1.55;
     }
 
-    /* ===== Card (wie Referenz-Stil) ===== */
-    .imprint-card{
+    /* Card */
+    .terms-card{
       background: var(--amd-card-bg, #ffffff);
       border: 1px solid rgba(17,24,39,.08);
       border-radius: var(--amd-radius-lg, 18px);
@@ -79,7 +79,7 @@
       overflow: hidden;
     }
 
-    .imprint-card-head{
+    .terms-card-head{
       padding: 1.1rem 1.25rem;
       border-bottom: 1px solid rgba(17,24,39,.08);
       background: linear-gradient(180deg, rgba(17,24,39,.02), rgba(17,24,39,0));
@@ -89,7 +89,7 @@
       gap: 1rem;
       flex-wrap: wrap;
     }
-    .imprint-card-head p{
+    .terms-card-head p{
       margin:0;
       color: var(--amd-text-muted, #6b7280);
       font-size: .95rem;
@@ -109,138 +109,58 @@
       white-space: nowrap;
     }
 
-    .imprint-content{
+    .terms-content{
       padding: 1.2rem 1.25rem 1.25rem;
     }
 
-    .imprint-content h2{
+    .terms-title{
       margin: 0 0 .35rem;
       font-size: 1.15rem;
       font-weight: 900;
       color: var(--amd-heading, #111827);
     }
-
-    .imprint-content p{
-      line-height: 1.7;
-      font-size: .95rem;
-      color: #374151;
-      margin: 0 0 .9rem;
+    .terms-sub{
+      margin: 0 0 1rem;
+      color: rgba(15,23,42,.65);
+      font-size: .92rem;
     }
 
-    .imprint-content strong{
+    .terms-content h3{
+      margin: 1.35rem 0 .45rem;
+      font-size: 1.05rem;
+      font-weight: 900;
       color: var(--amd-heading, #111827);
     }
 
-    .imprint-content a{
-      color: var(--amd-primary, #c1272d);
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .imprint-content a:hover{ text-decoration: underline; }
-
-    .imprint-divider{
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(17,24,39,.10), transparent);
-      margin: 1.2rem 0;
+    .terms-content p{
+      margin: .55rem 0;
+      color: rgba(17,24,39,.86);
+      line-height: 1.85;
+      font-size: .95rem;
     }
 
-  /* ===== Zertifikat-Box (wie Hauptapp: rot + clean) ===== */
-.doc-box{
-  margin: 1.1rem 0 0;
-  padding: 1.05rem 1.05rem;
-  border-radius: 18px;
+    .terms-content ul{
+      margin: .35rem 0 .85rem;
+      padding-left: 1.1rem;
+      color: rgba(17,24,39,.86);
+    }
+    .terms-content li{
+      margin: .28rem 0;
+      line-height: 1.8;
+    }
 
-  border: 1px solid rgba(193,39,45,.18);
-  background: rgba(255,255,255,.92);
-  box-shadow: 0 16px 40px rgba(15,23,42,.08);
-}
-
-.doc-label{
-  display:inline-flex;
-  align-items:center;
-  gap:.4rem;
-  padding:.25rem .65rem;
-  border-radius: 999px;
-
-  border: 1px solid rgba(17,24,39,.10);
-  background: rgba(17,24,39,.03);
-  color: rgba(15,23,42,.70);
-  font-size: .82rem;
-  font-weight: 900;
-  white-space: nowrap;
-}
-
-/* Link-Karte innen (wie in deiner Hauptapp) */
-.doc-link{
-  margin-top: .75rem;
-  padding: .95rem 1rem;
-  border-radius: 14px;
-
-  display:flex;
-  gap:.85rem;
-  align-items:flex-start;
-
-  border: 1px solid rgba(193,39,45,.18);
-  background: rgba(255,255,255,.98);
-  box-shadow: 0 10px 26px rgba(15,23,42,.06);
-
-  text-decoration:none;
-}
-
-.doc-link:hover{
-  border-color: rgba(193,39,45,.30);
-  box-shadow: 0 14px 34px rgba(15,23,42,.08);
-}
-
-/* Rotes Icon-Badge */
-.doc-icon{
-  width: 38px;
-  height: 38px;
-  border-radius: 14px;
-  flex: 0 0 38px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  border: 1px solid rgba(193,39,45,.22);
-  background: rgba(193,39,45,.08);
-  color: #c1272d;
-  font-weight: 900;
-  line-height: 1;
-}
-
-/* Text: schwarz + Linkzeile rot (wie Screenshot) */
-.doc-text{
-  font-weight: 900;
-  line-height: 1.35;
-  color: var(--amd-heading, #111827);
-}
-
-.doc-link .doc-text{
-  color: #c1272d; /* rot wie Hauptapp */
-}
-
-/* Hint normal */
-.doc-hint{
-  margin: .6rem 0 0;
-  color: rgba(15,23,42,.65);
-  font-size: .88rem;
-}
-
-/* iPhone-safe */
-@media (max-width: 640px){
-  .doc-link{ padding: .9rem .9rem; }
-  .doc-icon{ width: 36px; height: 36px; flex-basis: 36px; }
-}
-
+    @media (max-width: 640px){
+      .terms-card-head{ padding: 1rem 1rem; }
+      .terms-content{ padding: 1rem 1rem 1rem; }
+      .terms-heading h1{ font-size: 1.75rem; }
+    }
   </style>
 </head>
 
 <body class="amd-page" data-app="amd-transfer">
-  <div class="imprint-page-wrapper">
+  <div class="terms-page-wrapper">
 
-    <!-- HEADER (wie Referenz: nur Topbar) -->
+    <!-- TOPBAR -->
     <header class="legal-topbar">
       <div class="legal-topbar-inner">
 
@@ -251,15 +171,15 @@
         </div>
 
         <nav class="legal-lang" aria-label="Sprache wählen">
-          <a class="legal-pill is-active" href="/legal/de/imprint.html" aria-current="page">
+          <a class="legal-pill is-active" href="/legal/de/agbs.html" aria-current="page">
             <img src="/images/flag-de.svg" alt="">
             DE
           </a>
-          <a class="legal-pill" href="/legal/en/imprint.html">
+          <a class="legal-pill" href="/legal/en/agbs.html">
             <img src="/images/flag-us.svg" alt="">
             EN
           </a>
-          <a class="legal-pill" href="/legal/ar/imprint.html">
+          <a class="legal-pill" href="/legal/ar/agbs.html">
             <img src="/images/flag-lb.svg" alt="">
             AR
           </a>
@@ -268,81 +188,90 @@
       </div>
     </header>
 
-    <!-- Backbar (wie Referenz) -->
+    <!-- BACKBAR -->
     <div class="legal-backbar">
       <a class="back-glass" href="/">← Zurück zur Transfer-App</a>
     </div>
 
     <!-- MAIN -->
-    <main class="imprint-main">
-      <div class="imprint-container">
+    <main class="terms-main">
+      <div class="terms-container">
 
-        <div class="imprint-heading">
-          <h1>Impressum</h1>
-          <p>AMD German Center – Tourism &amp; Services, Tyre (Libanon)</p>
+        <div class="terms-heading">
+          <h1>Allgemeine Geschäftsbedingungen</h1>
+          <p>AGB von AMD German Center</p>
         </div>
 
-        <div class="imprint-card">
-          <div class="imprint-card-head">
-            <p>Rechtliche Informationen zum Anbieter</p>
-            <span class="badge">Impressum</span>
+        <div class="terms-card">
+          <div class="terms-card-head">
+            <p>Allgemeine Geschäftsbedingungen</p>
+            <span class="badge">AGB</span>
           </div>
 
-          <div class="imprint-content">
-            <h2>Angaben gemäß libanesischem Recht</h2>
+          <div class="terms-content">
+            <h2 class="terms-title">AGB</h2>
+            <p class="terms-sub">Stand: Dezember 2025</p>
 
-            <p>
-              <strong>AMD German Center – Tourism &amp; Services</strong><br />
-              1601 Tyre – Libanon
-            </p>
+            <h3>1. Geltungsbereich</h3>
+            <p>Diese AGB gelten für alle Leistungen von AMD German Center, insbesondere:</p>
+            <ul>
+              <li>Tagestouren, Autovermietung, Flughafen-Transfers, Pauschalreisen (Leistungserbringer)</li>
+              <li>Vermittlung von Reise- und Krankenversicherungen über Online-Link</li>
+              <li>Kunden weltweit können buchen, anfragen oder Angebote anfordern.</li>
+            </ul>
 
-            <p>
-              <strong>Telefon:</strong>
-              <a href="tel:+96181622668">+961&nbsp;81&nbsp;622&nbsp;668</a><br />
+            <h3>2. Vertragsschluss</h3>
+            <ul>
+              <li><strong>Leistungen als Leistungserbringer:</strong> Vertrag kommt mit Buchungsbestätigung zustande.</li>
+              <li><strong>Versicherungen:</strong> Vertragsschluss erfolgt direkt mit dem Versicherer. AMD German Center vermittelt nur den Link.</li>
+            </ul>
 
-              <strong>E-Mail:</strong>
-              <a href="mailto:info@amd-germancenter.com">info@amd-germancenter.com</a><br />
+            <h3>3. Preise und Zahlung</h3>
+            <ul>
+              <li>Alle Preise inklusive Steuern, in der angegebenen Währung</li>
+              <li>Zahlung per Banküberweisung, WHISH oder Barzahlung</li>
+              <li>Zahlung für Leistungserbringung vor Reiseantritt fällig</li>
+            </ul>
 
-              <strong>Webseite:</strong>
-              <a href="https://www.amd-germancenter.com" target="_blank" rel="noopener">
-                www.amd-germancenter.com
-              </a>
-            </p>
+            <h3>4. Rücktritt, Stornierung &amp; Rückerstattung</h3>
+            <p><strong>4.1 Leistungserbringer (Touren, Transfers, Autovermietung, Pauschalreisen)</strong></p>
+            <ul>
+              <li>Stornierungen durch Kunden: Rückerstattung abhängig von Stornierungsbedingungen der gebuchten Leistung.</li>
+              <li>AMD German Center berechnet eventuelle Bearbeitungsgebühren.</li>
+              <li>Stornierung durch AMD German Center: Rückerstattung nur in Höhe der tatsächlich bezahlten Leistungen durch Drittanbieter.</li>
+            </ul>
 
-            <p>
-              <strong>Vertreten durch:</strong><br />
-              Ali Mohsen Ahmad
-            </p>
+            <p><strong>4.2 Versicherungsvermittlung</strong></p>
+            <ul>
+              <li>Rückerstattung richtet sich ausschließlich nach den Bedingungen des Versicherers.</li>
+              <li>AMD German Center haftet nicht für Prämien oder Leistungen der Versicherer.</li>
+            </ul>
 
-            <p>
-              <strong>Aufsichtsbehörde / Registrierung:</strong><br />
-              Eingetragen gemäß Artikel 24 des libanesischen Handelsgesetzes<br />
-              Handelsregister Sidon: 1868<br />
-              Handelsregister-Nummer: 5013868
-            </p>
+            <h3>5. Haftung</h3>
+            <ul>
+              <li>AMD German Center haftet für Vorsatz oder grobe Fahrlässigkeit.</li>
+              <li>Keine Haftung für Drittanbieter (Hotels, Fluggesellschaften, Versicherer, Autovermieter).</li>
+              <li>Schäden aus höherer Gewalt, Streiks, Naturereignissen oder politischen Ereignissen ausgeschlossen.</li>
+            </ul>
 
-            <div class="doc-box">
-              <span class="doc-label">Zertifikat</span>
+            <h3>6. Mitwirkungspflichten</h3>
+            <ul>
+              <li>Kunden müssen korrekte Daten angeben.</li>
+              <li>Reisedokumente, Visa, Versicherungen eigenständig prüfen.</li>
+              <li>AMD German Center haftet nicht für Nachteile durch falsche Angaben.</li>
+            </ul>
 
-              <a class="doc-link" href="/images/certificate.jpg" target="_blank" rel="noopener">
+            <h3>7. Datenschutz</h3>
+            <p>Gemäß der Datenschutzerklärung (siehe Datenschutzerklärung auf dieser Website).</p>
 
-                <span class="doc-icon" aria-hidden="true">⎘</span>
-                <span class="doc-text">
-                  Auszug/Bestätigung aus dem Handelsregister – Nachweis der offiziellen Registrierung.
-                </span>
-              </a>
+            <h3>8. Anwendbares Recht &amp; Gerichtsstand</h3>
+            <ul>
+              <li>Libanesisches Recht</li>
+              <li>Gerichtsstand: Saida (Sidon), Libanon</li>
+            </ul>
 
-              <p class="doc-hint">PDF wird in neuem Tab geöffnet.</p>
-            </div>
-
-            <div class="imprint-divider"></div>
-
-            <p>
-              <strong>Haftungsausschluss:</strong><br />
-              Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte
-              externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber
-              verantwortlich.
-            </p>
+            <h3>9. Salvatorische Klausel</h3>
+            <p>Ungültigkeit einzelner Bestimmungen berührt nicht die Wirksamkeit der übrigen AGB.</p>
           </div>
         </div>
 
@@ -387,7 +316,7 @@
             <li><a href="/legal/de/about.html">Über uns</a></li>
             <li><a href="/legal/de/imprint.html">Impressum</a></li>
             <li><a href="/legal/de/datenschutz.html">Datenschutz</a></li>
-            <li><a href="/legal/de/agbs.html">AGBs</a></li>
+            <li><a href="/legal/de/agbs.html">AGB</a></li>
           </ul>
         </div>
 

@@ -86,33 +86,6 @@ const BANK = {
 };
 
 const FIXED_VOUCHER_CODE = "AMD10%";
-// AMD Leads (wie app.js)
-const LEADS_WEBHOOK_URL =
-  "https://script.google.com/macros/s/AKfycbwW-Udm28zRWUz75wYqGlLA60bZiWRlOmlSUimMU6RWAY20C9pM_PANpP6fyTs1zjYc/exec";
-const LEADS_SECRET = "AMD_LEADS_2025_x9KpR7Qm";
-
-function postLeadToSheetFromState(payload) {
-  try {
-    const params = new URLSearchParams();
-
-    // secret wie im bestehenden System
-    params.append("secret", LEADS_SECRET);
-
-    // payload fields
-    Object.entries(payload || {}).forEach(([k, v]) => {
-      if (v === undefined || v === null) return;
-      params.append(k, String(v));
-    });
-
-    fetch(LEADS_WEBHOOK_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-      body: params.toString(),
-    }).catch(() => {});
-  } catch (_) {}
-}
-
 
 /* Referral-Code lesen (mobil/desktop tauglich) */
 function getReferralCode() {
@@ -203,7 +176,6 @@ export default function ContactStep({
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [consent, setConsent] = useState(false);
   const [partnerId, setPartnerId] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("whish");
   const [showWhishQr, setShowWhishQr] = useState(false);
@@ -294,7 +266,7 @@ const tripAfterVoucher = round2(tripSubtotal - Number(displayVoucherDiscount || 
   /* ---------- Validation ---------- */
   const emailOk = isValidEmail(email);
   const phoneOk = isValidPhone(phone);
-  const canSubmit = Boolean(firstName && lastName && emailOk && phoneOk && consent);
+  const canSubmit = Boolean(firstName && lastName && emailOk && phoneOk);
 
   const copy = async (text, which) => {
     try {
@@ -388,48 +360,6 @@ otherList.forEach((x) => lines.push(`- ${x.label} x${x.qty}: $${Number(x.total).
   const subject = L.emailSubject || "Booking request";
   const mailtoLink = `mailto:${firmEmail}?subject=${encodeURIComponent(subject)}&body=${body}`;
   const whatsappLink = `https://wa.me/${whatsappFull.replace(/\D/g, "")}?text=${body}`;
-const leadBasePayload = (channel, action) => ({
-  source: "wizard",
-  service: "transfer",
-  name: `${firstName} ${lastName}`.trim(),
-  email,
-  phone,
-  optInEmail: channel === "email",
-  optInPhone: channel === "whatsapp",
-  lang: locale,
-  pageUrl: typeof window !== "undefined" ? window.location.href : "",
-  notes: [
-    `channel=${channel}`,
-    `action=${action}`,
-    `orig=${orig}`,
-    `dest=${dest}`,
-    `date=${dateTime ? new Date(dateTime).toISOString() : ""}`,
-    `flightNo=${flightNo || ""}`,
-    `vehicle=${vehicle || ""}`,
-    `return=${isReturn ? "yes" : "no"}`,
-    `total=$${totalPrice}`,
-  ].join(" | "),
-});
-
-const handleWhatsAppClick = (e) => {
-  if (!canSubmit) {
-    e.preventDefault();
-    return;
-  }
-  postLeadToSheetFromState(leadBasePayload("whatsapp", "click"));
-  // direkt weiterleiten
-  window.open(whatsappLink, "_blank", "noopener,noreferrer");
-};
-
-const handleEmailClick = (e) => {
-  if (!canSubmit) {
-    e.preventDefault();
-    return;
-  }
-  postLeadToSheetFromState(leadBasePayload("email", "submit"));
-  // mailto öffnen
-  window.location.href = mailtoLink;
-};
 
   /* ===================== Styles (wie in deiner Datei) ===================== */
   const ACCENT = "#1f6f3a";
@@ -623,8 +553,7 @@ const handleEmailClick = (e) => {
   {/* links: Menge */}
   <span
     className="shrink-0 w-7 text-center text-xs font-extrabold"
-    style={{ color: "rgba(17,24,39,.70)" }}
-
+    style={{ color: "rgba(17,24,39,70)" }}
   >
     {it.qty}
   </span>
@@ -632,7 +561,7 @@ const handleEmailClick = (e) => {
   {/* mitte: Name */}
   <span
     className="min-w-0 flex-1 truncate font-semibold"
-    style={{ color: "rgba(11,31,58,.95)" }}
+    style={{ color: "rgba(11,31,58,95)" }}
   >
     {it.label}
   </span>
@@ -640,8 +569,7 @@ const handleEmailClick = (e) => {
   {/* rechts: Preis */}
   <span
     className="shrink-0 tabular-nums font-semibold"
-   style={{ color: "rgba(11,31,58,.95)" }}
-
+    style={{ color: "rgba(11,31,58,95)" }}
   >
     ${Number(it.total || 0).toFixed(2)}
   </span>
@@ -1053,172 +981,83 @@ const handleEmailClick = (e) => {
         </div>
       )}
 
-          {/* Consent + Actions (wie Hauptseite) */}
-      {(() => {
-        const consentText =
-          L.consentText ||
-          (locale === "en"
-            ? "I have read and accept the Privacy Policy and the Terms & Conditions."
-            : locale === "ar"
-            ? "لقد قرأت سياسة الخصوصية والشروط والأحكام وأوافق عليهما."
-            : "Ich habe die Datenschutzerklärung und die AGB gelesen und akzeptiere sie.");
+      {/* Buttons */}
+      <div className="mt-6">
+        <div className="grid grid-cols-2 sm:flex sm:flex-row gap-3 items-stretch">
+          <button
+            onClick={onBack}
+            type="button"
+            className="col-span-2 sm:col-auto border rounded-xl font-semibold transition"
+            style={{
+              borderColor: BORDER,
+              background: "#fff",
+              color: HEADING,
+              padding: "12px 14px",
+              fontSize: 14,
+              boxShadow: "0 12px 24px rgba(15,23,42,.06)",
+            }}
+          >
+            {L.backBtn}
+          </button>
 
-        const serviceText =
-          L.serviceLine ||
-          (locale === "en"
-            ? "24/7 service – even on public holidays:"
-            : locale === "ar"
-            ? "خدمة 24/7 – حتى في أيام العطل:"
-            : "24/7 Service – auch an Feiertagen:");
+          <a
+            href={whatsappLink}
+            className="col-span-1 sm:flex-1 rounded-xl font-semibold transition inline-flex items-center justify-center"
+            target="_blank"
+            rel="noopener noreferrer"
+            tabIndex={canSubmit ? 0 : -1}
+            aria-disabled={!canSubmit}
+            style={{
+              background: "var(--amd-primary,#c1272d)",
+              color: "#fff",
+              padding: "12px 14px",
+              fontSize: 14,
+              opacity: canSubmit ? 1 : 0.55,
+              pointerEvents: canSubmit ? "auto" : "none",
+              boxShadow: "0 14px 30px rgba(193,39,45,.18)",
+            }}
+          >
+            <FaWhatsapp className="mr-2" />
+            {L.whatsappBtn}
+          </a>
 
-        const RED = "var(--amd-primary,#c1272d)";
-        const GREEN = "#0f6a57";
-const pillBase = {
-  width: "100%",
-  maxWidth: "100%",
-  minHeight: 52,
-  borderRadius: 999,
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  gap: 10,
-  padding: "12px 16px",
-  fontSize: 14,
-  fontWeight: 800,
-  lineHeight: 1.15,
-  letterSpacing: 0,
-  textTransform: "none",
-  boxSizing: "border-box",
+          <a
+            href={mailtoLink}
+            className="col-span-1 sm:flex-1 rounded-xl font-semibold transition inline-flex items-center justify-center"
+            target="_blank"
+            rel="noopener noreferrer"
+            tabIndex={canSubmit ? 0 : -1}
+            aria-disabled={!canSubmit}
+            style={{
+              background: "var(--amd-primary,#c1272d)",
+              color: "#fff",
+              padding: "12px 14px",
+              fontSize: 14,
+              opacity: canSubmit ? 1 : 0.55,
+              pointerEvents: canSubmit ? "auto" : "none",
+              boxShadow: "0 14px 30px rgba(193,39,45,.18)",
+            }}
+          >
+            <EnvelopeIcon className="w-5 h-5 mr-2" />
+            {L.emailBtn}
+          </a>
 
-  /* wichtig für Handy/AR: kein seitliches Overflow */
-  flexWrap: "wrap",
-  textAlign: "center",
-  whiteSpace: "normal",
-  overflowWrap: "anywhere",
-};
-
-
-        return (
-          <div className="mt-6">
-            {/* Checkbox */}
-            <div
-              style={{
-                border: `1px solid ${BORDER}`,
-                borderRadius: 16,
-                background: "rgba(255,255,255,.92)",
-                padding: "12px 14px",
-                display: "flex",
-                alignItems: "flex-start",
-                gap: 10,
-              }}
-            >
-              <input
-                type="checkbox"
-                checked={consent}
-                onChange={(e) => setConsent(e.target.checked)}
-                style={{ width: 18, height: 18, marginTop: 2, flex: "0 0 18px" }}
-              />
-              <span style={{ color: "rgba(17,24,39,.78)", fontSize: 14, fontWeight: 400 }}>
-                {consentText}
-              </span>
-            </div>
-
-            {/* Buttons (stacked wie Hauptseite) */}
-            <div className="mt-4" style={{ display: "grid", gap: 12 }}>
-              {/* ROT = E-Mail (Personal offer) */}
-             <button
-  type="button"
-  onClick={handleEmailClick}
-  aria-disabled={!canSubmit}
-  style={{
-    ...pillBase,
-    background: RED,
-    color: "#fff",
-    opacity: canSubmit ? 1 : 0.55,
-    pointerEvents: canSubmit ? "auto" : "none",
-    boxShadow: "0 18px 38px rgba(193,39,45,.22)",
-  }}
->
-  {L.emailBtn ||
-    (locale === "en"
-      ? "Request a personal offer"
-      : locale === "ar"
-      ? "طلب عرض شخصي"
-      : "Persönliches Angebot anfordern")}
-</button>
-
-<button
-  type="button"
-  onClick={handleWhatsAppClick}
-  aria-disabled={!canSubmit}
-  style={{
-    ...pillBase,
-    background: GREEN,
-    color: "#fff",
-    opacity: canSubmit ? 1 : 0.55,
-    pointerEvents: canSubmit ? "auto" : "none",
-    boxShadow: "0 18px 38px rgba(15,106,87,.22)",
-  }}
->
-  <FaWhatsapp />
-  {L.whatsappBtn ||
-    (locale === "en"
-      ? "Request via WhatsApp"
-      : locale === "ar"
-      ? "إرسال الطلب عبر واتساب"
-      : "Per WhatsApp anfragen")}
-</button>
-
-              {/* Zurück */}
-              <button
-                onClick={onBack}
-                type="button"
-                style={{
-                  ...pillBase,
-                  minHeight: 48,
-                  background: "rgba(17,24,39,.04)",
-                  color: HEADING,
-                  border: `1px solid ${BORDER}`,
-                  fontWeight: 700,
-                  boxShadow: "0 12px 24px rgba(15,23,42,.06)",
-                }}
-              >
-                {L.backBtn}
-              </button>
-            </div>
-
-            {/* 24/7 Service line */}
-            <div
-              className="mt-3"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-                flexWrap: "wrap",
-                color: "rgba(17,24,39,.68)",
-                fontSize: 14,
-              }}
-            >
-              <span>{serviceText}</span>
-
-              <a
-                href={`tel:${whatsappFull}`}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  color: "rgba(17,24,39,.72)",
-                  textDecoration: "none",
-                  fontWeight: 700,
-                }}
-              >
-                <FaMobileAlt />
-                <span dir="ltr">{whatsappDisplayCondensed}</span>
-              </a>
-            </div>
-          </div>
-        );
-      })()}
+          <a
+            href={`tel:${whatsappFull}`}
+            className="col-span-2 sm:flex-1 rounded-xl font-semibold transition inline-flex items-center justify-center"
+            style={{
+              background: "var(--amd-primary,#c1272d)",
+              color: "#fff",
+              padding: "12px 14px",
+              fontSize: 14,
+              boxShadow: "0 14px 30px rgba(193,39,45,.18)",
+            }}
+          >
+            <FaMobileAlt className="mr-2" />
+            {L.callNowBtn}
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

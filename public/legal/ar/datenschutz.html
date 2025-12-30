@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AMD German Center – سياسة الخصوصية</title>
+  <meta name="description" content="سياسة الخصوصية الخاصة بـ AMD German Center – معلومات حول معالجة البيانات الشخصية." />
+
+  <!-- Transfer-App Styles (stabil, keine relativen Pfade) -->
+  <link rel="stylesheet" href="/transfer-globals.css" />
+
+  <style>
+    .legal-backbar{
+      width: min(980px, 100% - 2rem);
+      margin: .9rem auto 0;
+    }
+    .back-glass{
+      display:inline-flex;
+      align-items:center;
+      gap:.55rem;
+      padding:.62rem 1.05rem;
+      border-radius:999px;
+      border:1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 12px 26px rgba(2,6,23,.10);
+      color: var(--amd-heading,#0b1b33);
+      text-decoration:none;
+      font-weight:800;
+      line-height:1;
+      white-space:nowrap;
+      max-width:100%;
+    }
+    .back-glass:hover{
+      background: rgba(255,255,255,.92);
+      border-color: rgba(17,24,39,.16);
+    }
+
+    .privacy-page-wrapper{
+      min-height: 100vh;
+      display:flex;
+      flex-direction:column;
+      background: var(--amd-bg, #f5f5f7);
+    }
+
+    .privacy-main{
+      flex: 1;
+      padding: 2.2rem 1rem 3.2rem;
+    }
+
+    .privacy-container{
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .privacy-heading{
+      margin: 1.4rem 0 1.1rem;
+      text-align: right;
+    }
+    .privacy-heading h1{
+      margin:0;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--amd-heading, #0b1b33);
+    }
+    .privacy-heading p{
+      margin:.45rem 0 0;
+      color: rgba(15,23,42,.70);
+      line-height: 1.55;
+    }
+
+    .privacy-card{
+      background: var(--amd-card-bg, #ffffff);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--amd-radius-lg, 18px);
+      box-shadow: 0 16px 44px rgba(15,23,42,.10);
+      overflow: hidden;
+    }
+
+    .privacy-card-head{
+      padding: 1.1rem 1.25rem;
+      border-bottom: 1px solid rgba(17,24,39,.08);
+      background: linear-gradient(180deg, rgba(17,24,39,.02), rgba(17,24,39,0));
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      direction: rtl;
+      text-align: right;
+    }
+    .privacy-card-head p{
+      margin:0;
+      color: var(--amd-text-muted, #6b7280);
+      font-size: .95rem;
+      line-height: 1.45;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      padding:.25rem .6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(17,24,39,.03);
+      color: var(--amd-text-muted, #6b7280);
+      font-size: .82rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .privacy-content{
+      padding: 1.2rem 1.25rem 1.25rem;
+      direction: rtl;
+      text-align: right;
+    }
+
+    .privacy-content h2{
+      margin: 0 0 .35rem;
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--amd-heading, #111827);
+    }
+    .privacy-sub{
+      margin: 0 0 1rem;
+      color: rgba(15,23,42,.65);
+      font-size: .92rem;
+    }
+
+    .privacy-content h3{
+      margin: 1.35rem 0 .45rem;
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--amd-heading, #111827);
+    }
+
+    .privacy-content p{
+      margin: .55rem 0;
+      color: rgba(17,24,39,.86);
+      line-height: 1.85;
+      font-size: .95rem;
+    }
+
+    .privacy-content ul{
+      margin: .35rem 0 .85rem;
+      padding-right: 1.1rem;
+      padding-left: 0;
+      color: rgba(17,24,39,.86);
+    }
+    .privacy-content li{
+      margin: .28rem 0;
+      line-height: 1.8;
+    }
+
+    .legal-note{
+      margin-top: 1.1rem;
+      font-size: .95rem;
+      color: rgba(17,24,39,.70);
+      padding: .85rem 1rem;
+      border-radius: 14px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(17,24,39,.03);
+    }
+
+    .privacy-content a{
+      color: var(--amd-primary, #c1272d);
+      text-decoration: none;
+      font-weight: 800;
+    }
+    .privacy-content a:hover{ text-decoration: underline; }
+
+    /* LTR Inseln: E-Mail / Telefon / Zahlen */
+    .ltr{
+      direction:ltr;
+      unicode-bidi:bidi-override;
+      display:inline-block;
+    }
+
+    @media (max-width: 640px){
+      .privacy-card-head{ padding: 1rem 1rem; }
+      .privacy-content{ padding: 1rem 1rem 1rem; }
+      .privacy-heading h1{ font-size: 1.75rem; }
+    }
+  </style>
+</head>
+
+<body class="amd-page" data-app="amd-transfer">
+  <div class="privacy-page-wrapper">
+
+    <!-- TOPBAR -->
+    <header class="legal-topbar">
+      <div class="legal-topbar-inner">
+
+        <div class="legal-brand">
+          <a href="/" aria-label="AMD German Center">
+            <img src="/logo.png" alt="AMD German Center Logo">
+          </a>
+        </div>
+
+        <nav class="legal-lang" aria-label="تغيير اللغة">
+          <a class="legal-pill" href="/legal/de/datenschutz.html">
+            <img src="/images/flag-de.svg" alt="">
+            DE
+          </a>
+          <a class="legal-pill" href="/legal/en/datenschutz.html">
+            <img src="/images/flag-us.svg" alt="">
+            EN
+          </a>
+          <a class="legal-pill is-active" href="/legal/ar/datenschutz.html" aria-current="page">
+            <img src="/images/flag-lb.svg" alt="">
+            AR
+          </a>
+        </nav>
+
+      </div>
+    </header>
+
+    <!-- BACKBAR -->
+    <div class="legal-backbar">
+      <a class="back-glass" href="/">← العودة إلى تطبيق النقل</a>
+    </div>
+
+    <!-- MAIN -->
+    <main class="privacy-main">
+      <div class="privacy-container">
+
+        <div class="privacy-heading">
+          <h1>سياسة الخصوصية</h1>
+          <p>معلومات حول كيفية معالجة بياناتكم الشخصية</p>
+        </div>
+
+        <div class="privacy-card">
+          <div class="privacy-card-head">
+            <p>الخصوصية والشفافية</p>
+            <span class="badge">Privacy</span>
+          </div>
+
+          <div class="privacy-content">
+
+            <h2>1) الجهات المسؤولة</h2>
+            <p class="privacy-sub">آخر تحديث: ديسمبر <span class="ltr">2025</span></p>
+
+            <h3>AMD German Center</h3>
+            <p>
+              Tourism &amp; Services<br/>
+              <span class="ltr">1601</span> صور – لبنان<br/>
+              البريد الإلكتروني:
+              <a class="ltr" href="mailto:info@amd-germancenter.com">info@amd-germancenter.com</a><br/>
+              الهاتف:
+              <a class="ltr" href="tel:+96181622668">+961 81 622 668</a>
+            </p>
+
+            <h3>جهات مشاركة لأغراض التسويق والإعلان</h3>
+            <p>
+              AMD Tarifcheck e.K.<br/>
+              Helmut-Neynaber-Str. <span class="ltr">2</span><br/>
+              <span class="ltr">27612</span> Loxstedt – ألمانيا
+            </p>
+
+            <h3>2) القانون المُطبق لحماية البيانات</h3>
+            <p>تتم معالجة البيانات الشخصية وفقًا لما يلي:</p>
+            <ul>
+              <li>القانون اللبناني رقم <span class="ltr">81/2018</span> بشأن المعاملات الإلكترونية والبيانات ذات الطابع الشخصي</li>
+              <li>اللائحة العامة لحماية البيانات <span class="ltr">(GDPR)</span> بقدر ما يتم معالجة بيانات أشخاص داخل الاتحاد الأوروبي</li>
+            </ul>
+
+            <h3>3) ممثل الاتحاد الأوروبي (المادة 27 من <span class="ltr">GDPR</span>)</h3>
+            <p>
+              لعملاء الاتحاد الأوروبي، الممثل داخل الاتحاد الأوروبي هو:
+              <span class="ltr">AMD Tarifcheck e.K., Helmut-Neynaber-Str. 2, 27612 Loxstedt.</span>
+            </p>
+
+            <h3>4) جمع البيانات الشخصية</h3>
+            <p>نقوم بجمع بيانات عندما تقوم بـ:</p>
+            <ul>
+              <li>زيارة موقعنا</li>
+              <li>حجز الجولات أو خدمات النقل أو تأجير السيارات أو باقات السفر</li>
+              <li>إبرام تأمين سفر أو تأمين صحي عبر رابط</li>
+              <li>المشاركة في مسابقات/سحوبات</li>
+              <li>استخدام نماذج التواصل</li>
+            </ul>
+
+            <p><strong>أنواع البيانات التي قد تتم معالجتها:</strong></p>
+            <ul>
+              <li>الاسم والاسم الأول</li>
+              <li>تاريخ الميلاد والجنسية</li>
+              <li>بيانات جواز السفر / الهوية</li>
+              <li>العنوان والبريد الإلكتروني ورقم الهاتف</li>
+              <li>بيانات السفر والحجز وتأجير السيارات</li>
+              <li>معلومات الدفع والفواتير</li>
+              <li>عنوان <span class="ltr">IP</span> وبيانات المتصفح وبيانات الوصول</li>
+            </ul>
+
+            <h3>5) أغراض معالجة البيانات</h3>
+            <ul>
+              <li>تنظيم وحجز وتنفيذ الجولات وخدمات النقل وتأجير السيارات وباقات السفر</li>
+              <li>التواصل مع العملاء</li>
+              <li>تنفيذ العقد وإصدار الفواتير</li>
+              <li>تنفيذ المسابقات والسحوبات</li>
+              <li>التسويق والعروض والخصومات</li>
+              <li>توفير الموقع وحمايته وأمنه</li>
+            </ul>
+
+            <div class="legal-note">
+              ملاحظة: فيما يتعلق بالتأمينات، نحن وسيط فقط. تتم معالجة بياناتكم مباشرة عبر شركة التأمين المعنية؛
+              ولا نقوم بتخزين بيانات تأمين حساسة.
+            </div>
+
+            <h3>6) الأسس القانونية للمعالجة</h3>
+            <ul>
+              <li>الموافقة (المادة <span class="ltr">6(1)(a)</span> من <span class="ltr">GDPR</span>)</li>
+              <li>العقد / الإجراءات السابقة للتعاقد (المادة <span class="ltr">6(1)(b)</span> من <span class="ltr">GDPR</span>)</li>
+              <li>التزامات قانونية (المادة <span class="ltr">6(1)(c)</span> من <span class="ltr">GDPR</span>)</li>
+              <li>المصلحة المشروعة (المادة <span class="ltr">6(1)(f)</span> من <span class="ltr">GDPR</span> مثل أمن الموقع)</li>
+            </ul>
+
+            <h3>7) التسويق والعروض والمسابقات</h3>
+            <p>
+              إذا منحتم موافقة صريحة، فقد نستخدم بياناتكم (الاسم، البريد الإلكتروني، رقم الهاتف، واهتماماتكم)
+              للتواصل بشأن عروض السفر والعروض الخاصة، وعروض التأمين، وكذلك المسابقات والسحوبات.
+              قد يتم تبادل البيانات بين AMD German Center (لبنان) و AMD Tarifcheck e.K. (ألمانيا).
+            </p>
+            <p><strong>سحب الموافقة:</strong> في أي وقت عبر البريد الإلكتروني إلى
+              <a class="ltr" href="mailto:info@amd-germancenter.com">info@amd-germancenter.com</a>
+            </p>
+
+            <h3>8) نقل البيانات إلى الخارج</h3>
+            <p>
+              نظرًا لأن AMD German Center يقع في لبنان (دولة خارج الاتحاد الأوروبي)، فقد يتم نقل البيانات إلى دولة ثالثة،
+              وذلك مع الالتزام بتدابير حماية مناسبة.
+            </p>
+
+            <h3>9) ملفات تعريف الارتباط (Cookies) وتقنيات الموقع</h3>
+            <ul>
+              <li>ملفات ضرورية لوظائف الموقع وأمنه</li>
+              <li>ملفات التسويق والتحليلات فقط بعد الحصول على موافقتكم</li>
+            </ul>
+
+            <h3>10) أمن البيانات</h3>
+            <p>نستخدم تدابير تقنية وتنظيمية لحماية البيانات من الوصول غير المصرح به أو الفقدان أو إساءة الاستخدام.</p>
+
+            <h3>11) مدة الاحتفاظ بالبيانات</h3>
+            <p>
+              يتم الاحتفاظ بالبيانات فقط للمدة اللازمة لتحقيق الأغراض المذكورة أو طالما توجد التزامات قانونية للاحتفاظ بها.
+            </p>
+
+            <h3>12) حقوق أصحاب البيانات</h3>
+            <ul>
+              <li>الاطلاع/المعرفة</li>
+              <li>التصحيح</li>
+              <li>الحذف</li>
+              <li>تقييد المعالجة</li>
+              <li>الاعتراض</li>
+              <li>سحب الموافقة</li>
+              <li>تقديم شكوى لدى جهات حماية البيانات</li>
+            </ul>
+
+            <h3>13) التغييرات</h3>
+            <p>نحتفظ بحق تعديل سياسة الخصوصية عند الحاجة.</p>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- FOOTER (wie Hauptseite: Services links, Social Mitte, Legal rechts) -->
+    <footer class="amd-footer">
+      <div class="footer-grid">
+
+        <div class="footer-column footer-column--left">
+          <ul class="footer-links">
+            <li><a href="https://amdtransfer.netlify.app/" target="_blank" rel="noopener">النقل من وإلى المطار</a></li>
+            <li><a href="https://www.amd-germancenter.com/de/car-rental.html" target="_blank" rel="noopener">تأجير سيارات</a></li>
+            <li><a href="https://www.amd-germancenter.com/de/package-tours.html" target="_blank" rel="noopener">رحلات وباقات</a></li>
+            <li><a href="https://amdtourbooking.netlify.app/" target="_blank" rel="noopener">جولات يومية</a></li>
+            <li><a href="https://amd-tarifcheck.de/" target="_blank" rel="noopener">AMD Tarifcheck</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column footer-column--center">
+          <p class="footer-title">تابعونا على:</p>
+          <div class="footer-social">
+            <a href="https://wa.me/96181622668" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <img src="/images/icon-whatsapp.svg" alt="WhatsApp" />
+            </a>
+            <a href="https://www.instagram.com/amd.german.center/" target="_blank" rel="noopener" aria-label="Instagram">
+              <img src="/images/icon-instagram.svg" alt="Instagram" />
+            </a>
+            <a href="https://www.facebook.com/p/AMD-German-Center-61575238540217/" target="_blank" rel="noopener" aria-label="Facebook">
+              <img src="/images/icon-facebook.svg" alt="Facebook" />
+            </a>
+            <a href="https://www.tiktok.com/@amdgermancenter" target="_blank" rel="noopener" aria-label="TikTok">
+              <img src="/images/icon-tiktok.svg" alt="TikTok" />
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-column footer-column--right">
+          <ul class="footer-links">
+            <li><a href="/legal/ar/faq.html">الأسئلة الشائعة</a></li>
+            <li><a href="/legal/ar/about.html">من نحن</a></li>
+            <li><a href="/legal/ar/imprint.html">البيانات القانونية</a></li>
+            <li><a href="/legal/ar/datenschutz.html">سياسة الخصوصية</a></li>
+            <li><a href="/legal/ar/agbs.html">الشروط والأحكام</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>

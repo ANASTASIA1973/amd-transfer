@@ -1,5 +1,401 @@
-<!doctype html><html><head><meta charset="utf-8">
-<script>
-localStorage.setItem("amd_locale","ar");
-location.replace("/legal/de/imprint.html");
-</script></head><body></body></html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>AMD German Center – البيانات القانونية</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+        content="البيانات القانونية الخاصة بـ AMD German Center – Tourism & Services في صور، لبنان." />
+
+  <!-- Transfer-App Styles (stabil, keine relativen Pfade) -->
+  <link rel="stylesheet" href="/transfer-globals.css" />
+
+  <style>
+    /* Fix: Zahlen/Email/URL sauber (nicht RTL-zerlegt) */
+    .ltr{
+      direction: ltr;
+      unicode-bidi: bidi-override;
+      display: inline-block;
+    }
+
+    /* ===== Backbar exakt wie Referenz ===== */
+    .legal-backbar{
+      width: min(980px, 100% - 2rem);
+      margin: .9rem auto 0;
+    }
+    .back-glass{
+      display:inline-flex;
+      align-items:center;
+      gap:.55rem;
+      padding:.62rem 1.05rem;
+      border-radius:999px;
+      border:1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 12px 26px rgba(2,6,23,.10);
+      color: var(--amd-heading,#0b1b33);
+      text-decoration:none;
+      font-weight:800;
+      line-height:1;
+      white-space:nowrap;
+    }
+    .back-glass:hover{
+      background: rgba(255,255,255,.92);
+      border-color: rgba(17,24,39,.16);
+    }
+
+    /* ===== Page Wrapper (wie Referenz) ===== */
+    .imprint-page-wrapper{
+      min-height: 100vh;
+      display:flex;
+      flex-direction:column;
+      background: var(--amd-bg, #f5f5f7);
+    }
+
+    .imprint-main{
+      flex: 1;
+      padding: 2.2rem 1rem 3.2rem;
+    }
+
+    .imprint-container{
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .imprint-heading{
+      margin: 1.4rem 0 1.1rem;
+      text-align: right;
+    }
+    .imprint-heading h1{
+      margin:0;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--amd-heading, #0b1b33);
+    }
+    .imprint-heading p{
+      margin:.45rem 0 0;
+      color: rgba(15,23,42,.70);
+    }
+
+    /* ===== Card (wie Referenz-Stil) ===== */
+    .imprint-card{
+      background: var(--amd-card-bg, #ffffff);
+      border: 1px solid rgba(17,24,39,.08);
+      border-radius: var(--amd-radius-lg, 18px);
+      box-shadow: 0 16px 44px rgba(15,23,42,.10);
+      overflow: hidden;
+    }
+
+    .imprint-card-head{
+      padding: 1.1rem 1.25rem;
+      border-bottom: 1px solid rgba(17,24,39,.08);
+      background: linear-gradient(180deg, rgba(17,24,39,.02), rgba(17,24,39,0));
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      direction: rtl;
+      text-align: right;
+    }
+    .imprint-card-head p{
+      margin:0;
+      color: var(--amd-text-muted, #6b7280);
+      font-size: .95rem;
+      line-height: 1.45;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      padding:.25rem .6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(17,24,39,.03);
+      color: var(--amd-text-muted, #6b7280);
+      font-size: .82rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .imprint-content{
+      padding: 1.2rem 1.25rem 1.25rem;
+      direction: rtl;
+      text-align: right;
+    }
+
+    .imprint-content h2{
+      margin: 0 0 .35rem;
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--amd-heading, #111827);
+    }
+
+    .imprint-content p{
+      line-height: 1.7;
+      font-size: .95rem;
+      color: #374151;
+      margin: 0 0 .9rem;
+    }
+
+    .imprint-content strong{
+      color: var(--amd-heading, #111827);
+    }
+
+    .imprint-content a{
+      color: var(--amd-primary, #c1272d);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .imprint-content a:hover{ text-decoration: underline; }
+
+    .imprint-divider{
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(17,24,39,.10), transparent);
+      margin: 1.2rem 0;
+    }
+
+    /* ===== Zertifikat-Box (wie Hauptapp: rot + clean) ===== */
+    .doc-box{
+      margin: 1.1rem 0 0;
+      padding: 1.05rem 1.05rem;
+      border-radius: 18px;
+
+      border: 1px solid rgba(193,39,45,.18);
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 16px 40px rgba(15,23,42,.08);
+    }
+
+    .doc-label{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      padding:.25rem .65rem;
+      border-radius: 999px;
+
+      border: 1px solid rgba(17,24,39,.10);
+      background: rgba(17,24,39,.03);
+      color: rgba(15,23,42,.70);
+      font-size: .82rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .doc-link{
+      margin-top: .75rem;
+      padding: .95rem 1rem;
+      border-radius: 14px;
+
+      display:flex;
+      gap:.85rem;
+      align-items:flex-start;
+
+      border: 1px solid rgba(193,39,45,.18);
+      background: rgba(255,255,255,.98);
+      box-shadow: 0 10px 26px rgba(15,23,42,.06);
+
+      text-decoration:none;
+    }
+
+    .doc-link:hover{
+      border-color: rgba(193,39,45,.30);
+      box-shadow: 0 14px 34px rgba(15,23,42,.08);
+    }
+
+    .doc-icon{
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      flex: 0 0 38px;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      border: 1px solid rgba(193,39,45,.22);
+      background: rgba(193,39,45,.08);
+      color: #c1272d;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .doc-text{
+      font-weight: 900;
+      line-height: 1.35;
+      color: #c1272d;
+    }
+
+    .doc-hint{
+      margin: .6rem 0 0;
+      color: rgba(15,23,42,.65);
+      font-size: .88rem;
+    }
+
+    @media (max-width: 640px){
+      .imprint-card-head{ padding: 1rem 1rem; }
+      .imprint-content{ padding: 1rem 1rem 1rem; }
+      .doc-link{ padding: .9rem .9rem; }
+      .doc-icon{ width: 36px; height: 36px; flex-basis: 36px; }
+    }
+  </style>
+</head>
+
+<body class="amd-page" data-app="amd-transfer">
+  <div class="imprint-page-wrapper">
+
+    <!-- HEADER (wie Referenz: nur Topbar) -->
+    <header class="legal-topbar">
+      <div class="legal-topbar-inner">
+
+        <div class="legal-brand">
+          <a href="/" aria-label="AMD German Center">
+            <img src="/logo.png" alt="AMD German Center Logo">
+          </a>
+        </div>
+
+        <nav class="legal-lang" aria-label="اختيار اللغة">
+          <a class="legal-pill" href="/legal/de/imprint.html">
+            <img src="/images/flag-de.svg" alt="">
+            DE
+          </a>
+          <a class="legal-pill" href="/legal/en/imprint.html">
+            <img src="/images/flag-us.svg" alt="">
+            EN
+          </a>
+          <a class="legal-pill is-active" href="/legal/ar/imprint.html" aria-current="page">
+            <img src="/images/flag-lb.svg" alt="">
+            AR
+          </a>
+        </nav>
+
+      </div>
+    </header>
+
+    <!-- Backbar (wie Referenz) -->
+    <div class="legal-backbar">
+      <a class="back-glass" href="/">→ العودة إلى تطبيق النقل</a>
+    </div>
+
+    <!-- MAIN -->
+    <main class="imprint-main">
+      <div class="imprint-container">
+
+        <div class="imprint-heading">
+          <h1>البيانات القانونية</h1>
+          <p>AMD German Center – Tourism &amp; Services، صور (لبنان)</p>
+        </div>
+
+        <div class="imprint-card">
+          <div class="imprint-card-head">
+            <p>معلومات قانونية عن المزوّد</p>
+            <span class="badge">Imprint</span>
+          </div>
+
+          <div class="imprint-content">
+            <h2>البيانات القانونية</h2>
+
+            <p>
+              <strong>AMD German Center – Tourism &amp; Services</strong><br />
+              1601 صور – لبنان
+            </p>
+
+            <p>
+              <strong>الهاتف:</strong>
+              <a class="ltr" href="tel:+96181622668">+961&nbsp;81&nbsp;622&nbsp;668</a><br />
+
+              <strong>البريد الإلكتروني:</strong>
+              <a class="ltr" href="mailto:info@amd-germancenter.com">info@amd-germancenter.com</a><br />
+
+              <strong>الموقع الإلكتروني:</strong>
+              <a class="ltr" href="https://www.amd-germancenter.com" target="_blank" rel="noopener">
+                www.amd-germancenter.com
+              </a>
+            </p>
+
+            <p>
+              <strong>الممثل القانوني:</strong><br />
+              علي محسن أحمد
+            </p>
+
+            <p>
+              <strong>الجهة الرقابية / التسجيل:</strong><br />
+              مسجّل وفقًا للمادة 24 من قانون التجارة اللبناني<br />
+              السجل التجاري في صيدا: <span class="ltr">1868</span><br />
+              رقم السجل التجاري: <span class="ltr">5013868</span>
+            </p>
+
+            <div class="doc-box">
+              <span class="doc-label">الشهادة</span>
+
+              <a class="doc-link" href="/images/certificate.jpg" target="_blank" rel="noopener">
+                <span class="doc-icon" aria-hidden="true">⎘</span>
+                <span class="doc-text">
+                  مقتطف/تأكيد من السجل التجاري — لإثبات التسجيل الرسمي.
+                </span>
+              </a>
+
+              <p class="doc-hint">يتم فتح الملف في تبويب جديد.</p>
+            </div>
+
+            <div class="imprint-divider"></div>
+
+            <p>
+              <strong>إخلاء المسؤولية:</strong><br />
+              على الرغم من التدقيق الدقيق للمحتوى، لا نتحمّل أي مسؤولية عن محتوى الروابط الخارجية.
+              يتحمّل مشغلو المواقع المرتبطة المسؤولية الكاملة عن محتواها.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- FOOTER (wie Referenz-Struktur) -->
+    <footer class="amd-footer">
+      <div class="footer-grid">
+
+        <div class="footer-column footer-column--left">
+          <ul class="footer-links">
+            <li><a href="https://amdtransfer.netlify.app/" target="_blank" rel="noopener">Airport Transfer</a></li>
+            <li><a href="https://www.amd-germancenter.com/ar/car-rental.html" target="_blank" rel="noopener">تأجير سيارات</a></li>
+            <li><a href="https://www.amd-germancenter.com/ar/package-tours.html" target="_blank" rel="noopener">رحلات وباقات</a></li>
+            <li><a href="https://amdtourbooking.netlify.app/" target="_blank" rel="noopener">جولات يومية</a></li>
+            <li><a href="https://amd-tarifcheck.de/" target="_blank" rel="noopener">AMD Tarifcheck</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column footer-column--center" dir="rtl">
+          <p class="footer-title">تابعونا على:</p>
+          <div class="footer-social">
+            <a href="https://wa.me/96181622668" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <img src="/images/icon-whatsapp.svg" alt="WhatsApp" />
+            </a>
+            <a href="https://www.instagram.com/amd.german.center/" target="_blank" rel="noopener" aria-label="Instagram">
+              <img src="/images/icon-instagram.svg" alt="Instagram" />
+            </a>
+            <a href="https://www.facebook.com/p/AMD-German-Center-61575238540217/" target="_blank" rel="noopener" aria-label="Facebook">
+              <img src="/images/icon-facebook.svg" alt="Facebook" />
+            </a>
+            <a href="https://www.tiktok.com/@amdgermancenter" target="_blank" rel="noopener" aria-label="TikTok">
+              <img src="/images/icon-tiktok.svg" alt="TikTok" />
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-column footer-column--right" dir="rtl">
+          <ul class="footer-links">
+            <li><a href="/legal/ar/faq.html">الأسئلة الشائعة</a></li>
+            <li><a href="/legal/ar/about.html">من نحن</a></li>
+            <li><a href="/legal/ar/imprint.html">البيانات القانونية</a></li>
+            <li><a href="/legal/ar/datenschutz.html">سياسة الخصوصية</a></li>
+            <li><a href="/legal/ar/agbs.html">الشروط والأحكام</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>

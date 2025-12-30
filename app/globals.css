@@ -703,3 +703,8 @@ body[data-app="amd-transfer"] .amd-tour-btn {
     padding-bottom: 0 !important;
   }
 }
+/* iOS Safari: verhindert Plus-Überlauf */
+.counter-pill {
+  line-height: 1;
+  -webkit-text-size-adjust: 100%;
+}

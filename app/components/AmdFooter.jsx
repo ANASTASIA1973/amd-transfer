@@ -21,12 +21,14 @@ export default function AmdFooter() {
 
   const isAr = lang === "ar";
 
-  // Legal-Seiten existieren nur unter /public/legal/de/ (Inhalt ist mehrsprachig)
-  const legal = {
-    faq: "/legal/de/faq.html",
-    about: "/legal/de/about.html",
-    imprint: "/legal/de/imprint.html",
-  };
+// Legal-Seiten existieren pro Sprache unter /public/legal/{lang}/
+const legal = {
+  faq: `/legal/${lang}/faq.html`,
+  about: `/legal/${lang}/about.html`,
+  imprint: `/legal/${lang}/imprint.html`,
+  datenschutz: `/legal/${lang}/datenschutz.html`,
+  agbs: `/legal/${lang}/agbs.html`,
+};
 
   // Website-Links (extern) mit Sprachpfad
   const siteBase = "https://www.amd-germancenter.com";
@@ -117,17 +119,14 @@ export default function AmdFooter() {
         <div className="footer-column footer-column--right">
           {F.colRightTitle ? <p className="footer-title">{F.colRightTitle}</p> : null}
 
-          <ul className="footer-links">
-            <li>
-              <a href={legal.faq}>{FL.faq || "Lebanon FAQ"}</a>
-            </li>
-            <li>
-              <a href={legal.about}>{FL.about || "About us"}</a>
-            </li>
-            <li>
-              <a href={legal.imprint}>{FL.imprint || "Imprint"}</a>
-            </li>
-          </ul>
+       <ul className="footer-links">
+  <li><a href={legal.faq}>{FL.faq || "Lebanon FAQ"}</a></li>
+  <li><a href={legal.about}>{FL.about || "About us"}</a></li>
+  <li><a href={legal.imprint}>{FL.imprint || "Imprint"}</a></li>
+  <li><a href={legal.datenschutz}>{FL.datenschutz || "Privacy policy"}</a></li>
+  <li><a href={legal.agbs}>{FL.agbs || "Terms & Conditions"}</a></li>
+</ul>
+
         </div>
       </div>
     </footer>
